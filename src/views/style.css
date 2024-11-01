@@ -1,0 +1,121 @@
+.nav-link {
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.nav-item .active {
+    color: #0096FF !important;
+}
+
+.nav-link:hover {
+    color: #0096FF !important;
+}
+
+.send-area {
+    position: relative;
+    border: 1px solid white;
+    background-color: white;
+    padding: 10px;
+}
+
+.send-area textarea {
+    box-sizing: border-box;
+    background-color: white;
+    border: none;
+    resize: none;
+    outline: none;
+    width: 100%;
+}
+
+.send-area button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+}
+
+.truncation-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.slick-dots button::before {
+    color: #0096FF !important;
+}
+
+.custom-slider-item {
+    background: #f4f4f4;
+    width: 100%;
+    color: black;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+    margin-bottom: 5px;
+    margin-top: 1px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.custom-slider-item:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px;
+    border-color: #f3f3f3 transparent transparent transparent;
+}
+
+.slick-prev::before {
+
+    font-size: 30px !important;
+    color: #0096FF !important;
+    margin-left: -15px !important;
+}
+
+.slick-next::before {
+    font-size: 30px !important;
+    color: #0096FF !important;
+    margin-right: -15px !important;
+}
+
+.slick-initialized {
+    display: block !important;
+}
+
+
+.page-link {
+    font-weight: bold !important;
+    color: #BBB !important;
+    margin: 3px !important;
+    border-radius: 5px !important;
+    background-color: #f5f5f5 !important;
+    border-style: none !important;
+}
+
+
+.active>.page-link {
+    background-color: #0096FF !important;
+    color: #FFF !important;
+}
+
+.pagination {
+    --bs-pagination-focus-box-shadow: none !important;
+}
+
+.next-and-previous-button {
+    color: #0096FF !important;
+}
+
+.disabled>.page-link {
+    color: #BBB !important;
+}
