@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import Introduction from './views/Introduction';
 import Doctors from './views/Doctors';
+import Booking from './views/Booking';
+import SignIn from './views/SignIn';
+import SignUp from './views/SignUp';
 function App() {
 
   return (
@@ -26,13 +29,13 @@ function App() {
           <Introduction />
         </Route>
         <Route path="/booking">
-
+          <Booking />
         </Route>
         <Route path="/sign_in">
-
+          <SignIn />
         </Route>
         <Route path="/sign_up">
-
+          <SignUp />
         </Route>
         <Route path="/" exact>
           <Introduction />

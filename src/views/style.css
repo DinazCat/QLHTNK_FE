@@ -119,3 +119,8 @@
 .disabled>.page-link {
     color: #BBB !important;
 }
+
+input[type="date"]:not(.has-value):before {
+    color: #808080;
+    content: attr(placeholder);
+}

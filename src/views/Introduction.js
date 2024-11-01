@@ -1,10 +1,15 @@
 import React from 'react'
 import './style.css'
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 const TopNav = (props) => {
+    //chuyển tới trang đăng ký
+    const history = useHistory();
+    const moveToBookingPage = () => {
+        history.push("/booking")
+    }
 
     //dữ liệu list đánh giá giả
     const reviewList = [
@@ -149,7 +154,7 @@ const TopNav = (props) => {
                     <p className="mt-5" style={{ fontSize: "25px", color: "#0096FF" }}>Chào mừng đến với chúng tôi</p>
                     <p><h3>Với kinh nghiệm hơn 7 năm, chúng tôi sẽ đem đến cho bạn nhưng trải nghiệm tốt nhất</h3></p>
                     <div className="col-12">
-                        <button type="submit" className="btn pb-2 pt-2 px-5 pe-5 mt-4" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>Đặt lịch ngay</button>
+                        <button type="submit" className="btn pb-2 pt-2 px-5 pe-5 mt-4" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={() => moveToBookingPage()}>Đặt lịch ngay</button>
                     </div>
                 </div>
                 <div className="col-md-6 d-none d-md-block"><img alt="" src="images/kham5.png" style={{ width: "90%" }} align="right" /></div>
