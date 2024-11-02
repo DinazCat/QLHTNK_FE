@@ -12,6 +12,9 @@ import {
 import BaoCao  from './BaoCao';
 import QuanLyLichHen from './QuanLyLichHen';
 import QuanLyNhanVien from './QuanLyNhanVien';
+import QuanLyMaGiamGia from './QuanLyMaGiamGia';
+import QuanLyDichVu from './QuanLyDichVu';
+import QuanLyChiNhanh from './QuanLyChiNhanh';
 const Manager = (props) => {
 
     return (
@@ -67,7 +70,7 @@ const Manager = (props) => {
                         <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start navflex">
                             <li className="nav-item ">
                             <a className="nav-link navTextFlex px-3" href="#">
-                                <img src="images/ava.png" className="rounded-circle" alt="" style={{width: "48px",height: "48px" }} />
+                                <img src="images/ava.png" className="rounded-circle" alt=""  />
                                 .  nhanvienabc <br/>
                                 <a href="#">chỉnh sửa hồ sơ</a>
                             </a>
@@ -79,67 +82,68 @@ const Manager = (props) => {
                             </NavLink>
                             </li>
                             <li className="nav-item">
-                            <a className="nav-link navTextFlex" href="/manager/quanlynhanvien">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlynhanvien">
                                 <img className='imgIconNav' src="images/qlynhanvien_48px.png" />
-                                Quản lý nhân viên</a>
+                                Quản lý nhân viên</NavLink>
                             </li>
                             <li className="nav-item">
-                            <a className="nav-link navTextFlex" href="#">
+                            <a className="nav-link navTextFlex" to="/manager/quanlybenhnhan">
                                 <img className='imgIconNav' src="images/quanlybenhnhan_48px.png" />
                                 Quản lý bệnh nhân</a>
                             </li>
                             <li className="nav-item">
-                            <a className="nav-link navTextFlex" href="/manager/baocao">
+                            <NavLink className="nav-link navTextFlex" to="/manager/baocao">
                                 <img className='imgIconNav' src="images/xembaocao_48px.png" />
-                                Báo cáo, thống kê</a>
+                                Báo cáo, thống kê</NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlykho">
                                 <img className='imgIconNav' src="images/qlykho_48px.png" />
                                 Quản lý kho
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/themtoathuoc">
                                 <img className='imgIconNav' src="images/themtoathuoc_48px.png" />
                                 Thêm toa thuốc
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlyhoadon">
                                 <img className='imgIconNav' src="images/qlyhoadon_48px.png" />
                                 Quản lý hóa đơn
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlydichvu">
                                 <img className='imgIconNav' src="images/qlydichvu_48px.png" />
                                 Quản lý dịch vụ
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlychinhanh">
                                 <img className='imgIconNav' src="images/qlychinhanh_48px.png" />
                                 Quản lý chi nhánh
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlymagiamgia">
                                 <img className='imgIconNav' src="images/giamgia_48px.png" />
                                 Quản lý mã giảm giá
-                            </a>
+                            </NavLink>
                             </li>
                             <li className="nav-item"> 
-                            <a className="nav-link navTextFlex" href="#">
+                            <NavLink className="nav-link navTextFlex" to="/manager/quanlydanhgia">
                                 <img className='imgIconNav' src="images/tiepnhandanhgia_48px.png" />
                                 Quản lý đánh giá
-                            </a>
+                            </NavLink>
                             </li>
                             
                         </ul>
                     </div>
                 </div>
-                <div className="col py-3 border-test">
+                <div className="col py-3">
+                    <Route>
                     <Switch>
                     <Route path="/manager/quanlylichhen">
                         <QuanLyLichHen/>
@@ -150,7 +154,29 @@ const Manager = (props) => {
                     <Route path="/manager/baocao">
                         <BaoCao/>
                     </Route>
+                    <Route path="/manager/quanlykho">
+                    <QuanLyLichHen/>
+                    </Route>
+                    <Route path="/manager/themtoathuoc">
+                    <QuanLyLichHen/>
+                    </Route>
+                    <Route path="/manager/quanlyhoadon">
+                    <QuanLyLichHen/>
+                    </Route>
+                    <Route path="/manager/quanlydichvu">
+                    <QuanLyDichVu/>
+                    </Route>
+                    <Route path="/manager/quanlychinhanh">
+                    <QuanLyChiNhanh/>
+                    </Route>
+                    <Route path="/manager/quanlymagiamgia">
+                    <QuanLyMaGiamGia/>
+                    </Route>
+                    <Route path="/manager/quanlydanhgia">
+                    <QuanLyMaGiamGia/>
+                    </Route>
                     </Switch>
+                    </Route>
                 </div>
             </div>
             <footer style={{ backgroundColor: "#0096FF", color: "white", marginTop: "80px" }}>
