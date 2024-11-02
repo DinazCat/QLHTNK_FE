@@ -136,6 +136,9 @@ const TopNav = (props) => {
                             <li className="nav-item me-4">
                                 <NavLink className="nav-link" to="/booking">Đặt lịch</NavLink>
                             </li>
+                            <li className="nav-item me-4">
+                                <NavLink className="nav-link" to="/manager">Quản Lý</NavLink>
+                            </li>
                         </ul>
                     </div>
                     <div className="nav-item mt-2 mb-2">
@@ -192,7 +195,7 @@ const TopNav = (props) => {
                     </div>
                     <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
                         <p>
-                            <h5>Vệ snh răng miệng</h5>
+                            <h5>Vệ sinh răng miệng</h5>
                             <span className="truncation-text">Vệ sinh răng miệng là quá trình loại bỏ cao răng hoặc mảng bám cứng trên bề mặt răng và dưới nướu. Cao răng được hình thành từ vi khuẩn ăn các mảnh....</span>
                         </p>
                         <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>

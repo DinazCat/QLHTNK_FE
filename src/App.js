@@ -7,11 +7,12 @@ import {
   Route
 
 } from "react-router-dom";
-import Introduction from './views/Introduction';
 import Doctors from './views/Doctors';
 import Booking from './views/Booking';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
+import Introduction from './views/Introduction'
+import Manager from './views/Manager'
 function App() {
 
   return (
@@ -37,12 +38,16 @@ function App() {
         <Route path="/sign_up">
           <SignUp />
         </Route>
+        <Route path="/manager">
+          <Manager/>
+        </Route>
         <Route path="/" exact>
           <Introduction />
         </Route>
         <Route path="*" >
           404 Not Found
         </Route>
+        
       </Switch>
     </Router >
   );
