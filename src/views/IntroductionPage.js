@@ -4,68 +4,70 @@ import { NavLink, useHistory } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-const TopNav = (props) => {
-    //chuyển tới trang đăng ký
+import TopNav from '../components/TopNav'
+import Footer from '../components/Footer';
+const IntroductionPage = (props) => {
+    //move to SignUp page
     const history = useHistory();
     const moveToBookingPage = () => {
         history.push("/booking")
     }
 
-    //dữ liệu list đánh giá giả
+    //fake review list
     const reviewList = [
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng nhất có thể"
         },
         {
             fullname: "Trần Văn Yến",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 2",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         },
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         },
         {
             fullname: "Trần Văn Yến",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 2",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         },
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         },
         {
             fullname: "Trần Văn Y",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 2",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         },
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         }
         ,
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         }
         ,
         {
             fullname: "Trần Thị C",
-            image: "images/ava.png",
+            image: "/images/ava.png",
             brach: "Chi nhánh quận 1",
             review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
         }
@@ -77,8 +79,8 @@ const TopNav = (props) => {
         swipeToSlide: true,
         speed: 500,
 
-        slidesToShow: 3,//số phần tử show một lần
-        slidesToScroll: 3,//số phần tử nextinitialSlide: 0
+        slidesToShow: 3,//number show each slide
+        slidesToScroll: 3,//number item next 
         responsive: [
             {
                 breakpoint: 800,
@@ -104,53 +106,7 @@ const TopNav = (props) => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-sm bg-light navbar-light">
-
-
-                <div className="container">
-                    <div>
-
-                        <img src="images/logo1.png" alt="Avatar Logo" style={{ width: "100%" }} />
-                    </div>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                        Menu
-                        <i class="fa-solid fa-caret-down"></i>
-                    </button>
-
-                    <div className="mx-3"></div>
-
-                    <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul className="navbar-nav me-auto">
-                            <li className="nav-item me-4">
-                                <NavLink className="nav-link" to="/" exact>Giới thiệu</NavLink>
-                            </li>
-                            <li className="nav-item me-4" >
-                                <NavLink className="nav-link" to="/doctors">Bác sĩ</NavLink>
-                            </li>
-                            <li className="nav-item me-4">
-                                <NavLink className="nav-link" to="/services">Dịch vụ</NavLink>
-                            </li>
-                            <li className="nav-item me-4">
-                                <NavLink className="nav-link" to="/contacts">Liên lạc</NavLink>
-                            </li>
-                            <li className="nav-item me-4">
-                                <NavLink className="nav-link" to="/booking">Đặt lịch</NavLink>
-                            </li>
-                            <li className="nav-item me-4">
-                                <NavLink className="nav-link" to="/manager">Quản Lý</NavLink>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="nav-item mt-2 mb-2">
-                        <NavLink className="nav-link" to="/sign_in">Đăng nhập</NavLink>
-                    </div>
-                    <div className="nav-item d-none d-lg-block ms-5">
-                        <NavLink className="nav-link" to="/sign_up">Đăng ký</NavLink>
-                    </div>
-
-                </div>
-
-            </nav >
+            <TopNav />
             <section className="row g-0">
                 <div className="col-1"></div>
                 <div className="col-md-5 mt-5 p-3">
@@ -160,10 +116,10 @@ const TopNav = (props) => {
                         <button type="submit" className="btn pb-2 pt-2 px-5 pe-5 mt-4" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={() => moveToBookingPage()}>Đặt lịch ngay</button>
                     </div>
                 </div>
-                <div className="col-md-6 d-none d-md-block"><img alt="" src="images/kham5.png" style={{ width: "90%" }} align="right" /></div>
+                <div className="col-md-6 d-none d-md-block"><img alt="" src="/images/kham5.png" style={{ width: "90%" }} align="right" /></div>
 
             </section >
-            <section className="mt-5 container-fluid" style={{ backgroundImage: "url(images/kham6.png)", backgroundRepeat: "no-repeat", backgroundPosition: "center left 35%" }}>
+            <section className="mt-5 container-fluid" style={{ backgroundImage: "url(/images/kham6.png)", backgroundRepeat: "no-repeat", backgroundPosition: "center left 35%" }}>
                 <div className="row">
                     <div className="col-6"></div>
                     <div className="col-md-5">
@@ -191,14 +147,14 @@ const TopNav = (props) => {
                             <h5>Làm trắng răng</h5>
                             <span className="truncation-text">Tẩy trắng răng là phương pháp dùng các hợp chất kết hợp với năng lượng ánh sáng sẽ tạo ra phản ứng oxy hóa cắt đứt các chuỗi phân tử màu các chuỗi phân tử màu trong ngà răng. Từ đó giúp răng trắng sáng hơn so với màu răng ban đầu mà không làm tổn hại bề mặt răng hay bất kỳ yếu tố nào trong răng.</span>
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
                     </div>
                     <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
                         <p>
-                            <h5>Vệ sinh răng miệng</h5>
+                            <h5>Vệ snh răng miệng</h5>
                             <span className="truncation-text">Vệ sinh răng miệng là quá trình loại bỏ cao răng hoặc mảng bám cứng trên bề mặt răng và dưới nướu. Cao răng được hình thành từ vi khuẩn ăn các mảnh....</span>
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
                     </div>
                     <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
                         <p>
@@ -206,7 +162,7 @@ const TopNav = (props) => {
                             <span className="truncation-text">Nhổ răng khôn là kỹ thuật tương đối phức tạp đòi hỏi bác sĩ thực hiện phải có kỹ thuật và nhiều kinh nghiệm.</span>
 
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
 
                     </div>
                     <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
@@ -214,30 +170,30 @@ const TopNav = (props) => {
                             <h5>Niềng răng thẩm mỹ</h5>
                             <span className="truncation-text">Niềng răng là phương pháp sử dụng khí cụ chuyên dụng được gắn cố định hoặc tháo lắp trên răng để giúp dịch chuyển và sắp xếp răng về đúng vị trí....</span>
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
                     </div>
                     <div class="col-md-4 pe-5 px-5 pt-2 pb-4">
                         <p>
                             <h5>Cấy ghép implant</h5>
                             <span className="truncation-text">Cấy ghép Implant là giải pháp phục hồi răng bị mất hiệu quả nhất bởi không chỉ giúp khôi phục thẩm mỹ hàm răng, đảm bảo khả năng ăn nhai bình thường, ....</span>
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
                     </div>
                     <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
                         <p>
                             <h5 >Điều trị tủy</h5>
                             <span className="truncation-text">Trong cấu trúc răng, tủy răng đóng vai trò rất quan trọng là cung cấp dinh dưỡng nuôi sống và giúp răng luôn vững chắc, và khi tủy răng bị viêm....</span>
                         </p>
-                        <NavLink to="/" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
                     </div>
                 </div>
-                <h5 className="mt-3" align="center"><NavLink to="/" style={{ color: "black" }} className="text-decoration-none">Xem thêm &rarr;</NavLink></h5>
+                <h5 className="mt-2" align="center"><NavLink to="/services" className="text-decoration-none customLink" style={{ color: "#000" }}>Xem thêm &rarr;</NavLink></h5>
             </section>
             <section class="container mt-5 mb-5">
                 <h4 align="center">Đội ngũ các chuyên gia nha sĩ</h4>
                 <div class="row">
                     <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="./images/doctor1.jpg" style={{ width: "100%" }} />
+                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
                         <p class="mt-3">
                             Nguyễn Văn A<br />
                             Chuyên khoa:<br />
@@ -246,7 +202,7 @@ const TopNav = (props) => {
 
                     </div>
                     <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="./images/doctor1.jpg" style={{ width: "100%" }} />
+                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
                         <p class="mt-3">
                             Nguyễn Văn A<br />
                             Chuyên khoa:<br />
@@ -254,7 +210,7 @@ const TopNav = (props) => {
                         </p>
                     </div>
                     <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="./images/doctor1.jpg" style={{ width: "100%" }} />
+                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
                         <p class="mt-3">
                             Nguyễn Văn A<br />
                             Chuyên khoa:<br />
@@ -262,7 +218,7 @@ const TopNav = (props) => {
                         </p>
                     </div>
                     <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="./images/doctor1.jpg" style={{ width: "100%" }} />
+                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
                         <p class="mt-3">
                             Nguyễn Văn A<br />
                             Chuyên khoa:<br />
@@ -270,7 +226,7 @@ const TopNav = (props) => {
                         </p>
                     </div>
                 </div>
-                <h5 className="mt-2" align="center"><NavLink to="/doctors" className="text-decoration-none nav-link">Xem thêm &rarr;</NavLink></h5>
+                <h5 className="mt-2" align="center"><NavLink to="/doctors" className="text-decoration-none customLink" style={{ color: "#000" }}>Xem thêm &rarr;</NavLink></h5>
             </section>
             <section className='container'>
                 <h3 align="center">Phản hồi của khách hàng</h3>
@@ -284,7 +240,7 @@ const TopNav = (props) => {
                                         <div className="custom-slider-item pt-5 pb-5 pe-3 px-3 mb-4" >
                                             <p className="truncation-text">{item.review}</p>
                                         </div>
-                                        <img alt="" className="img-thumbnail" src="images/ava.png" style={{ borderRadius: "50%", width: "40%" }} />
+                                        <img alt="" className="img-thumbnail" src="/images/ava.png" style={{ borderRadius: "50%", width: "40%" }} />
                                         <h5 className='mt-2'>{item.fullname}</h5>
                                         <p>{item.brach}</p>
                                     </div>
@@ -296,51 +252,8 @@ const TopNav = (props) => {
                 </div>
 
             </section >
-            <footer style={{ backgroundColor: "#0096FF", color: "white", marginTop: "80px" }}>
-                <div className="container pt-4 pb-5">
-                    <div className="row">
-                        <div className="col-md-3">
-                            <img alt="" src="images/logo2.png" />
-                            <p className="mt-3" style={{ fontSize: "20px" }}>Giới thiệu</p>
-                            <p>Phòng khám ABC đã được thành lập hơn 7 năm. Với kinh nghiệm và đội ngũ nha sĩ chuyện nghiệp chúng tôi tự tin sẽ đem đến nhưng dịch vụ tốt nhất.</p>
-                        </div>
-                        <div className="col-1"></div>
-                        <div className="col-md-3">
-                            <p className="mt-3">
-                                <span style={{ fontSize: "19px" }}>Giờ mở cửa toàn chi nhánh</span>
-                                <br />
-                                Từ thứ 2 đến thứ 7: từ 7g30 đến 16g30
-                            </p>
-                            <p className="mt-3">
-                                <span style={{ fontSize: "19px" }}>Địa chỉ</span>
-                                <ul>
-                                    <li>Quận 7, thành phố Hồ Chí Minh</li>
-                                    <li>Quận 8, thành phố Hồ Chí </li>
-                                    <li>Bình Thạnh, thành phố Hồ Chí </li>
-                                </ul>
-                            </p>
-                            <p className="mt-3" style={{ fontSize: "19px" }}>
-                                Email: abc@gmail.com
-                                <br />
-                                Phone: 0843593598
-                            </p>
-                        </div>
-                        <div className="col-1"></div>
-                        <div className="col-md-4">
-                            <p className="mt-3" style={{ fontSize: "19px" }}>Phản hồi của bạn</p>
-                            <p>Vui lòng viết phản hồi của bạn phía dưới</p>
-                            <div className="send-area col-10">
-                                <form>
-                                    <textarea rows="4" className="mb-4" required></textarea>
-
-                                    <button className="btn btn-primary">Gửi</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <Footer style={{ marginTop: "80px" }} />
         </div >
     );
 }
-export default TopNav;
+export default IntroductionPage;

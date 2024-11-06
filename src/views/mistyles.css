@@ -2,6 +2,7 @@
     font-family: Manrope;
     src: url('/public/font/Manrope-VariableFont_wght.ttf');
 }
+
 .customBox {
     border-radius: 10px;
     border: 1px solid #000;
@@ -10,6 +11,7 @@
     width: 168px;
     height: 40px;
 }
+
 .customBox2 {
     width: 364px;
     height: 44px;
@@ -19,6 +21,7 @@
     border: 2px solid #858585;
 
 }
+
 .noteVND {
     color: #000;
     font-family: Manrope;
@@ -28,32 +31,37 @@
     line-height: normal;
     float: right;
 }
+
 .table {
-    border-collapse:separate;
-    border-spacing:0 15px;
+    border-collapse: separate;
+    border-spacing: 0 15px;
 }
 
 .nav-link:focus {
     background-color: #0096FF !important;
-    color: white !important; 
-    font-size: 16px !important; 
+    color: white !important;
+    font-size: 16px !important;
     font-weight: bold;
 }
+
 .nav-link:hover {
     background-color: #0096FF !important;
-    color: white !important; 
-    font-size: 16px !important; 
+    color: white !important;
+    font-size: 16px !important;
     font-weight: bold;
 }
+
 .nav-link {
     background-color: rgb(255, 255, 255);
     color: #D9D9D9;
     font-size: 16px;
     font-weight: bold;
 }
+
 iframe {
-      height: 1000px;
-    }
+    height: 1000px;
+}
+
 .person {
     background-color: #0096FF;
     width: 450px;
@@ -62,6 +70,7 @@ iframe {
     border-radius: 10px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
 .textBoxInfoNV {
     color: #FFF;
     font-family: Manrope;
@@ -74,14 +83,17 @@ iframe {
     padding: 30px;
 
 }
+
 #output {
     margin-top: 50px;
     float: left;
 }
+
 #output1 {
     margin-top: 50px;
     float: right;
 }
+
 .person {
     color: #FFF;
     font-family: Manrope;
@@ -89,6 +101,7 @@ iframe {
     padding: 50px;
     position: relative;
 }
+
 .rounded-circle {
     background-color: #d9d9d9;
     position: absolute;
@@ -97,27 +110,31 @@ iframe {
     height: 48px;
     left: 0px;
 }
+
 .table {
-    border-collapse:separate;
-    border-spacing:0 15px;
+    border-collapse: separate;
+    border-spacing: 0 15px;
 }
+
 #year {
-border-radius: 10px;
-border: 1px solid #000;
-background: #FFF;
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-width: 168px;
-height: 40px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 168px;
+    height: 40px;
 }
+
 .noteVND {
-color: #000;
-font-family: Manrope;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-float: right;
+    color: #000;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    float: right;
 }
+
 .themMaGiamGia {
     width: 700px;
     height: 444px;
@@ -127,6 +144,7 @@ float: right;
     border: 2px;
     border: 1px solid #000000;
 }
+
 .themDichVu {
     width: 700px;
     height: 444px;
@@ -136,6 +154,7 @@ float: right;
     border: 2px;
     border: 1px solid #000000;
 }
+
 .textInRight {
     width: 230px;
     display: flex;
@@ -143,28 +162,34 @@ float: right;
     justify-content: flex-end;
     height: 75px;
 }
+
 .btnRight {
     margin-left: 400px;
 }
+
 .border-test {
     border: 1px solid rgb(222, 6, 255);
     height: 1000px;
 }
+
 .nav-link:focus {
     background-color: #0096FF;
     color: white;
     font-size: 14px;
 }
+
 .nav-link:hover {
     background-color: #0096FF;
     color: white;
     font-size: 14px;
 }
+
 .nav-link {
     background-color: #D9D9D9;
     color: black;
     font-size: 14px;
 }
+
 iframe {
-  height: 1000px;
+    height: 1000px;
 }
