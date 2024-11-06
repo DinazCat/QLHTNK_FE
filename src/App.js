@@ -4,15 +4,17 @@ import ScrollToTop from './components/ScrollToTop';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
-
+  Route,
 } from "react-router-dom";
-import Doctors from './views/Doctors';
-import Booking from './views/Booking';
-import SignIn from './views/SignIn';
-import SignUp from './views/SignUp';
-import Introduction from './views/Introduction'
+import DoctorsPage from './views/DoctorsPage';
+import BookingPage from './views/BookingPage';
+import SignInPage from './views/SignInPage';
+import SignUpPage from './views/SignUpPage';
+import IntroductionPage from './views/IntroductionPage'
 import Manager from './views/Manager'
+import NotFoundPage from './views/NotFoundPage';
+import ServicesPage from './views/ServicesPage';
+import ContactPage from './views/ContactPage';
 function App() {
 
   return (
@@ -21,33 +23,33 @@ function App() {
       <ScrollToTop />
       <Switch>
         <Route path="/doctors">
-          <Doctors />
+          <DoctorsPage />
         </Route>
         <Route path="/services">
-          <Introduction />
+          <ServicesPage />
         </Route>
         <Route path="/contacts">
-          <Introduction />
+          <ContactPage />
         </Route>
         <Route path="/booking">
-          <Booking />
+          <BookingPage />
         </Route>
         <Route path="/sign_in">
-          <SignIn />
+          <SignInPage />
         </Route>
         <Route path="/sign_up">
-          <SignUp />
+          <SignUpPage />
         </Route>
         <Route path="/manager">
-          <Manager/>
+          <Manager />
         </Route>
+
         <Route path="/" exact>
-          <Introduction />
+          <IntroductionPage />
         </Route>
         <Route path="*" >
-          404 Not Found
+          <NotFoundPage />
         </Route>
-        
       </Switch>
     </Router >
   );
