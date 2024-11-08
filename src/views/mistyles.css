@@ -8,7 +8,7 @@
     border: 1px solid #000;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 168px;
+    width: 200px;
     height: 40px;
 }
 
@@ -193,3 +193,133 @@ iframe {
 iframe {
     height: 1000px;
 }
+.bluecolor {
+    background-color: #0096FF; 
+    border: white;
+}
+.bluecolor:hover {
+    background-color: #D9D9D9; 
+    
+}
+
+.graycolor {
+    background-color: #D9D9D9; 
+    border: white;
+}
+.graycolor:hover {
+    background-color: #bdbbbb; 
+    
+}
+.editBtn {
+    background-color: #0096FF;
+    color: #FFF;
+    border-radius: 3px;
+}
+.editBtn:hover {
+    background-color: #bdbbbb;
+    color: #FFF;
+}
+.table-wrapper {
+    width: 100%;
+  }
+  
+  
+  .table tbody tr:hover {
+    background-color: #eee;
+  }
+  
+  .expand {
+    width: 100%;
+  }
+  
+  .label {
+    border-radius: 3px;
+    padding: 0.3rem;
+    color: white;
+  }
+  
+  .label-draft {
+    background-color: #777;
+  }
+  
+  .label-live {
+    background-color: #42a942;
+  }
+  
+  .label-error {
+    background-color: #d9534f;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .actions svg {
+    cursor: pointer;
+  }
+  
+  .delete-btn {
+    color: #c4241f;
+  }
+  .modal-container {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal1 {
+    border-radius: 5px;
+    padding: 2rem;
+    background-color: white;
+    width: 25em;
+  }
+  
+  .modal .btn {
+    display: none;
+    margin: auto;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  .form-group label {
+    margin-bottom: 0.2rem;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #df4759;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+  }
+  .btnSummit {
+    margin-top: 1rem;
+    border: none;
+    background-color: #0096FF;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px #ccc;
+  }

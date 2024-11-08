@@ -30,6 +30,9 @@ const TopNav = () => {
                         <li className="nav-item me-4">
                             <NavLink className="nav-link" to="/booking">Đặt lịch</NavLink>
                         </li>
+                        <li className="nav-item me-4">
+                            <NavLink className="nav-link" to="/manager">Quản lý</NavLink>
+                        </li>
                     </ul>
                 </div>
                 <div className="nav-item">
