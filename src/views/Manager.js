@@ -12,6 +12,7 @@ import QuanLyNhanVien from './QuanLyNhanVien';
 import QuanLyMaGiamGia from './QuanLyMaGiamGia';
 import QuanLyDichVu from './QuanLyDichVu';
 import QuanLyChiNhanh from './QuanLyChiNhanh';
+import QuanLyKho from './QuanLyKho';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 const Manager = (props) => {
@@ -101,7 +102,7 @@ const Manager = (props) => {
                                 <BaoCao />
                             </Route>
                             <Route path="/manager/quanlykho">
-                                <QuanLyLichHen />
+                                <QuanLyKho />
                             </Route>
                             <Route path="/manager/themtoathuoc">
                                 <QuanLyLichHen />
