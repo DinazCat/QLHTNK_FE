@@ -19,7 +19,7 @@ const XemBangLuong = (props) => {
       luongCoBan: '4000000',
       luongThuong: '40000000',
       tongLuong: '44000000'
-    },
+    }, 
   ];
   return (
     <div>
@@ -29,7 +29,7 @@ const XemBangLuong = (props) => {
           <input type="month" class="customBox" placeholder="nhập tên nhân viên" name="nameNhanVien" />
         </div>
 
-        <button type="submit" class="btn btn-primary" onclick="showContent();">Xem</button>
+        <button type="submit" class="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" onclick="showContent();">Xem</button>
       </form>
       <h1 class="noteVND">**Tính theo đơn vị VNĐ</h1>
       <table class="table" >

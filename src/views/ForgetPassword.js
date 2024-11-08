@@ -3,7 +3,10 @@ import './style.css'
 import TopNav from '../components/TopNav.js'
 import { NavLink } from "react-router-dom"
 import Footer from '../components/Footer.js'
-const SignInPage = (props) => {
+import CodeGetPass from '../components/CodeGetPass.js'
+import { useState } from 'react'
+const ForgetPassword = (props) => {
+    const [codePopup, setCodePopup] = useState(false);
     return (
         <div>
             <TopNav />
@@ -12,21 +15,26 @@ const SignInPage = (props) => {
                 <div class="col-sm-6 col-md-5 col-lg-4">
                     <div style={{ border: "2px solid grey", borderRadius: "5px", boxShadow: "3px 3px #888888", marginTop: "70px" }} align="center">
                         <form>
-                            <h4 align="center" class="mt-5 mb-4">Đăng nhập</h4>
+                            <h4 align="center" class="mt-5 mb-4">Quên mật khẩu</h4>
                             <div class="mb-3 mt-3 col-10">
-                                <input type="text" class="form-control pb-3 pt-3" id="username" name="username" placeholder="Tên đăng nhập" onInvalid={e => e.target.setCustomValidity('Mời bạn nhập tên đăng nhập')} onInput={e => e.target.setCustomValidity('')} required />
+                                <input type="text" class="form-control pb-3 pt-3" id="username" name="username" placeholder="Email đăng ký" onInvalid={e => e.target.setCustomValidity('Mời bạn nhập email')} onInput={e => e.target.setCustomValidity('')} required />
                             </div>
-                            <div class="col-10 mt-3 mb-2">
-                                <input type="password" class="form-control pb-3 pt-3" id="password" name="password" placeholder="Mật khẩu" onInvalid={e => e.target.setCustomValidity('Mời bạn nhập mật khẩu')} onInput={e => e.target.setCustomValidity('')} required />
-                            </div>
-                            <NavLink to="/forgetpassword" class="text-decoration-none d-flex justify-content-end col-10" style={{ fontWeight: "600", color: "black" }}>Bạn quên mật khẩu?</NavLink>
-
-                            <NavLink to="/sign_up" class="btn d-flex justify-content-center col-10 mb-2 mt-2" style={{ color: "#0096FF" }}>Nếu bạn chưa có tài khoản, đăng ký ngay!</NavLink>
-
-                            <button type="submit" class="btn col-10 pb-3 pt-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF", marginBottom: "300px" }}>Đăng nhập</button>
+                            
+                            <NavLink to="/sign_in" class="text-decoration-none d-flex justify-content-end col-10" style={{ fontWeight: "600", color: "black" }}>Quay về trang đăng nhập</NavLink>
+                            <br></br>
+                            <button type="submit" class="btn col-10 pb-3 pt-3" onClick={()=>setCodePopup(true)} style={{ backgroundColor: "#0096FF", color: "#FFFFFF", marginBottom: "300px" }}>Nhận mã</button>
+                            {codePopup &&(
+                            <CodeGetPass trigger="true">
+                            <div class="mb-3 mt-3 col-10">
+                                <input type="text" class="form-control pb-3 pt-3" id="code" name="code" placeholder="Mã xác nhận" onInvalid={e => e.target.setCustomValidity('Mời bạn nhập mã xác nhận')} onInput={e => e.target.setCustomValidity('')} required />
+                                
+                            </div>  
+                            </CodeGetPass>
+                            )}
                         </form>
                     </div>
                 </div>
+                
                 <div class="col-sm-5 col-md-6 col-lg-7 d-none d-sm-block"><img alt="" src="/images/kham5.png" style={{ width: "90%" }} align="right" /></div>
             </section >
             <section class="mt-5" style={{ backgroundColor: "#F0F6FB" }}>
@@ -51,4 +59,4 @@ const SignInPage = (props) => {
         </div >
     );
 }
-export default SignInPage;
+export default ForgetPassword;

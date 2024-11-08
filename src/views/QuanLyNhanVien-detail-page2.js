@@ -1,69 +1,114 @@
 import React from 'react'
-import './style.css'
+import './mistyles.css'
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { useEffect, useState, useContext } from 'react';
+import { FormChiTietNhanVien } from '../components/FormChiTietNhanVien';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
 const XemThongTinNhanVien = (props) => {
-  const peopleData = [
-    {
-      name: 'John Doe',
-      phone: '123456789',
-      position: 'Nha sĩ',
-      email: 'john@example.com',
-      basicSalary: '40000000',
-      branch: 'Quận 8'
-    },
-    {
-      name: 'Jane Smith',
-      phone: '987654321',
-      position: 'Tiếp tân',
-      email: 'jane@example.com',
-      basicSalary: '21000000',
-      branch: 'Thủ Đức'
-    },
-  ];
+    const [modalOpen, setModalOpen] = useState(false);
+    const [nvien, setRows] = useState([
+      {
+        name: 'John Doe',
+        phone: '123456789',
+        position: 'Nha sĩ',
+        email: 'john@example.com',
+        basicSalary: '40000000',
+        branch: 'Quận 8'
+      },
+      {
+        name: 'Jane Smith',
+        phone: '987654321',
+        position: 'Tiếp tân',
+        email: 'jane@example.com',
+        basicSalary: '21000000',
+        branch: 'Thủ Đức'
+      },
+    ]);
+    const [rowToEdit, setRowToEdit] = useState(null);
+    const handleDeleteRow = (targetIndex) => {
+        setRows(nvien.filter((_, idx) => idx !== targetIndex));
+    };
 
-  return (
-    <div>
-      <div>
-        <form name="timKiemTheoTen">
-          <div className="mb-3 mt-3">
-            <label for="nameNhanVien"><b>Tìm kiếm theo tên nhân viên</b></label> <br />
-            <input type="nameNhanVien" className="customBox" placeholder="nhập tên nhân viên" name="nameNhanVien" />
-          </div>
-          <div id="output">
+    const handleEditRow = (idx) => {
+        setRowToEdit(idx);
+        setModalOpen(true);
+    };
 
-          </div>
-          <div id="output1">
+    const handleSubmit = (newRow) => {
+        rowToEdit === null
+        ? setRows([...nvien, newRow])
+        : setRows(
+            nvien.map((currRow, idx) => {
+                if (idx !== rowToEdit) return currRow;
 
-          </div>
-          <button type="submit" className="btn btn-primary" >Xem</button>
-        </form>
+                return newRow;
+            })
+            );
+    };
+    return (
+        <div >
+            <div className="mb-3 mt-3">
 
+              <input className="block m-2 customBox" type="text" id="name" placeholder="Nhập tên" name="name" />
+            </div>
+              <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Tìm kiếm</button>
+              <button onClick={() => setModalOpen(true)} className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                Thêm
+              </button>
+            <h1 className="noteVND">**Tính theo đơn vị VNĐ</h1>
+            <table className="table" >
+                <thead>
+                    <tr className="table-secondary">
+                        <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Chức vụ</th>
+                        <th>Email</th>
+                        <th>Lương cơ bản</th>
+                        <th>Chi nhánh làm việc</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {nvien.map((row, idx) => {
+                    return (
+                    <tr key={row}>
+                        <td>{row.name}</td>
+                        <td>{row.phone}</td>
+                        <td>{row.position}</td>
+                        <td>{row.email}</td>
+                        <td>{row.basicSalary}</td>
+                        <td>{row.branch}</td>
+                        <td className="fit">
+                            <span className="actions">
+                                <BsFillTrashFill
+                                className="delete-btn"
+                                onClick={() => handleDeleteRow(idx)}
+                                />
+                                <BsFillPencilFill
+                                className="edit-btn"
+                                onClick={() => handleEditRow(idx)}
+                                />
+                            </span>
+                        </td>
+                    </tr>
+                    );
+                    })}
+                <tbody>
 
-      </div>
-      <section id="boxNvien" >
-        <scroll>
-          {peopleData.map((item, index) => {
-            return (
-              <div class="person">
-                <img src="" class="rounded-circle" alt="" width="81" height="81"></img>
-                <p class=""><b>Họ và tên:</b> {item.name}</p>
-                <p class=""><b>Số điện thoại:</b> {item.phone}</p>
-                <p class=""><b>Chức vụ:</b> {item.position}</p>
-                <p class=""><b>Email:</b> {item.email}</p>
-                <p class=""><b>Lương cơ bản:</b> {item.basicSalary}</p>
-                <p class=""><b>Chi nhánh làm việc:</b> {item.branch}</p>
-              </div>
-            )
-          }
-          )}
-        </scroll>
-        <img src="" class="rounded-circle" alt="" width="81" height="81" />
-
-      </section>
-    </div>
-  );
+                </tbody>
+            </table>
+            {modalOpen &&(
+        <FormChiTietNhanVien
+        closeModal={() => {
+            setModalOpen(false);
+            setRowToEdit(null);
+          }}
+          onSubmit={handleSubmit}
+          defaultValue={rowToEdit !== null && nvien[rowToEdit]}
+        />
+      )}
+        </div>
+    );
 }
-
 export default XemThongTinNhanVien;
+
