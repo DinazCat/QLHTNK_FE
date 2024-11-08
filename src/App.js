@@ -15,6 +15,7 @@ import Manager from './views/Manager'
 import NotFoundPage from './views/NotFoundPage';
 import ServicesPage from './views/ServicesPage';
 import ContactPage from './views/ContactPage';
+import ForgetPassword from './views/ForgetPassword';
 function App() {
 
   return (
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path="/sign_up">
           <SignUpPage />
+        </Route>
+        <Route path="/forgetpassword">
+          <ForgetPassword />
         </Route>
         <Route path="/manager">
           <Manager/>

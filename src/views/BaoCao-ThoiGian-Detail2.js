@@ -24,7 +24,7 @@ const XemBaoCaoTheoNam = (props) => {
   ];
   return (
     <div>
-      <form name="xemTheoNam" action="/action_page.php">
+      
         <div class="mb-3 mt-3">
           <label for="year1"><b>Chọn năm bắt đầu:</b></label> <br />
           <input type="number" min="2010" max="2023" step="1" value="2015" id="year" placeholder="Chọn năm bắt đầu" name="year1" />
@@ -33,8 +33,8 @@ const XemBaoCaoTheoNam = (props) => {
           <label for="year2"><b>Chọn năm kết thúc:</b></label> <br />
           <input type="number" min="2010" max="2023" step="1" value="2023" id="year" placeholder="Chọn năm kết thúc" name="year2" />
         </div>
-        <button type="submit" class="btn btn-primary">Xem</button>
-      </form>
+        <button type="submit" class="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Xem</button>
+      
       <h1 class="noteVND">**Tính theo đơn vị VNĐ</h1>
       <table class="table" >
         <thead>

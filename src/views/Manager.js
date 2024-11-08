@@ -15,6 +15,7 @@ import QuanLyChiNhanh from './QuanLyChiNhanh';
 import QuanLyKho from './QuanLyKho';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
+import QuanLyDanhGia from './QuanLyDanhGia';
 const Manager = (props) => {
     const { pathname } = useLocation();
     return (
@@ -120,7 +121,7 @@ const Manager = (props) => {
                                 <QuanLyMaGiamGia />
                             </Route>
                             <Route path="/manager/quanlydanhgia" >
-                                <QuanLyMaGiamGia />
+                                <QuanLyDanhGia />
                             </Route>
 
                             {pathname === "/manager" ? <Redirect to="/manager/quanlylichhen" /> : null}

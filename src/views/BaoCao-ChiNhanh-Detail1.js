@@ -24,15 +24,14 @@ const XemBaoCaoChiNhanhTheoThang = (props) => {
   ];
   return (
     <div>
-      <form name="xemTheoNam" action="/action_page.php">
         <div class="mb-3 mt-3">
           <label for="month"><b>Chọn tháng, năm:</b></label> <br />
           <input class="customBox" type="month" id="month" placeholder="Chọn tháng năm" name="month" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Xem</button>
-      </form>
-      <h1 class="noteVND">**Tính theo đơn vị VNĐ</h1>
+        <button class="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Xem</button>
+
+      <h1 class="noteVND"> **Tính theo đơn vị VNĐ</h1>
       <table class="table" >
         <thead>
           <tr class="table-secondary">

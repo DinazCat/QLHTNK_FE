@@ -1,121 +1,52 @@
 import React from 'react'
 import './mistyles.css'
-import { NavLink } from "react-router-dom";
-import { browserHistory, Router, Route, Switch } from 'react-router';
-import XemBaoCaoTheoDichVuTheoNam from './BaoCao-DichVu-Detail2';
-import XemBaoCaoTheoDichVuTheoThang from './BaoCao-DichVu-Detail1';
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const QuanLyDanhGia = (props) => {
-    const magiamgia = [
+    const danhgia = [
         {
-            idMa: 'NEWMEMBER',
-            phanTram: '10',
-            thoiGianBatDau: '23/10/2023',
-            thoiGianKetThuc: '25/10/2023',
-            dichVuApDung: 'Tất cả',
+            ngay: '2023-10-10',
+            noidung: 'Chi nhanh quận 8 lmà ăn chưa có tốt, giá cao so với thị trường',
         },
         {
-            idMa: 'MEMBER20/10',
-            phanTram: '20',
-            thoiGianBatDau: '20/10/2023',
-            thoiGianKetThuc: '22/10/2023',
-            dichVuApDung: 'Tất cả',
+            ngay: '2023-10-11',
+            noidung: 'Bác sĩ nguyễn văn A làm việc chưa tận tâm, trám răng nhưng rớt, phải đi khám lại, dịch vụ quá tệ',    
         },
         {
-            idMa: 'NEWMEMBER',
-            phanTram: '10',
-            thoiGianBatDau: '23/10/2023',
-            thoiGianKetThuc: '25/10/2023',
-            dichVuApDung: 'Tất cả',
+            ngay: '2023-10-13',
+            noidung: 'Chưa thấy phòng khám nào như phòng khám này, quá là tận tâm',
         },
     ];
     return (
         <div >
-            <form name="xemMaGiamGia" action="">
-                <div className="mb-3 mt-3">
-                    <input className="customBox" type="text" id="idMaGiamGia" placeholder="Nhập id mã giảm giá" name="idMaGiamGia" />
-                    <input className="customBox" type="text" id="noidungMaGiamGia" placeholder="Nhập nội dung mã giảm giá" name="noidungMaGiamGia" />
-                </div>
-                <button type="submit" className="btn btn-primary">Tìm kiếm</button>
-                <button id="showFormBtn" className="btn btn-primary" onclick="showDiv();">Thêm</button>
-            </form>
-            <h1 className="noteVND">**Tính theo đơn vị VNĐ</h1>
+            <div class="mb-3 mt-3">
+                    <label for="year2"><b>Chọn phương thức lọc:</b></label> <br />
+                    <select class="customBox" id="type" placeholder="chọn phương thức" name="year2">
+                        <option value="doanhThu">Sắp xếp theo mới nhất</option>
+                        <option value="doanhSo">Sắp xếp theo cũ nhất</option>
+                    </select>
+            </div>
+                <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Tìm kiếm</button>
+
             <table className="table" >
                 <thead>
                     <tr className="table-secondary">
-                        <th>ID mã giảm giá</th>
-                        <th>Phần trăm giảm</th>
-                        <th>Thời gian bắt đầu</th>
-                        <th>Thười gian kết thúc</th>
-                        <th>Dịch vụ áp dụng</th>
+                        <th>Ngày</th>
+                        <th>Nội dung</th>
                     </tr>
                 </thead>
-                {magiamgia.map((item, index) => (
+                {danhgia.map((item, index) => (
                     <tr key={index}>
-                        <td>{item.idMa}</td>
-                        <td>{item.phanTram}</td>
-                        <td>{item.thoiGianBatDau}</td>
-                        <td>{item.thoiGianKetThuc}</td>
-                        <td>{item.dichVuApDung}</td>
+                        <td>{item.ngay}</td>
+                        <td>{item.noidung}</td>
                     </tr>
                 ))}
                 <tbody>
 
                 </tbody>
             </table>
-            <div id="boxMaGiamGia" styles="display: none;">
-                <form className="themMaGiamGia" action="">
-                    <table>
-                        <tr>
-                            <td>
-                                <label className="textInRight" for="id"><b>ID mã giảm giá:</b></label>
-                            </td>
-                            <td>
-                                <input className="customBox2" type="text" id="id" placeholder="Nhập mã id" name="id" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="textInRight" for="noidungmagiamgia"><b>Phần trăm giảm:</b></label>
-                            </td>
-                            <td>
-                                <input className="customBox2" type="number" id="noidungmagiamgia" placeholder="Nhập phần trăm" name="noidungmagiamgia" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="textInRight" for="thoigianbatdau"><b>Thời gian bắt đầu:</b></label>
-                            </td>
-                            <td>
-                                <input className="customBox2" type="date" id="thoigianbatdau" placeholder="" name="thoigianbatdau" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="textInRight" for="thoigianketthuc"><b>Thời gian kết thúc:</b></label>
-                            </td>
-                            <td>
-                                <input className="customBox2" type="date" id="thoigianketthuc" placeholder="" name="thoigianketthuc" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label className="textInRight" for="dichvuapdung"><b>dịch vụ áp dụng:</b></label>
-                            </td>
-                            <td>
-                                <input className="customBox2" type="text" id="dichvuapdung" placeholder="Nhập dịch vụ" name="dichvuapdung" />
-                            </td>
-                        </tr>
-                    </table>
-                    <div className="btnRight">
-                        <button type="submit" className="btn">Hủy</button>
-                        <button type="submit" className="btn btn-primary">Cập nhập</button>
-                        <button type="submit" className="btn btn-primary">Thêm</button>
-                    </div>
-
-                </form>
-            </div>
+            
         </div>
     );
 }
