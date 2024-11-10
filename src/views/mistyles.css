@@ -1,348 +1,359 @@
 @font-face {
-    font-family: Manrope;
-    src: url('/public/font/Manrope-VariableFont_wght.ttf');
+  font-family: Manrope;
+  src: url('/public/font/Manrope-VariableFont_wght.ttf');
 }
 
 .customBox {
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 200px;
-    height: 40px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 200px;
+  height: 40px;
 }
 
 .customBox2 {
-    width: 364px;
-    height: 44px;
-    top: 50px;
-    left: 262px;
-    border-radius: 5px;
-    border: 2px solid #858585;
+  width: 364px;
+  height: 44px;
+  top: 50px;
+  left: 262px;
+  border-radius: 5px;
+  border: 2px solid #858585;
 
 }
 
 .noteVND {
-    color: #000;
-    font-family: Manrope;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    float: right;
+  color: #000;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  float: right;
 }
 
 .table {
-    border-collapse: separate;
-    border-spacing: 0 15px;
+  border-collapse: separate;
+  border-spacing: 0 15px;
 }
 
 .nav-link:focus {
-    background-color: #0096FF !important;
-    color: white !important;
-    font-size: 16px !important;
-    font-weight: bold;
+  background-color: #0096FF !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: bold;
 }
 
 .nav-link:hover {
-    background-color: #0096FF !important;
-    color: white !important;
-    font-size: 16px !important;
-    font-weight: bold;
+  background-color: #0096FF !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: bold;
 }
 
 .nav-link {
-    background-color: rgb(255, 255, 255);
-    color: #D9D9D9;
-    font-size: 16px;
-    font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  color: #D9D9D9;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 iframe {
-    height: 1000px;
+  height: 1000px;
 }
 
 .person {
-    background-color: #0096FF;
-    width: 450px;
-    height: 300px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #0096FF;
+  width: 450px;
+  height: 300px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .textBoxInfoNV {
-    color: #FFF;
-    font-family: Manrope;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-left: 20px;
-    margin-top: 20px;
-    padding: 30px;
+  color: #FFF;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 30px;
 
 }
 
 #output {
-    margin-top: 50px;
-    float: left;
+  margin-top: 50px;
+  float: left;
 }
 
 #output1 {
-    margin-top: 50px;
-    float: right;
+  margin-top: 50px;
+  float: right;
 }
 
 .person {
-    color: #FFF;
-    font-family: Manrope;
-    font-weight: 500;
-    padding: 50px;
-    position: relative;
+  color: #FFF;
+  font-family: Manrope;
+  font-weight: 500;
+  padding: 50px;
+  position: relative;
 }
 
 .rounded-circle {
-    background-color: #d9d9d9;
-    position: absolute;
-    float: left;
-    width: 48px;
-    height: 48px;
-    left: 0px;
+  background-color: #d9d9d9;
+  position: absolute;
+  float: left;
+  width: 48px;
+  height: 48px;
+  left: 0px;
 }
 
 .table {
-    border-collapse: separate;
-    border-spacing: 0 15px;
+  border-collapse: separate;
+  border-spacing: 0 15px;
 }
 
 #year {
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 168px;
-    height: 40px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 168px;
+  height: 40px;
 }
 
 .noteVND {
-    color: #000;
-    font-family: Manrope;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    float: right;
+  color: #000;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  float: right;
 }
 
 .themMaGiamGia {
-    width: 700px;
-    height: 444px;
-    top: 712px;
-    left: 425px;
-    border-radius: 10px;
-    border: 2px;
-    border: 1px solid #000000;
+  width: 700px;
+  height: 444px;
+  top: 712px;
+  left: 425px;
+  border-radius: 10px;
+  border: 2px;
+  border: 1px solid #000000;
 }
 
 .themDichVu {
-    width: 700px;
-    height: 444px;
-    top: 712px;
-    left: 425px;
-    border-radius: 10px;
-    border: 2px;
-    border: 1px solid #000000;
+  width: 700px;
+  height: 444px;
+  top: 712px;
+  left: 425px;
+  border-radius: 10px;
+  border: 2px;
+  border: 1px solid #000000;
 }
 
 .textInRight {
-    width: 230px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 75px;
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 75px;
 }
 
 .btnRight {
-    margin-left: 400px;
+  margin-left: 400px;
 }
 
 .border-test {
-    border: 1px solid rgb(222, 6, 255);
-    height: 1000px;
+  border: 1px solid rgb(222, 6, 255);
+  height: 1000px;
 }
 
 .nav-link:focus {
-    background-color: #0096FF;
-    color: white;
-    font-size: 14px;
+  background-color: #0096FF;
+  color: white;
+  font-size: 14px;
 }
 
 .nav-link:hover {
-    background-color: #0096FF;
-    color: white;
-    font-size: 14px;
+  background-color: #0096FF;
+  color: white;
+  font-size: 14px;
 }
 
 .nav-link {
-    background-color: #D9D9D9;
-    color: black;
-    font-size: 14px;
+  background-color: #D9D9D9;
+  color: black;
+  font-size: 14px;
 }
 
 iframe {
-    height: 1000px;
+  height: 1000px;
 }
+
 .bluecolor {
-    background-color: #0096FF; 
-    border: white;
+  background-color: #0096FF;
+  border: white;
 }
+
 .bluecolor:hover {
-    background-color: #D9D9D9; 
-    
+  background-color: #D9D9D9;
+
 }
 
 .graycolor {
-    background-color: #D9D9D9; 
-    border: white;
+  background-color: #D9D9D9;
+  border: white;
 }
+
 .graycolor:hover {
-    background-color: #bdbbbb; 
-    
+  background-color: #bdbbbb;
+
 }
+
 .editBtn {
-    background-color: #0096FF;
-    color: #FFF;
-    border-radius: 3px;
+  background-color: #0096FF;
+  color: #FFF;
+  border-radius: 3px;
 }
+
 .editBtn:hover {
-    background-color: #bdbbbb;
-    color: #FFF;
+  background-color: #bdbbbb;
+  color: #FFF;
 }
+
 .table-wrapper {
-    width: 100%;
-  }
-  
-  
-  .table tbody tr:hover {
-    background-color: #eee;
-  }
-  
-  .expand {
-    width: 100%;
-  }
-  
-  .label {
-    border-radius: 3px;
-    padding: 0.3rem;
-    color: white;
-  }
-  
-  .label-draft {
-    background-color: #777;
-  }
-  
-  .label-live {
-    background-color: #42a942;
-  }
-  
-  .label-error {
-    background-color: #d9534f;
-  }
-  
-  .actions {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .actions svg {
-    cursor: pointer;
-  }
-  
-  .delete-btn {
-    color: #c4241f;
-  }
-  .modal-container {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal1 {
-    border-radius: 5px;
-    padding: 2rem;
-    background-color: white;
-    width: 25em;
-  }
-  
-  .modal .btn {
-    display: none;
-    margin: auto;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    border: 1px solid black;
-    border-radius: 0.3rem;
-    padding: 0.3rem;
-    font-size: 1rem;
-  }
-  
-  .form-group label {
-    margin-bottom: 0.2rem;
-  }
-  
-  .error {
-    background-color: #f8d7da;
-    color: #df4759;
-    padding: 0.5rem;
-    border-radius: 0.3rem;
-    margin-bottom: 1rem;
-  }
-  .btnSummit {
-    margin-top: 1rem;
-    border: none;
-    background-color: #0096FF;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0px 5px 5px #ccc;
-  }
-  .popup {
-    position: fixed;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100px;
-    background-color: #858585;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .popup-inner {
-    position: relative;
-    padding: 32px;
-    width: 100%;
-    max-width: 640px;
-    background-color: #FFF;
-  }
-  .popup-inner .close-btn {
-    position: relative;
-    top:16px;
-    right: 16px;
-  }
+  width: 100%;
+}
+
+
+.table tbody tr:hover {
+  background-color: #eee;
+}
+
+.expand {
+  width: 100%;
+}
+
+.label {
+  border-radius: 3px;
+  padding: 0.3rem;
+  color: white;
+}
+
+.label-draft {
+  background-color: #777;
+}
+
+.label-live {
+  background-color: #42a942;
+}
+
+.label-error {
+  background-color: #d9534f;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions svg {
+  cursor: pointer;
+}
+
+.delete-btn {
+  color: #c4241f;
+}
+
+.modal-container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal1 {
+  border-radius: 5px;
+  padding: 2rem;
+  background-color: white;
+  width: 25em;
+}
+
+.modal .btn {
+  display: none;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  font-size: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.2rem;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #df4759;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.btnSummit {
+  margin-top: 1rem;
+  border: none;
+  background-color: #0096FF;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 5px 5px #ccc;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #858585;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-inner {
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  background-color: #FFF;
+}
+
+.popup-inner .close-btn {
+  position: relative;
+  top: 16px;
+  right: 16px;
+}

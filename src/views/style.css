@@ -232,3 +232,23 @@ input[type="date"]:not(.has-value):before {
 .div-test {
     background-color: fuchsia;
 }
+
+#schedule_tab .nav-item>.active {
+    background-color: #0096FF !important;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+#schedule_tab .nav-item>.nav-link:hover {
+    background-color: #0096FF !important;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+#schedule-tab .nav-link {
+    background-color: #0096FF !important;
+    color: #D9D9D9;
+    font-size: 16px;
+}
