@@ -1,11 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './style.css'
-import { NavLink, useLocation } from "react-router-dom";
-import {
-    Switch,
-    Route,
-    Redirect
-} from "react-router-dom";
+import { NavLink, useLocation, Switch, Route, Redirect } from "react-router-dom";
 import BaoCao from './BaoCao';
 import QuanLyLichHen from './QuanLyLichHen';
 import QuanLyNhanVien from './QuanLyNhanVien';
@@ -16,6 +11,7 @@ import QuanLyKho from './QuanLyKho';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 import QuanLyDanhGia from './QuanLyDanhGia';
+import ScheduleManagement from './ScheduleManager';
 const Manager = (props) => {
     const { pathname } = useLocation();
     return (
@@ -26,8 +22,8 @@ const Manager = (props) => {
                     <div className="col-auto bg-primary" id="slide-menu">
                         <div className="d-flex flex-column sticky-top">
                             <ul className="nav nav-pills d-flex flex-column" id="menu">
-                                <li className="nav-item mb-2">
-                                    <NavLink to="/manager/quanlylichhen" className="nav-link">
+                                <li className="nav-item mt-2 mb-2">
+                                    <NavLink to="/manager/schedule" className="nav-link">
                                         <img src="/images/qlylichhen_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Quản lý lịch hẹn</span>
                                     </NavLink>
                                 </li>
@@ -89,9 +85,8 @@ const Manager = (props) => {
                     <div className="col py-3">
                         <Route >
                             <Switch />
-
-                            <Route path="/manager/quanlylichhen">
-                                <QuanLyLichHen />
+                            <Route path="/manager/schedule">
+                                <ScheduleManagement />
                             </Route>
                             <Route path="/manager/quanlybenhnhan">
                                 <QuanLyLichHen />
@@ -124,7 +119,7 @@ const Manager = (props) => {
                                 <QuanLyDanhGia />
                             </Route>
 
-                            {pathname === "/manager" ? <Redirect to="/manager/quanlylichhen" /> : null}
+                            {pathname === "/manager" ? <Redirect to="/manager/schedule" /> : null}
                             <Switch />
                         </Route>
                     </div>
