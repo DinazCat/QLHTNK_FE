@@ -20,8 +20,8 @@ const Manager = (props) => {
             <nav className="container-fluid">
                 <div className="row flex-nowrap">
                     <div className="col-auto bg-primary" id="slide-menu">
-                        <div className="d-flex flex-column sticky-top">
-                            <ul className="nav nav-pills d-flex flex-column" id="menu">
+                        <div className="d-flex flex-column">
+                            <ul className="nav nav-pills d-flex flex-column sticky-top" id="menu">
                                 <li className="nav-item mt-2 mb-2">
                                     <NavLink to="/manager/schedule" className="nav-link">
                                         <img src="/images/qlylichhen_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Quản lý lịch hẹn</span>
@@ -82,7 +82,7 @@ const Manager = (props) => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col py-3">
+                    <div className="col py-3" style={{ overflowX: "auto" }}>
                         <Route >
                             <Switch />
                             <Route path="/manager/schedule">

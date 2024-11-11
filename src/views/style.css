@@ -252,3 +252,35 @@ input[type="date"]:not(.has-value):before {
     color: #D9D9D9;
     font-size: 16px;
 }
+
+.completed {
+    background-color: #269A6C;
+}
+
+.incompleted {
+    background-color: #B74141;
+}
+
+.other {
+    background-color: #1E6AAB;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    background-color: #0096FF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.dropdown:hover .dropdownContent {
+    visibility: visible;
+}
