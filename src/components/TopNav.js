@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 const TopNav = () => {
     return (
-        <nav className="navbar navbar-expand-sm bg-light navbar-light">
+        <nav className="navbar navbar-expand-sm bg-light navbar-light" >
             <div className="container" id="topNav">
                 <div>
                     <img src="/images/logo1.png" alt="Avatar Logo" style={{ width: "100%" }} />

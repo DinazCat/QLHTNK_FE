@@ -19,7 +19,7 @@ const XemBangLuong = (props) => {
       luongCoBan: '4000000',
       luongThuong: '40000000',
       tongLuong: '44000000'
-    }, 
+    },
   ];
   return (
     <div>
