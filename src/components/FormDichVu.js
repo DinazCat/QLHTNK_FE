@@ -49,7 +49,7 @@ export const FormDichVu = ({ closeModal, onSubmit, defaultValue, services}) => {
   };
 
   const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    setFormState({ ...formState, [e.target.name]: e.target.value })
   };
 
   const handleSubmit = (e) => {

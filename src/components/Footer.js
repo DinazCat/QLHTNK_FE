@@ -1,5 +1,27 @@
+import React, { useState } from "react";
+import Api from "../api/Api";
+import { Modal, Button } from 'react-bootstrap';
 const Footer = (props) => {
     const { style } = props
+    const [text, setText] = useState('');
+    const [showDialog, setShowDialog] = useState(false);
+
+    const onSubmit = async (e) => {
+        if(text != ''){
+            e.preventDefault();
+            const currentDate = new Date();
+            const data = {
+                ngay: `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`,
+                gio: `${currentDate.getHours()}:${currentDate.getMinutes().toString().padStart(2, '0')}`,
+                noidung: text
+            }
+            console.log(data);
+            await Api.addFeedback(data);
+            setText('');
+            setShowDialog(true);
+        }
+    }
+
     return (
         <footer style={{ backgroundColor: "#0096FF", color: "white", marginTop: "80px", ...style }}>
             <div className="container pt-4 pb-5">
@@ -36,14 +58,22 @@ const Footer = (props) => {
                         <p>Vui lòng viết phản hồi của bạn phía dưới</p>
                         <div className="send-area col-10">
                             <form>
-                                <textarea rows="4" className="mb-4" required></textarea>
+                                <textarea rows="4" className="mb-4" required value={text}
+                                onChange={(e) =>  {setText(e.target.value)}}></textarea>
 
-                                <button className="btn btn-primary">Gửi</button>
+                                <button className="btn btn-primary"
+                                onClick={(e) => onSubmit(e)}>Gửi</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal show={showDialog} onHide={() => setShowDialog(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Thông báo</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Đã gửi thành công!</Modal.Body>
+            </Modal>
         </footer>
     )
 }
