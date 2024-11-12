@@ -16,19 +16,42 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if (formState.maThuoc && formState.tenThuoc && formState.soLuongNhap && formState.donGia && formState.donGiaNhap 
-      && formState.hanSuDung && formState.ngayNhap && formState.soLuongTonKho) {
+    if(!defaultValue) formState.soLuongTonKho = formState.soLuongNhap;
+    if (formState.maThuoc!="" && formState.tenThuoc!="" && formState.soLuongNhap!="" && formState.donGia!="" && formState.donGiaNhap!="" 
+      && formState.hanSuDung!="" && formState.ngayNhap!="" && (defaultValue? formState.soLuongTonKho!="" : true)) {
+        if(parseInt(formState.soLuongNhap) < parseInt(formState.soLuongTonKho)){
+          setErrors("Số lượng tồn kho không được lớn hơn số lượng nhập!");
+          return false;
+        }
         setErrors("");
-      return true;
+        return true;
     } else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
-        if (!value) {
-          errorFields.push(key);
+        if (value == "") {
+          switch (key){
+            case 'maThuoc': 
+              errorFields.push("Mã thuốc"); break;
+            case 'tenThuoc': 
+              errorFields.push("Tên thuốc"); break;
+            case 'soLuongNhap': 
+              errorFields.push("Số lượng nhập"); break;
+            case 'soLuongTonKho': 
+              errorFields.push("Số lượng tồn kho"); break; 
+            case 'donGiaNhap': 
+              errorFields.push("Đơn giá nhập"); break;
+            case 'donGia': 
+              errorFields.push("Đơn giá"); break;  
+            case 'hanSuDung': 
+              errorFields.push("Hạn sử dụng"); break;  
+            case 'ngayNhap': 
+              errorFields.push("Ngày nhập"); break; 
+            default: break;         
+          }
         }
       }
-      setErrors(errorFields.join(", "));
-      return true;
+      setErrors("Vui lòng nhập: " + errorFields.join(", "));
+      return false;
     }
   };
 
@@ -115,6 +138,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
               value={formState.ngayNhap}
             />
           </div>
+          {defaultValue &&
           <div className="form-group">
             <label htmlFor="soLuongTonKho">Số lượng tồn kho</label>
             <input
@@ -124,7 +148,8 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
               value={formState.soLuongTonKho}
             />
           </div>
-          {errors && <div className="error">{`Please include: ${errors}`}</div>}
+          }
+          {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
             Submit
           </button>

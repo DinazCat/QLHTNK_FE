@@ -5,38 +5,40 @@ import "slick-carousel/slick/slick-theme.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { FormVatTuThietBi } from '../components/FormVatTuThietBi';
 import { useEffect, useState, useContext } from 'react';
+import api from '../api/Api';
+
 const QuanLyTrangThietBi = (props) => { 
     const [modalOpen, setModalOpen] = useState(false);
-    const [vttb, setRows] = useState([
-        {
-            maVatTu: '001',
-            tenVatTu: 'Mắc cài',
-            soLuongNhap: '1000',
-            soLuongTonKho: '200',
-            donGiaNhap: '5000',
-            ngayNhap: '2022-10-03',
-        },
-        {
-            maVatTu: '002',
-            tenVatTu: 'Tay khoan',
-            soLuongNhap: '100',
-            soLuongTonKho: '88',
-            donGiaNhap: '100000',
-            ngayNhap: '2022-10-03',
-        },
-        {
-            maVatTu: '003',
-            tenVatTu: 'Máy cạo vôi',
-            soLuongNhap: '10',
-            soLuongTonKho: '10',
-            donGiaNhap: '500000',
-            ngayNhap: '2022-10-03',
-        },
-    ]);
+    const [materials, setMaterials] = useState([]);
     const [rowToEdit, setRowToEdit] = useState(null);
-    const [addMGG, setaddMGG] = useState(true);
+    const [searchCriteria, setSearchCriteria] = useState({
+        maVatTu: '',
+        tenVatTu: '',
+        slnDau: '',
+        slnCuoi: '',
+        sltkDau: '',
+        sltkCuoi: '',
+        giaDau: '',
+        giaCuoi: '',
+        ngayDau: '',
+        ngayCuoi: '',
+    })
+
+    useEffect(() => {
+        getMaterials();
+    }, []);
+
+    const getMaterials = async () => {
+        const materials = await api.getAllMaterials()
+        setMaterials(materials);
+    }
+
     const handleDeleteRow = (targetIndex) => {
-        setRows(vttb.filter((_, idx) => idx !== targetIndex));
+        const shouldDelete = window.confirm('Are you sure you want to delete this material?');
+        if (shouldDelete) {
+            setMaterials(materials.filter((_, idx) => idx !== targetIndex));
+            api.deleteMaterial(materials[targetIndex].Id);
+        } 
     };
 
     const handleEditRow = (idx) => {
@@ -44,28 +46,78 @@ const QuanLyTrangThietBi = (props) => {
         setModalOpen(true);
     };
 
-    const handleSubmit = (newRow) => {
-        rowToEdit === null
-        ? setRows([...vttb, newRow])
-        : setRows(
-            vttb.map((currRow, idx) => {
+    const handleSubmit = async (newRow) => {
+        console.log(newRow);  
+        if(rowToEdit == null){
+            const id = await api.addMaterial(newRow);
+            newRow.Id = id;
+            setMaterials([...materials, newRow]);
+        }
+        else {
+            api.updateMaterial(newRow, newRow.Id);
+            let updatedMaterials = materials.map((currRow, idx) => {
                 if (idx !== rowToEdit) return currRow;
-
                 return newRow;
             })
-            );
+            setMaterials(updatedMaterials);
+        }
     };
+
+    const handleChange = (e) => {
+        setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
+      };
+    
+    const onSearch = async () => {
+        console.log(searchCriteria)
+
+        const searchResults = await api.getMaterialsBySeacrh(searchCriteria);        
+        console.log(searchResults);
+        setMaterials(searchResults);
+    }
     return (
         <div >
             <div className="mb-3 mt-3">
-            <input className="block m-2 px-4 customBox" type="text" id="maThuoc" placeholder="Mã vật tư" name="maThuoc" />
-                    <input className="block m-2 px-4 customBox" type="text" id="tenThuoc" placeholder="Tên vật tư" name="tenThuoc" />
-                    <input className="block m-2 px-4 customBox" type="number" id="soLuongNhap" placeholder="Số lượng nhập" name="soLuongNhap" />
-                    <input className="block m-2 px-4 customBox" type="number" id="soLuongTonKho" placeholder="Số lượng tồn kho" name="soLuongTonKho" />
-                    <input className="block m-2 px-4 customBox" type="number" id="donGiaNhap" placeholder="Đơn giá nhập" name="donGiaNhap" />
-                    <input className="block m-2 px-4 customBox" type="date" id="ngayNhap" placeholder="" name="ngayNhap" />
+                <input className="block m-2 px-4 customBox" type="text" id="maVatTu" placeholder="Mã vật tư" name="maVatTu" 
+                onChange={handleChange}/>
+                <input className="block m-2 px-4 customBox" type="text" id="tenVatTu" placeholder="Tên vật tư" name="tenVatTu" 
+                onChange={handleChange}/>
+                <div>
+                <text>Số lượng nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="slnDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="slnCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Số lượng tồn kho:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="sltkDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="sltkCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Giá nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Ngày nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="date" name="ngayDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="date" name="ngayCuoi"
+                onChange={handleChange} />
+                </div> 
                 </div>
-                <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Tìm kiếm</button>
+                <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                onClick={onSearch}>
+                    Tìm kiếm
+                </button>
                 <button onClick={() => setModalOpen(true)} className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                 Thêm
             </button>
@@ -83,9 +135,9 @@ const QuanLyTrangThietBi = (props) => {
                         <th></th>
                     </tr>
                 </thead>
-                {vttb.map((row, idx) => {
+                {materials.map((row, idx) => {
                     return (
-                    <tr key={row}>
+                    <tr key={row.Id}>
                         <td>{row.maVatTu}</td>
                         <td>{row.tenVatTu}</td>
                         <td>{row.soLuongNhap}</td>
@@ -118,7 +170,7 @@ const QuanLyTrangThietBi = (props) => {
             setRowToEdit(null);
           }}
           onSubmit={handleSubmit}
-          defaultValue={rowToEdit !== null && vttb[rowToEdit]}
+          defaultValue={rowToEdit !== null && materials[rowToEdit]}
         />
       )}
         </div>

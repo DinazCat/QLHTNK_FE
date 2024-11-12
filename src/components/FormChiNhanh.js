@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const FormChiNhanh = ({ closeModal, onSubmit, defaultValue }) => {
+export const FormChiNhanh = ({ closeModal, onSubmit, defaultValue, branchs }) => {
   const [formState, setFormState] = useState(
     defaultValue || {
       maChiNhanh: "",
@@ -12,18 +12,35 @@ export const FormChiNhanh = ({ closeModal, onSubmit, defaultValue }) => {
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if (formState.maChiNhanh && formState.tenChiNhanh && formState.diaChi && formState.soLuongPhong) {
+    if (formState.maChiNhanh!="" && formState.tenChiNhanh!="" && formState.diaChi!="" && formState.soLuongPhong!="") {
+      const isIdExists = branchs.some(branch => branch.maChiNhanh == formState.maChiNhanh);
+      if(!defaultValue && isIdExists){
+        setErrors("Mã chi nhánh này đã tồn tại! Vui lòng nhập một mã chi nhánh khác.");
+        return false;
+      }
+      else {
         setErrors("");
-      return true;
+        return true;
+      }
     } else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
-        if (!value) {
-          errorFields.push(key);
+        if (value == "") {
+          switch (key){
+            case 'maChiNhanh': 
+              errorFields.push("Mã chi nhánh"); break;
+            case 'tenChiNhanh': 
+              errorFields.push("Tên chi nhánh"); break;
+            case 'soLuongPhong': 
+              errorFields.push("Số lượng phòng"); break;
+            case 'diaChi': 
+              errorFields.push("Địa chỉ"); break; 
+            default: break;         
+          }
         }
       }
-      setErrors(errorFields.join(", "));
-      return true;
+      setErrors("Vui lòng nhập: " + errorFields.join(", "));
+      return false;
     }
   };
 
@@ -84,7 +101,7 @@ export const FormChiNhanh = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           
-          {errors && <div className="error">{`Please include: ${errors}`}</div>}
+          {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
             Lưu
           </button>
