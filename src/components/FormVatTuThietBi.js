@@ -14,17 +14,37 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if (formState.maVatTu && formState.tenVatTu && formState.soLuongNhap && formState.soLuongTonKho && formState.donGiaNhap && formState.ngayNhap) {
-        setErrors("");
+    if(!defaultValue) formState.soLuongTonKho = formState.soLuongNhap;
+    if (formState.maVatTu!="" && formState.tenVatTu!="" && formState.soLuongNhap!="" && (defaultValue? formState.soLuongTonKho!="" : true) && formState.donGiaNhap!="" && formState.ngayNhap!="") {
+      if(parseInt(formState.soLuongNhap) < parseInt(formState.soLuongTonKho)){
+        setErrors("Số lượng tồn kho không được lớn hơn số lượng nhập!");
+        return false;
+      }
+      setErrors("");
       return true;
+
     } else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
-        if (!value) {
-          errorFields.push(key);
+        if (value == "") {
+          switch (key){
+            case 'maVatTu': 
+              errorFields.push("Mã vật tư"); break;
+            case 'tenVatTu': 
+              errorFields.push("Tên vật tư"); break;
+            case 'soLuongNhap': 
+              errorFields.push("Số lượng nhập"); break;
+            case 'soLuongTonKho': 
+              errorFields.push("Số lượng tồn kho"); break; 
+            case 'donGiaNhap': 
+              errorFields.push("Đơn giá nhập"); break; 
+            case 'ngayNhap': 
+              errorFields.push("Ngày nhập"); break; 
+            default: break;         
+          }
         }
       }
-      setErrors(errorFields.join(", "));
+      setErrors("Vui lòng nhập: " + errorFields.join(", "));
       return false;
     }
   };
@@ -68,7 +88,7 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           <div className="form-group">
-            <label for="soLuongNhap">Số lương nhập</label>
+            <label for="soLuongNhap">Số lượng nhập</label>
             <input
               name="soLuongNhap"
               onChange={handleChange}
@@ -76,6 +96,7 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
               value={formState.soLuongNhap}
             />
           </div>
+          {defaultValue &&
           <div className="form-group">
             <label for="soLuongTonKho">Số lương tồn kho</label>
             <input
@@ -85,6 +106,7 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
               value={formState.soLuongTonKho}
             />
           </div>
+          }
           <div className="form-group">
             <label for="donGiaNhap">Đơn giá nhập</label>
             <input
@@ -104,7 +126,7 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           
-          {errors && <div className="error">{`Please include: ${errors}`}</div>}
+          {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
             Lưu
           </button>

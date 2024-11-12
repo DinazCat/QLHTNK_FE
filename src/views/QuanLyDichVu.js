@@ -6,35 +6,34 @@ import "slick-carousel/slick/slick-theme.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { useEffect, useState, useContext } from 'react';
 import { FormDichVu } from '../components/FormDichVu';
+import api from '../api/Api';
+
 const QuanLyDichVu = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [dichvu,setRows] = useState([
-        {
-            maDichVu: '001',
-            tenDichVu: 'Niềng răng',
-            giaDichVu: '35000000',
-            baoHanh: 'Có',
-            coTraGop: 'Có',
-        },
-        {
-            maDichVu: '002',
-            tenDichVu: 'Nhổ răng',
-            giaDichVu: '1000000',
-            baoHanh: 'Có',
-            coTraGop: 'Không',
-        },
-        {
-            maDichVu: '003',
-            tenDichVu: 'Trám răng',
-            giaDichVu: '350000',
-            baoHanh: 'Có',
-            coTraGop: 'Không',
-        },
-    ]);
+    const [services, setServices] = useState([]);
     const [rowToEdit, setRowToEdit] = useState(null);
-    const [addMGG, setaddMGG] = useState(true);
+    const [searchCriteria, setSearchCriteria] = useState({
+        maDichVu: '',
+        tenDichVu: '',
+        loaiDichVu: '',
+        giaDau: '',
+        giaCuoi: '',
+    })
+    useEffect(() => {
+        getServices();
+    }, []);
+
+    const getServices = async () => {
+        const services = await api.getAllServices();
+        setServices(services);
+    }
+
     const handleDeleteRow = (targetIndex) => {
-        setRows(dichvu.filter((_, idx) => idx !== targetIndex));
+        const shouldDelete = window.confirm('Are you sure you want to delete this service?');
+        if (shouldDelete) {
+            setServices(services.filter((_, idx) => idx !== targetIndex));
+            api.deleteService(services[targetIndex].Id);
+        } 
     };
 
     const handleEditRow = (idx) => {
@@ -42,25 +41,54 @@ const QuanLyDichVu = (props) => {
         setModalOpen(true);
     };
 
-    const handleSubmit = (newRow) => {
-        rowToEdit === null
-        ? setRows([...dichvu, newRow])
-        : setRows(
-            dichvu.map((currRow, idx) => {
+    const handleSubmit = async (newRow) => {  
+        console.log(newRow);  
+        if(rowToEdit == null){
+            const id = await api.addService(newRow);
+            newRow.Id = id;
+            setServices([...services, newRow]);
+        }
+        else {
+            api.updateService(newRow, newRow.Id);
+            let updatedServices = services.map((currRow, idx) => {
                 if (idx !== rowToEdit) return currRow;
-
                 return newRow;
             })
-            );
+            setServices(updatedServices);
+        }
     };
+
+    const handleChange = (e) => {
+        setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
+      };
+    
+    const onSearch = async () => {
+        console.log(searchCriteria)
+
+        const searchResults = await api.getServicesBySeacrh(searchCriteria);        
+        console.log(searchResults);
+        setServices(searchResults);
+    }
     return (
         <div>
             <div className="mb-3 mt-3">
-                <input className="block m-2 px-4 customBox" type="text" id="maDichVu" placeholder="Nhập mã dịch vụ" name="maDichVu" />
-                <input className="block m-2 px-4 customBox" type="text" id="tenDichVu" placeholder="Nhập tên dịch vụ" name="tenDichVu" />
+                <input className="block m-2 px-4 customBox" type="text" id="maDichVu" placeholder="Nhập mã dịch vụ" name="maDichVu" value={searchCriteria.maDichVu}
+                onChange={handleChange} />
+                <input className="block m-2 px-4 customBox" type="text" id="tenDichVu" placeholder="Nhập tên dịch vụ" name="tenDichVu" value={searchCriteria.tenDichVu}
+                onChange={handleChange} />
+                <input className="block m-2 px-4 customBox" type="text" id="loaiDichVu" placeholder="Nhập loại dịch vụ" name="loaiDichVu" value={searchCriteria.loaiDichVu}
+                onChange={handleChange} />
+                <div>
+                <text>Đơn giá:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaDau" value={searchCriteria.giaDau}
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaCuoi" value={searchCriteria.giaCuoi}
+                onChange={handleChange} />
+                </div>              
             </div>
             <button
-                onClick={props.toggleShow}
+                onClick={onSearch}
                 className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
             >
                 Tìm kiếm
@@ -74,18 +102,20 @@ const QuanLyDichVu = (props) => {
                     <tr className="table-secondary">
                         <th>Mã dịch vụ</th>
                         <th>Tên dịch vụ</th>
-                        <th>Giá thành</th>
+                        <th>Loại dịch vụ</th>
+                        <th>Đơn giá</th>
                         <th>Bảo hành</th>
                         <th>Có trả góp hay không</th>
                         <th></th>
                     </tr>
                 </thead>
-                {dichvu.map((row, idx) => {
+                {services.map((row, idx) => {
                     
                     return (
-                    <tr key={row}>
+                    <tr key={row.Id}>
                         <td>{row.maDichVu}</td>
                         <td>{row.tenDichVu}</td>
+                        <td>{row.loaiDichVu}</td>
                         <td>{row.giaDichVu}</td>
                         <td>
                         {row.baoHanh}
@@ -119,7 +149,8 @@ const QuanLyDichVu = (props) => {
             setRowToEdit(null);
           }}
           onSubmit={handleSubmit}
-          defaultValue={rowToEdit !== null && dichvu[rowToEdit]}
+          defaultValue={rowToEdit !== null && services[rowToEdit]}
+          services={services}
         />
       )}
         </div>

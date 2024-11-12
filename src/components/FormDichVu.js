@@ -1,31 +1,51 @@
 import React, { useState } from "react";
 
-export const FormDichVu = ({ closeModal, onSubmit, defaultValue }) => {
+export const FormDichVu = ({ closeModal, onSubmit, defaultValue, services}) => {
   const [formState, setFormState] = useState(
     defaultValue || {
       maDichVu: "",
       tenDichVu: "",
+      loaiDichVu: "",
       giaDichVu: "",
-      baoHanh: "",
-      coTragop: "",
+      baoHanh: "Có",
+      coTraGop: "Có",
     }
   );
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if (formState.maDichVu && formState.tenDichVu && formState.giaDichVu ) {
+    if (formState.maDichVu != "" && formState.tenDichVu != "" && formState.loaiDichVu != "" && formState.giaDichVu != "") {
+      const isIdExists = services.some(service => service.maDichVu == formState.maDichVu);
+      if(!defaultValue && isIdExists){
+        setErrors("Mã dịch vụ này đã tồn tại! Vui lòng nhập một mã dịch vụ khác.");
+        return false;
+      }
+      else {
         setErrors("");
-      return true;
-    } else {
+        return true;
+      }
+    } 
+    else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
-        if (!value) {
-          errorFields.push(key);
+        if (value == "") {
+          switch (key){
+            case 'maDichVu': 
+              errorFields.push("Mã dịch vụ"); break;
+            case 'tenDichVu': 
+              errorFields.push("Tên dịch vụ"); break;
+            case 'loaiDichVu': 
+              errorFields.push("Loại dịch vụ"); break;
+            case 'giaDichVu': 
+              errorFields.push("Giá dịch vụ"); break; 
+            default: break;         
+          }
         }
       }
-      setErrors(errorFields.join(", "));
-      return true;
+      setErrors("Vui lòng nhập: " + errorFields.join(", "));
+      return false;
     }
+
   };
 
   const handleChange = (e) => {
@@ -67,6 +87,15 @@ export const FormDichVu = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           <div className="form-group">
+            <label for="loaiDichVu">Loại dịch vụ</label>
+            <input
+              name="loaiDichVu"
+              onChange={handleChange}
+              type="text"
+              value={formState.loaiDichVu}
+            />
+          </div>
+          <div className="form-group">
             <label for="giaDichVu">Giá dịch vụ</label>
             <input
               name="giaDichVu"
@@ -91,13 +120,13 @@ export const FormDichVu = ({ closeModal, onSubmit, defaultValue }) => {
             <select
               name="coTraGop"
               onChange={handleChange}
-              value={formState.coTragop}
+              value={formState.coTraGop}
             >
-              <option value="co">Có</option>
-              <option value="khong">Không</option>
+              <option value="Có">Có</option>
+              <option value="Không">Không</option>
             </select>
           </div>
-          {errors && <div className="error">{`Please include: ${errors}`}</div>}
+          {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
             Lưu
           </button>

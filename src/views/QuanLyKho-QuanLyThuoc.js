@@ -5,43 +5,44 @@ import { useEffect, useState, useContext } from 'react';
 import { FormThuoc } from '../components/FormThuoc';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import api from '../api/Api';
+
 const QuanLyThuoc = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [thuoc, setRows] = useState([
-        {
-            maThuoc: '001',
-            tenThuoc: 'Paracetamol ',
-            soLuongNhap: '400',
-            donGiaNhap: '15000',
-            donGia: '15000',
-            hanSuDung: '2025-10-20',
-            ngayNhap: '2022-10-20',
-            soLuongTonKho: '356',
-        },
-        {
-            maThuoc: '002',
-            tenThuoc: 'Prilocaine',
-            soLuongNhap: '400',
-            donGiaNhap: '15000',
-            donGia: '15000',
-            hanSuDung: '2025-10-20',
-            ngayNhap: '2023-10-20',
-            soLuongTonKho: '356',
-        },
-        {
-            maThuoc: '003',
-            tenThuoc: 'Alaxan  ',
-            soLuongNhap: '400',
-            donGiaNhap: '15000',
-            donGia: '15000',
-            hanSuDung: '2025-10-20',
-            ngayNhap: '2022-10-20',
-            soLuongTonKho: '356',
-        },
-    ]);
+    const [drugs, setDrugs] = useState([]);
     const [rowToEdit, setRowToEdit] = useState(null);
+    const [searchCriteria, setSearchCriteria] = useState({
+        maThuoc: '',
+        tenThuoc: '',
+        slnDau: '',
+        slnCuoi: '',
+        sltkDau: '',
+        sltkCuoi: '',
+        giaNhapDau: '',
+        giaNhapCuoi: '',
+        giaDau: '',
+        giaCuoi: '',
+        hsdDau: '',
+        hsdCuoi: '',
+        ngayDau: '',
+        ngayCuoi: '',
+    })
+
+    useEffect(() => {
+        getDrugs();
+    }, []);
+
+    const getDrugs = async () => {
+        const drugs = await api.getAllDrugs()
+        setDrugs(drugs);
+    }
+
     const handleDeleteRow = (targetIndex) => {
-        setRows(thuoc.filter((_, idx) => idx !== targetIndex));
+        const shouldDelete = window.confirm('Are you sure you want to delete this drug?');
+        if (shouldDelete) {
+            setDrugs(drugs.filter((_, idx) => idx !== targetIndex));
+            api.deleteDrug(drugs[targetIndex].Id);
+        } 
     };
 
     const handleEditRow = (idx) => {
@@ -49,31 +50,95 @@ const QuanLyThuoc = (props) => {
         setModalOpen(true);
     };
 
-    const handleSubmit = (newRow) => {
-        rowToEdit === null
-        ? setRows([...thuoc, newRow])
-        : setRows(
-            thuoc.map((currRow, idx) => {
+    const handleSubmit = async (newRow) => {
+        console.log(newRow);  
+        if(rowToEdit == null){
+            const id = await api.addDrug(newRow);
+            newRow.Id = id;
+            setDrugs([...drugs, newRow]);
+        }
+        else {
+            api.updateDrug(newRow, newRow.Id);
+            let updatedDrugs = drugs.map((currRow, idx) => {
                 if (idx !== rowToEdit) return currRow;
-
                 return newRow;
             })
-            );
+            setDrugs(updatedDrugs);
+        }
     };
+
+    const handleChange = (e) => {
+        setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
+      };
+    
+    const onSearch = async () => {
+        console.log(searchCriteria)
+
+        const searchResults = await api.getDrugsBySeacrh(searchCriteria);        
+        console.log(searchResults);
+        setDrugs(searchResults);
+    }
     return (
         <div >
-                <div className="mb-3 mt-3">
-                    <input className="block m-2 customBox" type="text" id="maThuoc" placeholder="Mã thuốc" name="maThuoc" />
-                    <input className="block m-2 customBox" type="text" id="tenThuoc" placeholder="Tên thuốc" name="tenThuoc" />
-                    <input className="block m-2 customBox" type="number" id="soLuongNhap" placeholder="Số lượng nhập" name="soLuongNhap" />
-                    <input className="block m-2 customBox" type="number" id="donGiaNhap" placeholder="Đơn giá nhập" name="donGiaNhap" />
-                    <input className="block m-2 customBox" type="number" id="donGia" placeholder="Đơn giá" name="donGia" />
-                    <input className="block m-2 customBox" type="date" id="hanSuDung" placeholder="" name="hanSuDung" />
-                    <input className="block m-2 customBox" type="date" id="ngayNhap" placeholder="" name="ngayNhap" />
-                    <input className="block m-2 customBox" type="number" id="soLuongTonKho" placeholder="Số lượng tồn kho" name="soLuongTonKho" />
-                </div>
-                <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Tìm kiếm</button>
-                <button onClick={() => setModalOpen(true)} className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+            <div className="mb-3 mt-3">
+                <input className="block m-2 customBox" type="text" id="maThuoc" placeholder="Mã thuốc" name="maThuoc" 
+                onChange={handleChange}/>
+                <input className="block m-2 customBox" type="text" id="tenThuoc" placeholder="Tên thuốc" name="tenThuoc" 
+                onChange={handleChange}/>
+                <div>
+                <text>Số lượng nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="slnDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="slnCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Số lượng tồn kho:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="sltkDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="sltkCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Giá nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaNhapDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaNhapCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>
+                <text>Đơn giá:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaCuoi"
+                onChange={handleChange} />
+                </div> 
+                <div>               
+                <text>Hạn sử dụng:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="date" name="hsdDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="date" name="hsdCuoi"
+                onChange={handleChange} />
+                </div>               
+                <div>               
+                <text>Ngày nhập:  Từ </text>
+                <input className="block m-2 px-4 customBox" type="date" name="ngayDau" 
+                onChange={handleChange} />
+                <text>đến</text>
+                <input className="block m-2 px-4 customBox" type="date" name="ngayCuoi"
+                onChange={handleChange} />
+                </div> 
+            </div>
+            <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+            onClick={onSearch}>
+                Tìm kiếm
+            </button>
+            <button onClick={() => setModalOpen(true)} className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                 Thêm
             </button>
 
@@ -86,25 +151,25 @@ const QuanLyThuoc = (props) => {
                         <th>Mã Thuốc</th>
                         <th>Tên thuốc</th>
                         <th>Số lượng nhập</th>
+                        <th>Số lượng tồn kho</th>
                         <th>Đơn giá nhập</th>
                         <th>Đơn giá</th>
                         <th>Hạn sử dụng</th>
                         <th>Ngày nhập</th>
-                        <th>Số lượng tồn kho</th>
                         <th></th>
                     </tr>
                 </thead>
-                {thuoc.map((row, idx) => {
+                {drugs.map((row, idx) => {
                     return (
-                    <tr key={row}>
+                    <tr key={row.Id}>
                         <td>{row.maThuoc}</td>
                         <td>{row.tenThuoc}</td>
                         <td>{row.soLuongNhap}</td>
+                        <td>{row.soLuongTonKho}</td>
                         <td>{row.donGiaNhap}</td>
                         <td>{row.donGia}</td>
                         <td>{row.hanSuDung}</td>
                         <td>{row.ngayNhap}</td>
-                        <td>{row.soLuongTonKho}</td>
                         <td className="fit">
                             <span className="actions">
                                 <BsFillTrashFill
@@ -131,7 +196,7 @@ const QuanLyThuoc = (props) => {
             setRowToEdit(null);
           }}
           onSubmit={handleSubmit}
-          defaultValue={rowToEdit !== null && thuoc[rowToEdit]}
+          defaultValue={rowToEdit !== null && drugs[rowToEdit]}
         />
       )}
         </div>
