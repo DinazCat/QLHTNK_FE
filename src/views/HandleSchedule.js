@@ -18,7 +18,7 @@ const HandleSchedule = () => {
             birthday: "14/11/2003",
             status: "incompleted",
             staff: "Huỳnh Ngọc Ý Nhi",
-            message: "Đã xử lý thành công",
+            message: "Liên lạc với tôi ngoài giờ hành chính",
             note: ""
         },
         {
