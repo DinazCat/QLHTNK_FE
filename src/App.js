@@ -16,6 +16,7 @@ import NotFoundPage from './views/NotFoundPage';
 import ServicesPage from './views/ServicesPage';
 import ContactPage from './views/ContactPage';
 import ForgetPassword from './views/ForgetPassword';
+
 function App() {
 
   return (
@@ -45,7 +46,7 @@ function App() {
           <ForgetPassword />
         </Route>
         <Route path="/manager">
-          <Manager/>
+          <Manager />
         </Route>
 
         <Route path="/" exact>
