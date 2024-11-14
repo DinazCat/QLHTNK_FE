@@ -35,7 +35,7 @@ const TopNav = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="nav-item">
+                <div className="nav-item" align="right">
                     <NavLink className="nav-link" to="/sign_in">Đăng nhập</NavLink>
                 </div>
                 <div className="nav-item d-none d-lg-block ms-5">
