@@ -184,7 +184,7 @@ const SignUpSchedule = () => {
                                     <div className="col-auto" style={{ cursor: "default" }}>
                                         <div className="mt-3 p-2" style={{ backgroundColor: item.TinhTrang === "Đã đặt" ? "#bfbfbf" : "#0096FF" }}>
                                             {item.GioBatDau} - {item.GioKetThuc}
-                                            {item.TinhTrang === "Trống" ? <span className="ms-1"><i class="fa-solid fa-xmark" onClick={() => deleteSchedule(item.MaLH)}></i></span> : null}
+                                            {item.TinhTrang === "Trống" ? <span className="ms-1"><i className="fa-solid fa-xmark" onClick={() => deleteSchedule(item.MaLH)}></i></span> : null}
                                         </div>
                                     </div>
                                 )

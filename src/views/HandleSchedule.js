@@ -57,11 +57,11 @@ const HandleSchedule = () => {
             <div className="row col-md-10 col-lg-8">
                 <div className="col-md-6 mb-3">
                     <div className="mb-2"><b>Thời gian</b></div>
-                    <input type="date" class="form-control pb-2 pt-2" id="birthday" name="birthday" />
+                    <input type="date" className="form-control pb-2 pt-2" id="birthday" name="birthday" />
                 </div>
                 <div className="col-md-6">
                     <div className="mb-2"><b>Chọn trạng thái</b></div>
-                    <select class="form-select pb-2 pt-2 mb-3" aria-label="Chọn trạng thái">
+                    <select className="form-select pb-2 pt-2 mb-3" aria-label="Chọn trạng thái">
                         <option selected value="all">Tất cả</option>
                         <option value="completed">Đã sắp lịch</option>
                         <option value="incompleted">Chưa sắp lịch</option>
@@ -69,10 +69,10 @@ const HandleSchedule = () => {
                     </select>
                 </div>
                 <div className="text-end">
-                    <button class="btn pb-2 pt-2 ps-3 pe-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>Xem</button>
+                    <button className="btn pb-2 pt-2 ps-3 pe-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>Xem</button>
                 </div>
             </div>
-            <div class="row">
+            <div className="row">
                 {sentSchedules.map((item, index) => {
                     return (
 
@@ -80,9 +80,9 @@ const HandleSchedule = () => {
 
                             <div className={`${item.TinhTrang === "Đã sắp lịch" ? "completed" : item.TinhTrang === "Chưa sắp lịch" ? "incompleted" : "other"} d-flex flex-row ps-3 pe-2 pt-1 pb-1`} style={{ width: "fit-content" }}>
                                 <div style={{ color: "#FFF" }}>{item.TinhTrang}</div>
-                                <div className="ms-2 dropdown">
-                                    <i class="fa-solid fa-ellipsis" style={{ color: "white" }}></i>
-                                    <div className="dropdownContent d-flex flex-column p-3" style={{ fontSize: "14px" }}>
+                                <div className="ms-2 popUp">
+                                    <i className="fa-solid fa-ellipsis" style={{ color: "white" }}></i>
+                                    <div className="popUpContent d-flex flex-column p-3" style={{ fontSize: "14px" }}>
                                         <div className="mb-2" style={{ color: "#FFF" }}>Mã nhân viên</div>
                                         <div className="mb-2 p-2" style={{ width: "160px", backgroundColor: "#D9D9D9", height: "40px", overflow: "auto" }}>{item.MaNV}</div>
                                         <div className="mb-2" style={{ color: "#FFF" }}>Tên nhân viên xử lý</div>
@@ -95,29 +95,29 @@ const HandleSchedule = () => {
                             </div>
                             <div style={{ backgroundColor: "#D9D9D9" }}>
                                 <div className="container">
-                                    <div class="mb-2 pt-2">Họ tên</div>
-                                    <div class="form-control pb-2 pt-2">{item.TenBN}
+                                    <div className="mb-2 pt-2">Họ tên</div>
+                                    <div className="form-control pb-2 pt-2">{item.TenBN}
                                     </div>
-                                    <div class="mb-2 pt-2">Email</div>
-                                    <div class="form-control pb-2 pt-2">{item.email}
+                                    <div className="mb-2 pt-2">Email</div>
+                                    <div className="form-control pb-2 pt-2">{item.email}
                                     </div>
 
 
-                                    <div class="mb-2 pt-2">Số điện thoại</div>
-                                    <div class="form-control pb-2 pt-2">{item.SDT}</div>
+                                    <div className="mb-2 pt-2">Số điện thoại</div>
+                                    <div className="form-control pb-2 pt-2">{item.SDT}</div>
 
 
-                                    <div class="mb-2 pt-2">Ngày sinh</div>
-                                    <div class="form-control pb-2 pt-2">{item.NgaySinh}</div>
+                                    <div className="mb-2 pt-2">Ngày sinh</div>
+                                    <div className="form-control pb-2 pt-2">{item.NgaySinh}</div>
 
 
-                                    <div class="mb-2 pt-2">Lời nhắn</div>
+                                    <div className="mb-2 pt-2">Lời nhắn</div>
                                     <div className="send-area" style={{ borderRadius: "5px", borderColor: "#D9D9D9" }}>
                                         <textarea rows="3" readOnly>{item.LoiNhan}</textarea>
                                     </div>
 
                                     <div className="text-end">
-                                        <button class="btn pb-2 pt-2 ps-3 pe-3 mb-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={() => setItemToEdit(index)}>
+                                        <button className="btn pb-2 pt-2 ps-3 pe-3 mb-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={() => setItemToEdit(index)}>
                                             {item.TinhTrang === "Đã sắp lịch" ? "Sửa" : "Xử lý"}
                                         </button>
                                     </div>

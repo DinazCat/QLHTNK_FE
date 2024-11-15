@@ -7,11 +7,77 @@ import Slider from "react-slick";
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer';
 const IntroductionPage = (props) => {
-    //move to SignUp page
+    //move to Bookin page
     const history = useHistory();
     const moveToBookingPage = () => {
         history.push("/booking")
     }
+
+    //fake service list
+
+    const serviceList = [
+        {
+            image: "/images/kham7.png",
+            name: "Tẩy trắng răng",
+            price: "200000-500000 đồng",
+            description: "Tẩy trắng răng là phương pháp dùng các hợp chất kết hợp với năng lượng ánh sáng sẽ tạo ra phản ứng oxy hóa cắt đứt các chuỗi phân tử màu các chuỗi phân tử màu trong ngà răng. Từ đó giúp răng trắng sáng hơn so với màu răng ban đầu mà không làm tổn hại bề mặt răng hay bất kỳ yếu tố nào trong răng."
+        },
+        {
+            image: "/images/kham7.png",
+            name: "Vệ sinh răng miệng",
+            price: "200000-500000 đồng",
+            description: "Vệ sinh răng miệng là quá trình loại bỏ cao răng hoặc mảng bám cứng trên bề mặt răng và dưới nướu. Cao răng được hình thành từ vi khuẩn ăn các mảnh"
+        },
+        {
+            image: "/images/kham7.png",
+            name: "Nhổ răng khôn",
+            price: "200000-500000 đồng",
+            description: "Nhổ răng khôn là kỹ thuật tương đối phức tạp đòi hỏi bác sĩ thực hiện phải có kỹ thuật và nhiều kinh nghiệm."
+        },
+        {
+            image: "/images/kham7.png",
+            name: "Cấy ghép implant",
+            price: "200000-500000 đồng",
+            description: "Cấy ghép Implant là giải pháp phục hồi răng bị mất hiệu quả nhất bởi không chỉ giúp khôi phục thẩm mỹ hàm răng, đảm bảo khả năng ăn nhai bình thường"
+        },
+        {
+            image: "/images/kham7.png",
+            name: "Niềng răng thẩm mỹ",
+            price: "200000-500000 đồng",
+            description: "Niềng răng là phương pháp sử dụng khí cụ chuyên dụng được gắn cố định hoặc tháo lắp trên răng để giúp dịch chuyển và sắp xếp răng về đúng vị trí."
+        },
+        {
+            image: "/images/kham7.png",
+            name: "Điều trị tủy",
+            price: "200000-500000 đồng",
+            description: "Trong cấu trúc răng, tủy răng đóng vai trò rất quan trọng là cung cấp dinh dưỡng nuôi sống và giúp răng luôn vững chắc, và khi tủy răng bị viêm"
+        }
+    ]
+
+    //fake doctor list
+    const doctorList = [
+        {
+            image: "/images/doctor1.jpg",//can add height but not recommend
+            fullName: "Nguyễn Văn A",
+            brach: "Quận 7, HCM",
+        },
+        {
+            image: "/images/doctor1.jpg",
+            fullName: "Nguyễn Thị Bé",
+            brach: "Quận 8, HCM",
+        },
+        {
+            image: "/images/doctor1.jpg",
+            fullName: "Nguyễn Văn A",
+            brach: "Quận 7, HCM",
+        },
+        {
+            image: "/images/doctor1.jpg",
+            fullName: "Nguyễn Thị Bé",
+            brach: "Quận 8, HCM",
+        }
+
+    ]
 
     //fake review list
     const reviewList = [
@@ -142,96 +208,43 @@ const IntroductionPage = (props) => {
             <section className="mt-5 container">
                 <h3 align="center">Các dịch vụ</h3>
                 <div className="row">
-                    <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5>Làm trắng răng</h5>
-                            <span className="truncation-text">Tẩy trắng răng là phương pháp dùng các hợp chất kết hợp với năng lượng ánh sáng sẽ tạo ra phản ứng oxy hóa cắt đứt các chuỗi phân tử màu các chuỗi phân tử màu trong ngà răng. Từ đó giúp răng trắng sáng hơn so với màu răng ban đầu mà không làm tổn hại bề mặt răng hay bất kỳ yếu tố nào trong răng.</span>
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-                    </div>
-                    <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5>Vệ snh răng miệng</h5>
-                            <span className="truncation-text">Vệ sinh răng miệng là quá trình loại bỏ cao răng hoặc mảng bám cứng trên bề mặt răng và dưới nướu. Cao răng được hình thành từ vi khuẩn ăn các mảnh....</span>
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-                    </div>
-                    <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5>Nhổ răng khôn</h5>
-                            <span className="truncation-text">Nhổ răng khôn là kỹ thuật tương đối phức tạp đòi hỏi bác sĩ thực hiện phải có kỹ thuật và nhiều kinh nghiệm.</span>
-
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-
-                    </div>
-                    <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5>Niềng răng thẩm mỹ</h5>
-                            <span className="truncation-text">Niềng răng là phương pháp sử dụng khí cụ chuyên dụng được gắn cố định hoặc tháo lắp trên răng để giúp dịch chuyển và sắp xếp răng về đúng vị trí....</span>
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-                    </div>
-                    <div class="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5>Cấy ghép implant</h5>
-                            <span className="truncation-text">Cấy ghép Implant là giải pháp phục hồi răng bị mất hiệu quả nhất bởi không chỉ giúp khôi phục thẩm mỹ hàm răng, đảm bảo khả năng ăn nhai bình thường, ....</span>
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-                    </div>
-                    <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
-                        <p>
-                            <h5 >Điều trị tủy</h5>
-                            <span className="truncation-text">Trong cấu trúc răng, tủy răng đóng vai trò rất quan trọng là cung cấp dinh dưỡng nuôi sống và giúp răng luôn vững chắc, và khi tủy răng bị viêm....</span>
-                        </p>
-                        <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
-                    </div>
+                    {serviceList.map((item, index) => {
+                        return (
+                            <div className="col-md-4 pe-5 px-5 pt-2 pb-4">
+                                <p>
+                                    <h5>{item.name}</h5>
+                                    <span className="truncation-text">{item.description}</span>
+                                </p>
+                                <NavLink to="/services" className="text-decoration-none">Xem thêm &rarr;</NavLink>
+                            </div>
+                        )
+                    })}
                 </div>
                 <h5 className="mt-2" align="center"><NavLink to="/services" className="text-decoration-none customLink" style={{ color: "#000" }}>Xem thêm &rarr;</NavLink></h5>
             </section>
-            <section class="container mt-5 mb-5">
+            <section className="container mt-5 mb-5">
                 <h4 align="center">Đội ngũ các chuyên gia nha sĩ</h4>
-                <div class="row">
-                    <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
-                        <p class="mt-3">
-                            Nguyễn Văn A<br />
-                            Chuyên khoa:<br />
-                            Chi nhánh:  Lâm Văn Bền, Quận 7, HCM
-                        </p>
+                <div className="row">
+                    {doctorList.map((item, index) => {
+                        return (
+                            <div className="col-sm-6 col-md-3 p-4">
+                                <img alt="" src={item.image} style={{ width: "100%" }} />
+                                <p className="mt-3">
+                                    {item.fullName}<br />
+                                    Chuyên khoa:<br />
+                                    Chi nhánh:  {item.brach}
+                                </p>
 
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
-                        <p class="mt-3">
-                            Nguyễn Văn A<br />
-                            Chuyên khoa:<br />
-                            Chi nhánh:  Lâm Văn Bền, Quận 7, HCM
-                        </p>
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
-                        <p class="mt-3">
-                            Nguyễn Văn A<br />
-                            Chuyên khoa:<br />
-                            Chi nhánh:  Lâm Văn Bền, Quận 7, HCM
-                        </p>
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-4">
-                        <img alt="" src="/images/doctor1.jpg" style={{ width: "100%" }} />
-                        <p class="mt-3">
-                            Nguyễn Văn A<br />
-                            Chuyên khoa:<br />
-                            Chi nhánh:  Lâm Văn Bền, Quận 7, HCM
-                        </p>
-                    </div>
+                            </div>
+                        )
+                    })}
                 </div>
                 <h5 className="mt-2" align="center"><NavLink to="/doctors" className="text-decoration-none customLink" style={{ color: "#000" }}>Xem thêm &rarr;</NavLink></h5>
             </section>
             <section className='container'>
                 <h3 align="center">Phản hồi của khách hàng</h3>
                 <p className='text-center'>Cảm ơn bạn đã tin tưởng chúng tôi</p>
-                <div class="container-fluid mt-4" align="center">
+                <div className="container-fluid mt-4" align="center">
                     <Slider {...settings}>
                         {reviewList.map((item, index) => {
                             return (

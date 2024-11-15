@@ -88,7 +88,7 @@ const XemThongTinNhanVien = (props) => {
           onChange={handleChange} />
 
         <text>Chức vụ: </text>
-        <select class="customBox" id="type" name="chucVu"
+        <select className="customBox" id="type" name="chucVu"
           onChange={handleChange}>
           {positions.map((item, index) => (
             <option key={index} value={item}>
@@ -97,7 +97,7 @@ const XemThongTinNhanVien = (props) => {
           ))}
         </select>
         <text style={{ marginLeft: 10 }}>Chi nhánh: </text>
-        <select class="customBox" id="type" name="chiNhanh"
+        <select className="customBox" id="type" name="chiNhanh"
           onChange={handleChange}>
           {branches.map((item, index) => (
             <option key={index} value={item.tenChiNhanh}>

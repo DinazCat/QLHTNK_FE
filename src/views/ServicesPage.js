@@ -4,9 +4,9 @@ import ReactPaginate from 'react-paginate';
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer';
 const ServicesPage = (props) => {
-    //fake list doctor
     const pageToRef = useRef(null);
 
+    //fake service list
     const serviceList = [
         {
             image: "/images/kham7.png",
@@ -50,11 +50,11 @@ const ServicesPage = (props) => {
             <TopNav />
             <header className="pt-4 pb-4" style={{ backgroundColor: "#0096FF", color: "#FFF" }}><h3 align="center">Dịch vụ</h3></header>
 
-            <section class="container mt-5 mb-5">
-                <div class="row" ref={pageToRef}>
+            <section className="container mt-5 mb-5">
+                <div className="row" ref={pageToRef}>
                     {currentDoctorList.map((item, index) => {
                         return (
-                            <div class="row">
+                            <div className="row">
                                 <div className="col-md-4 mt-2">
                                     <img alt="" src={item.image} style={{ width: "100%" }} />
                                 </div>
