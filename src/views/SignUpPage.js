@@ -3,6 +3,7 @@ import './style.css'
 import { NavLink } from "react-router-dom"
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
+import moment from 'moment'
 const SignUpPage = (props) => {
     return (
         <div>
@@ -18,7 +19,7 @@ const SignUpPage = (props) => {
 
                             </div>
                             <div class="mb-3 mt-3 col-10">
-                                <input type="date" class="form-control pb-3 pt-3" id="birthday" name="birthday" placeholder="Ngày sinh: " max="2020-11-22" required onInvalid={e => e.target.setCustomValidity('Mời bạn nhập ngày sinh')} onInput={e => e.target.setCustomValidity('')} />
+                                <input type="date" class="form-control pb-3 pt-3" id="birthday" name="birthday" placeholder="Ngày sinh: " max={moment().add(-4, "years").format('YYYY-MM-DD')} required onInvalid={e => e.target.setCustomValidity('Mời bạn nhập ngày sinh')} onInput={e => e.target.setCustomValidity('')} />
                             </div>
                             <div class="mb-3 mt-3 col-10">
                                 <input type="tel" class="form-control pb-3 pt-3" id="phone" name="phone" placeholder="Số điện thoại" required />

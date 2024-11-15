@@ -16,37 +16,37 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if(!defaultValue) formState.soLuongTonKho = formState.soLuongNhap;
-    if (formState.maThuoc!="" && formState.tenThuoc!="" && formState.soLuongNhap!="" && formState.donGia!="" && formState.donGiaNhap!="" 
-      && formState.hanSuDung!="" && formState.ngayNhap!="" && (defaultValue? formState.soLuongTonKho!="" : true)) {
-        if(parseInt(formState.soLuongNhap) < parseInt(formState.soLuongTonKho)){
-          setErrors("Số lượng tồn kho không được lớn hơn số lượng nhập!");
-          return false;
-        }
-        setErrors("");
-        return true;
+    if (!defaultValue) formState.soLuongTonKho = formState.soLuongNhap;
+    if (formState.maThuoc != "" && formState.tenThuoc != "" && formState.soLuongNhap != "" && formState.donGia != "" && formState.donGiaNhap != ""
+      && formState.hanSuDung != "" && formState.ngayNhap != "" && (defaultValue ? formState.soLuongTonKho != "" : true)) {
+      if (parseInt(formState.soLuongNhap) < parseInt(formState.soLuongTonKho)) {
+        setErrors("Số lượng tồn kho không được lớn hơn số lượng nhập!");
+        return false;
+      }
+      setErrors("");
+      return true;
     } else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
         if (value == "") {
-          switch (key){
-            case 'maThuoc': 
+          switch (key) {
+            case 'maThuoc':
               errorFields.push("Mã thuốc"); break;
-            case 'tenThuoc': 
+            case 'tenThuoc':
               errorFields.push("Tên thuốc"); break;
-            case 'soLuongNhap': 
+            case 'soLuongNhap':
               errorFields.push("Số lượng nhập"); break;
-            case 'soLuongTonKho': 
-              errorFields.push("Số lượng tồn kho"); break; 
-            case 'donGiaNhap': 
+            case 'soLuongTonKho':
+              errorFields.push("Số lượng tồn kho"); break;
+            case 'donGiaNhap':
               errorFields.push("Đơn giá nhập"); break;
-            case 'donGia': 
-              errorFields.push("Đơn giá"); break;  
-            case 'hanSuDung': 
-              errorFields.push("Hạn sử dụng"); break;  
-            case 'ngayNhap': 
-              errorFields.push("Ngày nhập"); break; 
-            default: break;         
+            case 'donGia':
+              errorFields.push("Đơn giá"); break;
+            case 'hanSuDung':
+              errorFields.push("Hạn sử dụng"); break;
+            case 'ngayNhap':
+              errorFields.push("Ngày nhập"); break;
+            default: break;
           }
         }
       }
@@ -80,9 +80,9 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
         <form>
           <div className="form-group">
             <label for="maThuoc">Mã thuốc</label>
-            <input name="maThuoc" 
-            onChange={handleChange} 
-            value={formState.maThuoc} />
+            <input name="maThuoc"
+              onChange={handleChange}
+              value={formState.maThuoc} />
           </div>
           <div className="form-group">
             <label for="tenThuoc">Tên thuốc</label>
@@ -139,15 +139,15 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           {defaultValue &&
-          <div className="form-group">
-            <label htmlFor="soLuongTonKho">Số lượng tồn kho</label>
-            <input
-              name="soLuongTonKho"
-              type="number"
-              onChange={handleChange}
-              value={formState.soLuongTonKho}
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="soLuongTonKho">Số lượng tồn kho</label>
+              <input
+                name="soLuongTonKho"
+                type="number"
+                onChange={handleChange}
+                value={formState.soLuongTonKho}
+              />
+            </div>
           }
           {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>

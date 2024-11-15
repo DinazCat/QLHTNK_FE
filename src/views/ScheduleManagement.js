@@ -7,6 +7,7 @@ import HandleSchedule from './HandleSchedule';
 import ScheduleDetail from './ScheduleDetail';
 import ScheduleList from './ScheduleList';
 import BookingSchedule from './BookingSchedule';
+import SignUpSchedule from './SignUpSchedule'
 const ScheduleManagement = (props) => {
   const { pathname } = useLocation();
   return (
@@ -43,7 +44,7 @@ const ScheduleManagement = (props) => {
               <ScheduleList />
             </Route>
             <Route path="/manager/schedule/signUpSchedule">
-              <BookingSchedule />
+              <SignUpSchedule />
             </Route>
             <Route path="/manager/schedule/bookingSchedule">
               <BookingSchedule />
