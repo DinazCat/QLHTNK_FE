@@ -38,13 +38,13 @@ const ScheduleList = () => {
         {
             MaNS: "NS001",
             TenNS: "Nguyễn Văn A",
-            HocVi: "Tiến sĩ sĩ",
+            HocVi: "Tiến sĩ",
             KinhNghiem: "6",
         },
         {
             MaNS: "NS003",
             TenNS: "Ngô Nguyễn Trường An",
-            HocVi: "Tiến sĩ sĩ",
+            HocVi: "Thạc sĩ",
             KinhNghiem: "3",
         }
     ]
@@ -55,6 +55,10 @@ const ScheduleList = () => {
         },
         {
             MaBN: "BN003",
+            TenBN: "Lê Trần Long",
+        },
+        {
+            MaBN: "BN004",
             TenBN: "Lê Trần Long",
         }
     ]
@@ -76,49 +80,49 @@ const ScheduleList = () => {
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Mã bệnh nhân</b></div>
                     <Select className="mb-2"
-                        value={searchCriteria.MaBN}
-                        onChange={(value) => setSearchCriteria({ ...searchCriteria, MaBN: value })}
+                        value={customers.find(item => item.MaBN === searchCriteria.MaBN) || ''}
+                        onChange={(value) => value !== null ? setSearchCriteria({ ...searchCriteria, MaBN: value.MaBN, TenBN: value.TenBN }) : setSearchCriteria({ ...searchCriteria, MaBN: "", TenBN: "" })}
                         options={customers}
                         isClearable
                         getOptionLabel={(item) => item.MaBN}
-                        getOptionValue={(item) => item.MaBN}
+                        getOptionValue={(item) => item}
                         placeholder=""
                     />
                 </div>
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Tên bệnh nhân</b></div>
                     <Select className="mb-2"
-                        value={searchCriteria.TenBN}
-                        onChange={(value) => setSearchCriteria({ ...searchCriteria, TenBN: value })}
+                        value={customers.find(item => item.MaBN === searchCriteria.MaBN) || ''}
+                        onChange={(value) => value !== null ? setSearchCriteria({ ...searchCriteria, MaBN: value.MaBN, TenBN: value.TenBN }) : setSearchCriteria({ ...searchCriteria, MaBN: "", TenBN: "" })}
                         options={customers}
                         isClearable
                         placeholder=""
                         getOptionLabel={(item) => item.TenBN}
-                        getOptionValue={(item) => item.TenBN}
+                        getOptionValue={(item) => item}
                     />
                 </div>
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Mã nha sĩ</b></div>
                     <Select className="mb-2"
-                        value={searchCriteria.MaNS}
+                        value={doctors.find(item => item.MaNS === searchCriteria.MaNS) || ''}
                         isClearable
-                        onChange={(value) => setSearchCriteria({ ...searchCriteria, MaNS: value })}
+                        onChange={(value) => value !== null ? setSearchCriteria({ ...searchCriteria, MaNS: value.MaNS, TenNS: value.TenNS }) : setSearchCriteria({ ...searchCriteria, MaNS: "", TenNS: "" })}
                         options={doctors}
                         placeholder=""
                         getOptionLabel={(item) => item.MaNS}
-                        getOptionValue={(item) => item.MaNS}
+                        getOptionValue={(item) => item}
                     />
                 </div>
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Tên nha sĩ</b></div>
                     <Select className="mb-2"
-                        value={searchCriteria.TenNS}
+                        value={doctors.find(item => item.MaNS === searchCriteria.MaNS) || ''}
                         isClearable
-                        onChange={(value) => setSearchCriteria({ ...searchCriteria, TenNS: value })}
+                        onChange={(value) => value !== null ? setSearchCriteria({ ...searchCriteria, MaNS: value.MaNS, TenNS: value.TenNS }) : setSearchCriteria({ ...searchCriteria, MaNS: "", TenNS: "" })}
                         options={doctors}
                         placeholder=""
                         getOptionLabel={(item) => item.TenNS}
-                        getOptionValue={(item) => item.TenNS}
+                        getOptionValue={(item) => item}
                     />
                 </div>
                 <div className="col-lg-4 col-md-6">
@@ -136,7 +140,7 @@ const ScheduleList = () => {
                 </div>
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Ngày hẹn</b></div>
-                    <input type="date" class="form-control pb-2 pt-2" onChange={(e) => { setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value }) }} />
+                    <input type="date" className="form-control pb-2 pt-2" onChange={(e) => { setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value }) }} />
                 </div>
                 <div className="text-end">
                     <button type="submit" className="btn pb-2 pt-2 mt-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
@@ -145,9 +149,9 @@ const ScheduleList = () => {
                 </div>
             </div>
 
-            <table class="table" >
+            <table className="table" >
                 <thead>
-                    <tr class="table-secondary">
+                    <tr className="table-secondary">
                         <th>Mã bệnh nhân</th>
                         <th>Tên bệnh nhân</th>
                         <th>Mã nha sĩ</th>

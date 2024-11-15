@@ -1,48 +1,126 @@
-import { Scheduler } from 'devextreme-react/scheduler';
+import Scheduler, { Resource, View } from 'devextreme-react/scheduler';
+import { useState } from 'react';
+import { ColorList } from "../constData/ColorList"
+import AppointmentToolTip from '../components/AppointmentToolTip';
 
-const data = [
+//fake doctors
+const doctors = [
     {
-        text: 'Khám bệnh với bác sĩ Tường',
-        startDate: new Date('2023-12-19T16:30:00.000Z'),
-        endDate: new Date('2023-12-19T18:30:00.000Z'),
+        MaNS: "NS001",
+        TenNS: "Nguyễn Văn A",
+        HocVi: "Tiến sĩ",
+        KinhNghiem: "6",
     },
     {
-        text: 'Khám bệnh với bác sĩ Đức',
-        startDate: new Date('2023-12-19T19:00:00.000Z'),
-        endDate: new Date('2023-12-19T20:00:00.000Z'),
-        allDay: true,
+        MaNS: "NS003",
+        TenNS: "Ngô Nguyễn Trường An",
+        HocVi: "Thạc sĩ",
+        KinhNghiem: "3",
+    }
+    ,
+    {
+        MaNS: "NS002",
+        TenNS: "Ngô A",
+        HocVi: "Tiến sĩ",
+        KinhNghiem: "5",
+    }
+]
+
+//fake schedule list 
+const schedules = [
+    {
+        MaLH: "LH001",
+        TenBN: "Lê Văn Dần",
+        MaBN: "BN001",
+        TenNS: "Nguyễn Văn A",
+        MaNS: "NS001",
+        NgayHen: '2023-12-23',
+        GioBatDau: '08:00',
+        GioKetThuc: '08:30',
+        DichVu: "Nhổ răng khôn",
+        GhiChu: "",
+        TinhTrang: "Đã đặt"
     },
     {
-        text: 'Khám bệnh với bác sĩ Tường',
-        startDate: new Date('2023-12-19T21:30:00.000Z'),
-        endDate: new Date('2023-12-19T22:30:00.000Z'),
+        MaLH: "LH002",
+        TenBN: "",
+        MaBN: "",
+        MaNS: "NS003",
+        TenNS: "Ngô Nguyễn Trường An",
+        NgayHen: '2023-12-20',
+        GioBatDau: '07:00',
+        GioKetThuc: '07:30',
+        DichVu: "Niềng răng",
+        GhiChu: "",
+        TinhTrang: "Trống"
     },
     {
-        text: 'Khám bệnh với bác sĩ Nga',
-        startDate: new Date('2023-12-19T17:00:00.000Z'),
-        endDate: new Date('2023-12-19T18:00:00.000Z'),
+        MaLH: "LH004",
+        TenBN: "",
+        MaBN: "",
+        TenNS: "Nguyễn Văn A",
+        MaNS: "NS001",
+        NgayHen: '2023-12-22',
+        GioBatDau: '09:00',
+        GioKetThuc: '09:30',
+        DichVu: "Nhổ răng khôn",
+        GhiChu: "",
+        TinhTrang: "Trống"
     },
     {
-        text: 'Khám bệnh với bác sĩ Nghĩa',
-        startDate: new Date('2023-12-19T19:00:00.000Z'),
-        endDate: new Date('2023-12-19T20:35:00.000Z'),
-    },
+        MaLH: "LH003",
+        TenBN: "Lê Văn Sơn",
+        MaBN: "BN002",
+        MaNS: "NS003",
+        TenNS: "Ngô Nguyễn Trường An",
+        NgayHen: '2023-12-22',
+        GioBatDau: '15:00',
+        GioKetThuc: '15:30',
+        DichVu: "Niềng răng",
+        GhiChu: "",
+        TinhTrang: "Đã đặt"
+    }
 ];
 
 const ScheduleDetail = () => {
+    //default views
     const views = ["day", "week", "agenda"]
+
+    //set color for each doctor 
+    const [colorDoctors, setColorDoctors] = useState(doctors.map((item, index) => { return { ...item, color: ColorList[index], id: item.MaNS, text: item.TenNS } }))//must set property id to change color
+
+    //set appointment for scheduler
+    const [appointment, setAppointment] = useState(schedules.filter(itm => itm.TinhTrang !== "Trống").map(item => { return { ...item, startDate: new Date(item.NgayHen + 'T' + item.GioBatDau + ':00.000Z'), endDate: new Date(item.NgayHen + 'T' + item.GioKetThuc + ':00.000Z'), text: item.DichVu } }))
+
     return (
         <div>
+            <div>
+
+            </div>
             <Scheduler
-                timeZone="America/Los_Angeles"
+                timeZone='Greenwich'
+                dataSource={colorDoctors.map(itm => ({
+                    ...appointment.find((item) => (item.MaNS === itm.MaNS)),
+                    ...itm
+                }))}
                 views={views}
-                dataSource={data}
                 showCurrentTimeIndicator={false}
+                defaultCurrentView='day'
                 startDayHour={7}
                 endDayHour={17}
-                defaultCurrentView='day'
-                cellDuration={30}
+                cellDuration={15}
+                editing={false}
+                showAllDayPanel={false}
+                style={{ minWidth: "400px" }}
+                onAppointmentDblClick={(e) => { e.cancel = true }}
+                appointmentTooltipComponent={AppointmentToolTip}
+
             >
+                <Resource
+                    dataSource={colorDoctors}
+                    fieldExpr="MaNS"
+                    label="Tên nha sĩ"
+                />
             </Scheduler>
         </div >
     )

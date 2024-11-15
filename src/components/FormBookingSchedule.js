@@ -59,34 +59,34 @@ export const FormBookingSchedule = ({ closeModal, onSubmit, defaultValue, schedu
                 <form>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Mã bệnh nhân</div>
                     <Select className="mb-2"
-                        value={formState.MaBN}
-                        onChange={(value) => setFormState({ ...formState, MaBN: value })}
+                        value={customers.find(item => item.MaBN === formState.MaBN) || ''}
+                        onChange={(value) => value !== null ? setFormState({ ...formState, MaBN: value.MaBN, TenBN: value.TenBN }) : setFormState({ ...formState, MaBN: "", TenBN: "" })}
                         options={customers}
                         isClearable
                         getOptionLabel={(item) => item.MaBN}
-                        getOptionValue={(item) => item.MaBN}
+                        getOptionValue={(item) => item}
                         placeholder=""
                     />
                     <div className="mb-2" style={{ fontWeight: "500" }}>Tên bệnh nhân</div>
                     <Select className="mb-2"
-                        value={formState.TenBN}
-                        onChange={(value) => setFormState({ ...formState, TenBN: value })}
+                        value={customers.find(item => item.MaBN === formState.MaBN) || ''}
+                        onChange={(value) => value !== null ? setFormState({ ...formState, MaBN: value.MaBN, TenBN: value.TenBN }) : setFormState({ ...formState, MaBN: "", TenBN: "" })}
                         options={customers}
                         isClearable
-                        placeholder=""
                         getOptionLabel={(item) => item.TenBN}
-                        getOptionValue={(item) => item.TenBN}
+                        getOptionValue={(item) => item}
+                        placeholder=""
                     />
                     <div className="mb-2" style={{ fontWeight: "500" }}>Mã nha sĩ</div>
-                    <div class="form-control pb-2 pt-2 mb-2">{formState.MaNS}</div>
+                    <div className="form-control pb-2 pt-2 mb-2">{formState.MaNS}</div>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Tên nha sĩ</div>
-                    <div class="form-control pb-2 pt-2 mb-2">{formState.TenNS}</div>
+                    <div className="form-control pb-2 pt-2 mb-2">{formState.TenNS}</div>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Ngày hẹn</div>
-                    <div class="form-control pb-2 pt-2 mb-2">{formState.NgayHen}</div>
+                    <div className="form-control pb-2 pt-2 mb-2">{formState.NgayHen}</div>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Giờ</div>
-                    <div class="form-control pb-2 pt-2 mb-2">{formState.GioBatDau} - {formState.GioKetThuc}</div>
+                    <div className="form-control pb-2 pt-2 mb-2">{formState.GioBatDau} - {formState.GioKetThuc}</div>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Dịch vụ</div>
-                    <div class="form-control pb-2 pt-2 mb-2">{formState.DichVu}</div>
+                    <div className="form-control pb-2 pt-2 mb-2">{formState.DichVu}</div>
                     <div className="mb-2" style={{ fontWeight: "500" }}>Ghi chú</div>
                     <div className="send-area mb-2" style={{ borderRadius: "5px", borderColor: "#D9D9D9" }}>
                         <textarea rows="3" id="GhiChu" name="GhiChu" onChange={handleChange}>{formState.GhiChu}</textarea>

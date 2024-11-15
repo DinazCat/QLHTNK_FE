@@ -56,11 +56,11 @@ export const FormHandleSchedule = ({ closeModal, onSubmit, defaultValue, sentSch
             <div className="col-sm-4 modal1" style={{ fontWeight: "500" }}>
                 <form>
                     <div className="mb-2">Mã nhân viên xử lý</div>
-                    <input type="text" class="form-control pb-2 pt-2 mb-2" id="MaNV" name="MaNV" value={formState.MaNV} onChange={handleChange} />
+                    <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaNV" name="MaNV" value={formState.MaNV} onChange={handleChange} />
                     <div className="mb-2">Tên nhân viên xử lý</div>
-                    <input type="text" class="form-control pb-2 pt-2 mb-2" id="TenNV" name="TenNV" value={formState.TenNV} onChange={handleChange} />
+                    <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenNV" name="TenNV" value={formState.TenNV} onChange={handleChange} />
                     <div className="mb-2">Chọn tình trạng</div>
-                    <select class="form-select pb-2 pt-2 mb-2" aria-label="Chọn tình trạng" id="TinhTrang" name="TinhTrang" onChange={handleChange} value={formState.TinhTrang}>
+                    <select className="form-select pb-2 pt-2 mb-2" aria-label="Chọn tình trạng" id="TinhTrang" name="TinhTrang" onChange={handleChange} value={formState.TinhTrang}>
                         <option value="Đã sắp lịch">Đã sắp lịch</option>
                         <option value="Chưa sắp lịch">Chưa sắp lịch</option>
                         <option value="Khác">Khác</option>

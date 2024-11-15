@@ -4,9 +4,10 @@ import ReactPaginate from 'react-paginate';
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer';
 const DoctorsPage = (props) => {
-    //fake list doctor
+
     const pageToRef = useRef(null);
 
+    //fake list doctor
     const doctorList = [
         {
             image: "/images/doctor1.jpg",//can add height but not recommend
@@ -93,13 +94,13 @@ const DoctorsPage = (props) => {
                 </div>
             </section>
 
-            <section class="container mt-5 mb-5">
-                <div class="row" ref={pageToRef}>
+            <section className="container mt-5 mb-5">
+                <div className="row" ref={pageToRef}>
                     {currentDoctorList.map((item, index) => {
                         return (
-                            <div class="col-sm-6 col-md-3 p-4">
+                            <div className="col-sm-6 col-md-3 p-4">
                                 <img src={item.image} alt="" style={{ width: "100%" }} />
-                                <p class="mt-3">
+                                <p className="mt-3">
                                     {item.fullName}<br />
                                     Chuyên khoa:<br />
                                     Chi nhánh:  {item.brach}

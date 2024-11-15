@@ -5,11 +5,11 @@
 }
 
 #topNav .nav-item>.active {
-    color: #0096FF !important;
+    color: #0095ff !important;
 }
 
 #topNav .nav-item>.nav-link:hover {
-    color: #0096FF !important;
+    color: #39adff !important;
 }
 
 .send-area {
@@ -135,7 +135,7 @@ input[type="date"]:not(.has-value):before {
 }
 
 #menu .nav-item .nav-link:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
 #menu .nav-link {
@@ -149,7 +149,7 @@ input[type="date"]:not(.has-value):before {
 }
 
 .customLink:hover {
-    color: #0096FF !important;
+    color: #39adff !important;
 }
 
 .headLine {
@@ -241,14 +241,13 @@ input[type="date"]:not(.has-value):before {
 }
 
 #schedule_tab .nav-item>.nav-link:hover {
-    background-color: #0096FF !important;
+    background-color: #39adff !important;
     color: white !important;
     font-size: 16px !important;
     font-weight: bold !important;
 }
 
 #schedule-tab .nav-link {
-    background-color: #0096FF !important;
     color: #D9D9D9;
     font-size: 16px;
 }
@@ -265,12 +264,12 @@ input[type="date"]:not(.has-value):before {
     background-color: #1E6AAB;
 }
 
-.dropdown {
+.popUp {
     position: relative;
     display: inline-block;
 }
 
-.dropdownContent {
+.popUpContent {
     position: absolute;
     left: 0;
     top: 20px;
@@ -281,7 +280,7 @@ input[type="date"]:not(.has-value):before {
     visibility: hidden;
 }
 
-.dropdown:hover .dropdownContent {
+.popUp:hover .popUpContent {
     visibility: visible;
 }
 
@@ -354,4 +353,77 @@ input[type="date"]:not(.has-value):before {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgb(51, 117, 164)
+}
+
+
+.dropdown-item {
+    display: inline-block !important;
+    margin-right: 20px !important;
+}
+
+#stickyTop {
+    z-index: 0 !important;
+}
+
+/* image user*/
+.upload {
+    width: 120px;
+    position: relative;
+    margin: auto;
+}
+
+
+.upload img {
+    border-radius: 50%;
+    border: 6px solid #eaeaea;
+}
+
+.upload .round {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #00B4FF;
+    width: 32px;
+    height: 32px;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.upload .round input[type="file"] {
+    position: absolute;
+    transform: scale(2);
+    opacity: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+/* custom schedule in calendar*/
+.dx-scheduler-time-panel-cell>div {
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+.dx-scheduler-appointment-content-date {
+    font-size: 13px !important;
+}
+
+.dx-scheduler-appointment-title {
+    font-size: 17px !important;
+}
+
+.dx-scheduler-appointment:hover {
+    filter: brightness(0.94) !important;
+}
+
+
+.dx-popup-content.dx-popup-content-scrollable {
+    pointer-events: none !important;
+}
+
+.dx-scheduler-appointment-resource-list {
+    display: none !important;
 }
