@@ -287,15 +287,15 @@ input[type="date"]:not(.has-value):before {
 
 .datepicker-wrp {
     position: relative;
-    width: 130px;
+    width: 135px;
 }
 
 .btn-wrp {
-    border-bottom: 1px solid #007cd4;
+    border-bottom: 2px solid #007cd4;
     display: inline-block;
     width: 100%;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 
 .btn-clck {
@@ -304,6 +304,8 @@ input[type="date"]:not(.has-value):before {
     width: 100%;
     padding: 10px;
     outline: none;
+    color: #007cd4;
+    font-weight: bold;
 }
 
 .btn-clck::-webkit-calendar-picker-indicator {
@@ -332,4 +334,24 @@ input[type="date"]:not(.has-value):before {
     position: absolute;
     right: 0;
     top: 0;
+}
+
+/* custom scrollbar*/
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #83a7c5;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(51, 117, 164)
 }

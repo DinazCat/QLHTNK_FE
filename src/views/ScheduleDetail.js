@@ -39,7 +39,7 @@ const ScheduleDetail = () => {
                 dataSource={data}
                 showCurrentTimeIndicator={false}
                 startDayHour={7}
-                endDayHour={19}
+                endDayHour={17}
                 defaultCurrentView='day'
                 cellDuration={30}
             >

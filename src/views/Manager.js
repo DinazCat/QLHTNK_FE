@@ -2,7 +2,6 @@ import React from 'react'
 import './style.css'
 import { NavLink, useLocation, Switch, Route, Redirect } from "react-router-dom";
 import BaoCao from './BaoCao';
-import QuanLyLichHen from './QuanLyLichHen';
 import QuanLyNhanVien from './QuanLyNhanVien';
 import QuanLyMaGiamGia from './QuanLyMaGiamGia';
 import QuanLyDichVu from './QuanLyDichVu';
@@ -11,7 +10,9 @@ import QuanLyKho from './QuanLyKho';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 import QuanLyDanhGia from './QuanLyDanhGia';
-import ScheduleManagement from './ScheduleManager';
+import ScheduleManagement from './ScheduleManagement';
+import PatientManagement from './PatientManagement';
+import BillManagement from './BillManagement';
 const Manager = (props) => {
     const { pathname } = useLocation();
     return (
@@ -33,7 +34,7 @@ const Manager = (props) => {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item mb-2">
-                                    <NavLink to="/manager/quanlybenhnhan" className="nav-link">
+                                    <NavLink to="/manager/patient" className="nav-link">
                                         <img src="/images/quanlybenhnhan_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Quản lý bệnh nhân</span>
                                     </NavLink>
                                 </li>
@@ -48,12 +49,7 @@ const Manager = (props) => {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item mb-2">
-                                    <NavLink to="/manager/themtoathuoc" className="nav-link">
-                                        <img src="/images/themtoathuoc_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Thêm toa thuốc</span>
-                                    </NavLink>
-                                </li>
-                                <li className="nav-item mb-2">
-                                    <NavLink to="/manager/quanlyhoadon" className="nav-link">
+                                    <NavLink to="/manager/bill" className="nav-link">
                                         <img src="/images/qlyhoadon_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Quản lý hoá đơn</span>
                                     </NavLink>
                                 </li>
@@ -88,8 +84,8 @@ const Manager = (props) => {
                             <Route path="/manager/schedule">
                                 <ScheduleManagement />
                             </Route>
-                            <Route path="/manager/quanlybenhnhan">
-                                <QuanLyLichHen />
+                            <Route path="/manager/patient">
+                                <PatientManagement />
                             </Route>
                             <Route path="/manager/quanlynhanvien">
                                 <QuanLyNhanVien />
@@ -100,11 +96,8 @@ const Manager = (props) => {
                             <Route path="/manager/quanlykho">
                                 <QuanLyKho />
                             </Route>
-                            <Route path="/manager/themtoathuoc">
-                                <QuanLyLichHen />
-                            </Route>
-                            <Route path="/manager/quanlyhoadon">
-                                <QuanLyLichHen />
+                            <Route path="/manager/bill">
+                                <BillManagement />
                             </Route>
                             <Route path="/manager/quanlydichvu">
                                 <QuanLyDichVu />
