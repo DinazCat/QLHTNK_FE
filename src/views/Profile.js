@@ -2,7 +2,7 @@ import moment from "moment"
 import TopNav from "../components/TopNav"
 import Footer from "../components/Footer"
 
-const ChangeProfile = () => {
+const Profile = () => {
     return (
         <div>
             <TopNav />
@@ -92,4 +92,4 @@ const ChangeProfile = () => {
         </div >
     )
 }
-export default ChangeProfile
+export default Profile

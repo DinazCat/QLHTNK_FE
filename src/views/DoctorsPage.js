@@ -73,9 +73,8 @@ const DoctorsPage = (props) => {
     const totalPages = Math.ceil(doctorList.length / doctorPerPage);
 
     const handlePageClick = (event) => {
-
         setStartOffset((event.selected * doctorPerPage) % doctorList.length)
-        pageToRef.current.scrollIntoView();;
+        pageToRef.current.scrollIntoView();
     }
 
     return (
@@ -117,7 +116,6 @@ const DoctorsPage = (props) => {
                         marginPagesDisplayed={1} //1 left neighbor and 1 right neighbor
                         pageCount={totalPages}//totalPage
                         previousLabel="<"
-
                         pageClassName="page-item"
                         pageLinkClassName="page-link"
                         previousClassName="page-item"
@@ -128,7 +126,6 @@ const DoctorsPage = (props) => {
                         breakLinkClassName="page-link"
                         containerClassName="pagination justify-content-center"
                         activeClassName="active"
-
                     />
                 </div>
 

@@ -13,6 +13,7 @@ import QuanLyDanhGia from './QuanLyDanhGia';
 import ScheduleManagement from './ScheduleManagement';
 import PatientManagement from './PatientManagement';
 import BillManagement from './BillManagement';
+import MaterialUsed from './MaterialUsed';
 const Manager = (props) => {
     const { pathname } = useLocation();
     return (
@@ -38,6 +39,12 @@ const Manager = (props) => {
                                         <img src="/images/quanlybenhnhan_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Quản lý bệnh nhân</span>
                                     </NavLink>
                                 </li>
+                                <li className="nav-item mb-2">
+                                    <NavLink to="/manager/deviceUsed" className="nav-link">
+                                        <img src="/images/ghilaivattuthietbi_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Thiết bị sử dụng</span>
+                                    </NavLink>
+                                </li>
+
                                 <li className="nav-item mb-2">
                                     <NavLink to="/manager/baocao" className="nav-link">
                                         <img src="/images/xembaocao_48px.png" alt="" /> <span className="ms-1 d-none d-sm-inline">Báo cáo, thống kê</span>
@@ -110,6 +117,9 @@ const Manager = (props) => {
                             </Route>
                             <Route path="/manager/quanlydanhgia" >
                                 <QuanLyDanhGia />
+                            </Route>
+                            <Route path="/manager/deviceUsed" >
+                                <MaterialUsed />
                             </Route>
 
                             {pathname === "/manager" ? <Redirect to="/manager/schedule" /> : null}

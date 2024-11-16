@@ -16,7 +16,7 @@ import NotFoundPage from './views/NotFoundPage';
 import ServicesPage from './views/ServicesPage';
 import ContactPage from './views/ContactPage';
 import ForgetPassword from './views/ForgetPassword';
-import ChangeProfile from './views/ChangeProfile';
+import Profile from './views/Profile';
 
 function App() {
 
@@ -46,8 +46,8 @@ function App() {
         <Route path="/forgetpassword">
           <ForgetPassword />
         </Route>
-        <Route path="/changeProfile">
-          <ChangeProfile />
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Route path="/manager">
           <Manager />
