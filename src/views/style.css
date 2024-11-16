@@ -419,11 +419,41 @@ input[type=file]::-webkit-file-upload-button {
     filter: brightness(0.94) !important;
 }
 
-
 .dx-popup-content.dx-popup-content-scrollable {
     pointer-events: none !important;
 }
 
 .dx-scheduler-appointment-resource-list {
     display: none !important;
+}
+
+.dx-scheduler-header-panel-cell-date {
+    margin-top: 5px !important;
+}
+
+.wordWrap {
+    word-wrap: break-word;
+    /* IE 5.5-7 */
+    white-space: -moz-pre-wrap;
+    /* Firefox 1.0-2.0 */
+    white-space: pre-wrap;
+    /* current browsers */
+}
+
+.next_prevBtn_disabled {
+    font-size: 35px;
+    color: #007cd4;
+    filter: brightness(0.94);
+    cursor: not-allowed
+}
+
+.next_prevBtn {
+    font-size: 35px;
+    color: #007cd4;
+}
+
+.signature {
+    font-size: 19px !important;
+    border: none !important;
+    box-shadow: none !important;
 }

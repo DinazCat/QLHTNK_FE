@@ -43,7 +43,7 @@ const TopNav = () => {
                         <img src="/images/ava.png" alt="hugenerd" width="40" height="40" style={{ borderRadius: "50%" }} />
                     </button>
                     <ul className="dropdown-menu dropdown-menu-dark text-small shadow" style={{ backgroundColor: "#007cd4" }} aria-labelledby="dropdownUser1">
-                        <li><Link className="dropdown-item" to="/changeProfile">Hồ sơ</Link></li>
+                        <li><Link className="dropdown-item" to="/profile">Hồ sơ</Link></li>
                         <hr className="dropdown-divider" />
                         <li><button className="dropdown-item">Đăng xuất</button></li>
                     </ul>

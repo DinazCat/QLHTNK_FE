@@ -52,14 +52,29 @@ const ScheduleList = () => {
         {
             MaBN: "BN001",
             TenBN: "Lê Văn Dần",
+            CCCD: "066303007350",
+            GioiTinh: "Nam",
+            NgaySinh: "2023-11-14",
+            SDT: "0843593598",
+            DiaChi: "149/3 Ama Khê"
         },
         {
             MaBN: "BN003",
             TenBN: "Lê Trần Long",
+            CCCD: "066303007350",
+            GioiTinh: "Nam",
+            NgaySinh: "2023-11-14",
+            SDT: "0843593598",
+            DiaChi: "149/3 Ama Khê"
         },
         {
             MaBN: "BN004",
             TenBN: "Lê Trần Long",
+            CCCD: "066303007350",
+            GioiTinh: "Nam",
+            NgaySinh: "2023-11-14",
+            SDT: "0843593598",
+            DiaChi: "149/3 Ama Khê"
         }
     ]
     const [searchCriteria, setSearchCriteria] = useState({
@@ -140,7 +155,7 @@ const ScheduleList = () => {
                 </div>
                 <div className="col-lg-4 col-md-6">
                     <div className="mb-2"><b>Ngày hẹn</b></div>
-                    <input type="date" className="form-control pb-2 pt-2" onChange={(e) => { setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value }) }} />
+                    <input type="date" className="form-control pb-2 pt-2" id="NgayHen" name="NgayHen" onChange={(e) => { setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value }) }} />
                 </div>
                 <div className="text-end">
                     <button type="submit" className="btn pb-2 pt-2 mt-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
