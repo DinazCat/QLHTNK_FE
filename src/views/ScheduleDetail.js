@@ -59,26 +59,26 @@ const schedules = [
     },
     {
         MaLH: "LH004",
-        TenBN: "",
-        MaBN: "",
+        TenBN: "Lê Văn Dần",
+        MaBN: "BN001",
         TenNS: "Nguyễn Văn A",
         MaNS: "NS001",
         NgayHen: '2023-12-22',
-        GioBatDau: '09:00',
-        GioKetThuc: '09:30',
+        GioBatDau: '14:00',
+        GioKetThuc: '14:30',
         DichVu: "Nhổ răng khôn",
         GhiChu: "",
-        TinhTrang: "Trống"
+        TinhTrang: "Đã đặt"
     },
     {
-        MaLH: "LH003",
+        MaLH: "LH005",
         TenBN: "Lê Văn Sơn",
         MaBN: "BN002",
         MaNS: "NS003",
         TenNS: "Ngô Nguyễn Trường An",
         NgayHen: '2023-12-22',
-        GioBatDau: '15:00',
-        GioKetThuc: '15:30',
+        GioBatDau: '14:00',
+        GioKetThuc: '14:30',
         DichVu: "Niềng răng",
         GhiChu: "Liên lạc sau giờ hành chính",
         TinhTrang: "Đã đặt"
@@ -92,14 +92,13 @@ const ScheduleDetail = () => {
     locale('vi');
     loadMessages(viMessages);
 
-    const [MaBS, setMaBS] = useState("");
+    const [MaNS, setMaNS] = useState("");
 
     //set color for each doctor 
     const [colorDoctors, setColorDoctors] = useState(doctors.map((item, index) => { return { ...item, color: ColorList[index], id: item.MaNS, text: item.TenNS } }))//must set property id to change color
 
     //set appointment for scheduler
     const [appointment, setAppointment] = useState(schedules.filter(itm => itm.TinhTrang === "Đã đặt").map(item => { return { ...item, startDate: new Date(item.NgayHen + 'T' + item.GioBatDau + ':00.000Z'), endDate: new Date(item.NgayHen + 'T' + item.GioKetThuc + ':00.000Z'), text: item.DichVu } }))
-
     //set today button
     const schedulerRef = useRef();
     const moveToToday = () => {
@@ -107,6 +106,7 @@ const ScheduleDetail = () => {
         const container = document.createElement("div");
         schedulerRef.current.instance.option("currentDate", new Date());
     }
+
 
     return (
         <div>
@@ -118,8 +118,8 @@ const ScheduleDetail = () => {
                 </div>
                 <div className='col-lg-6 col-md mb-2'>
                     <Select
-                        value={MaBS}
-                        onChange={(value) => setMaBS(value)}
+                        value={MaNS}
+                        onChange={(value) => setMaNS(value)}
                         options={colorDoctors}
                         isClearable
                         getOptionLabel={(item) => item.MaNS}
@@ -131,9 +131,9 @@ const ScheduleDetail = () => {
             <Scheduler
                 ref={schedulerRef}
                 timeZone='Greenwich'
-                dataSource={colorDoctors.map(itm => ({
-                    ...appointment.find((item) => (item.MaNS === itm.MaNS)),
-                    ...itm
+                dataSource={appointment.map(itm => ({
+                    ...colorDoctors.find((item) => (item.MaNS === itm.MaNS)),
+                    ...itm, id: itm.MaLH
                 }))}
                 views={views}
                 showCurrentTimeIndicator={false}
@@ -147,7 +147,6 @@ const ScheduleDetail = () => {
                 onAppointmentDblClick={(e) => { e.cancel = true }}
                 appointmentTooltipComponent={AppointmentToolTip}
                 height={600}
-
             >
                 <Resource
                     dataSource={colorDoctors}

@@ -42,7 +42,7 @@ const QuanLyThuoc = (props) => {
         if (shouldDelete) {
             setDrugs(drugs.filter((_, idx) => idx !== targetIndex));
             api.deleteDrug(drugs[targetIndex].Id);
-        } 
+        }
     };
 
     const handleEditRow = (idx) => {
@@ -51,8 +51,8 @@ const QuanLyThuoc = (props) => {
     };
 
     const handleSubmit = async (newRow) => {
-        console.log(newRow);  
-        if(rowToEdit == null){
+        console.log(newRow);
+        if (rowToEdit == null) {
             const id = await api.addDrug(newRow);
             newRow.Id = id;
             setDrugs([...drugs, newRow]);
@@ -69,73 +69,73 @@ const QuanLyThuoc = (props) => {
 
     const handleChange = (e) => {
         setSearchCriteria({ ...searchCriteria, [e.target.name]: e.target.value });
-      };
-    
+    };
+
     const onSearch = async () => {
         console.log(searchCriteria)
 
-        const searchResults = await api.getDrugsBySeacrh(searchCriteria);        
+        const searchResults = await api.getDrugsBySeacrh(searchCriteria);
         console.log(searchResults);
         setDrugs(searchResults);
     }
     return (
         <div >
             <div className="mb-3 mt-3">
-                <input className="block m-2 customBox" type="text" id="maThuoc" placeholder="Mã thuốc" name="maThuoc" 
-                onChange={handleChange}/>
-                <input className="block m-2 customBox" type="text" id="tenThuoc" placeholder="Tên thuốc" name="tenThuoc" 
-                onChange={handleChange}/>
+                <input className="block m-2 customBox" type="text" id="maThuoc" placeholder="Mã thuốc" name="maThuoc"
+                    onChange={handleChange} />
+                <input className="block m-2 customBox" type="text" id="tenThuoc" placeholder="Tên thuốc" name="tenThuoc"
+                    onChange={handleChange} />
                 <div>
-                <text>Số lượng nhập:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="slnDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="slnCuoi"
-                onChange={handleChange} />
-                </div> 
+                    <text>Số lượng nhập:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="slnDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="slnCuoi"
+                        onChange={handleChange} />
+                </div>
                 <div>
-                <text>Số lượng tồn kho:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="sltkDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="sltkCuoi"
-                onChange={handleChange} />
-                </div> 
+                    <text>Số lượng tồn kho:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="sltkDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="sltkCuoi"
+                        onChange={handleChange} />
+                </div>
                 <div>
-                <text>Giá nhập:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaNhapDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaNhapCuoi"
-                onChange={handleChange} />
-                </div> 
+                    <text>Giá nhập:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaNhapDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaNhapCuoi"
+                        onChange={handleChange} />
+                </div>
                 <div>
-                <text>Đơn giá:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaCuoi"
-                onChange={handleChange} />
-                </div> 
-                <div>               
-                <text>Hạn sử dụng:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="date" name="hsdDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="date" name="hsdCuoi"
-                onChange={handleChange} />
-                </div>               
-                <div>               
-                <text>Ngày nhập:  Từ </text>
-                <input className="block m-2 px-4 customBox" type="date" name="ngayDau" 
-                onChange={handleChange} />
-                <text>đến</text>
-                <input className="block m-2 px-4 customBox" type="date" name="ngayCuoi"
-                onChange={handleChange} />
-                </div> 
+                    <text>Đơn giá:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="0" name="giaDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="number" placeholder="1000000000" name="giaCuoi"
+                        onChange={handleChange} />
+                </div>
+                <div>
+                    <text>Hạn sử dụng:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="date" name="hsdDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="date" name="hsdCuoi"
+                        onChange={handleChange} />
+                </div>
+                <div>
+                    <text>Ngày nhập:  Từ </text>
+                    <input className="block m-2 px-4 customBox" type="date" name="ngayDau"
+                        onChange={handleChange} />
+                    <text>đến</text>
+                    <input className="block m-2 px-4 customBox" type="date" name="ngayCuoi"
+                        onChange={handleChange} />
+                </div>
             </div>
             <button type="submit" className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-            onClick={onSearch}>
+                onClick={onSearch}>
                 Tìm kiếm
             </button>
             <button onClick={() => setModalOpen(true)} className="bluecolor block m-2 bg-0096FF hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
@@ -143,7 +143,7 @@ const QuanLyThuoc = (props) => {
             </button>
 
             <h1 className="noteVND">**Nếu thuốc dạng viên đơn vị tính là viên, còn lại hộp</h1>
-            <br/>
+            <br />
             <h1 className="noteVND">**Tính theo đơn vị VNĐ</h1>
             <table className="table" >
                 <thead>
@@ -161,44 +161,44 @@ const QuanLyThuoc = (props) => {
                 </thead>
                 {drugs.map((row, idx) => {
                     return (
-                    <tr key={row.Id}>
-                        <td>{row.maThuoc}</td>
-                        <td>{row.tenThuoc}</td>
-                        <td>{row.soLuongNhap}</td>
-                        <td>{row.soLuongTonKho}</td>
-                        <td>{row.donGiaNhap}</td>
-                        <td>{row.donGia}</td>
-                        <td>{row.hanSuDung}</td>
-                        <td>{row.ngayNhap}</td>
-                        <td className="fit">
-                            <span className="actions">
-                                <BsFillTrashFill
-                                className="delete-btn"
-                                onClick={() => handleDeleteRow(idx)}
-                                />
-                                <BsFillPencilFill
-                                className="edit-btn"
-                                onClick={() => handleEditRow(idx)}
-                                />
-                            </span>
-                        </td>
-                    </tr>
+                        <tr key={row.Id}>
+                            <td>{row.maThuoc}</td>
+                            <td>{row.tenThuoc}</td>
+                            <td>{row.soLuongNhap}</td>
+                            <td>{row.soLuongTonKho}</td>
+                            <td>{row.donGiaNhap}</td>
+                            <td>{row.donGia}</td>
+                            <td>{row.hanSuDung}</td>
+                            <td>{row.ngayNhap}</td>
+                            <td className="fit">
+                                <span className="actions">
+                                    <BsFillTrashFill
+                                        className="delete-btn"
+                                        onClick={() => handleDeleteRow(idx)}
+                                    />
+                                    <BsFillPencilFill
+                                        className="edit-btn"
+                                        onClick={() => handleEditRow(idx)}
+                                    />
+                                </span>
+                            </td>
+                        </tr>
                     );
-                    })}
+                })}
                 <tbody>
 
                 </tbody>
             </table>
-            {modalOpen &&(
-        <FormThuoc
-        closeModal={() => {
-            setModalOpen(false);
-            setRowToEdit(null);
-          }}
-          onSubmit={handleSubmit}
-          defaultValue={rowToEdit !== null && drugs[rowToEdit]}
-        />
-      )}
+            {modalOpen && (
+                <FormThuoc
+                    closeModal={() => {
+                        setModalOpen(false);
+                        setRowToEdit(null);
+                    }}
+                    onSubmit={handleSubmit}
+                    defaultValue={rowToEdit !== null && drugs[rowToEdit]}
+                />
+            )}
         </div>
     );
 }

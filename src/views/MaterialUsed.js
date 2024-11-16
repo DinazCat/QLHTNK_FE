@@ -6,18 +6,18 @@ import { FormMaterialUsed } from "../components/FormMaterialUsed";
 const MaterialUsed = () => {
     const materialsUsed = [
         {
-            MaVT: "VT001",
-            TenVT: "Mắc cài",
+            maVatTu: "VT001",
+            tenVatTu: "Mắc cài",
             NgaySuDung: '2023-11-12',
             SL: "3",
-            DonGia: "150000"
+            donGiaNhap: "150000"
         },
         {
-            MaVT: "VT001",
-            TenVT: "Mắc cài",
+            maVatTu: "VT001",
+            tenVatTu: "Mắc cài",
             NgaySuDung: '2023-11-26',
             SL: "3",
-            DonGia: "150000"
+            donGiaNhap: "150000"
         }
     ]
     const [modalOpen, setModalOpen] = useState(false);
@@ -92,7 +92,7 @@ const MaterialUsed = () => {
                         <th>Mã vật tư thiết bị</th>
                         <th>Tên vật tư thiết bị</th>
                         <th>Số lượng</th>
-                        <th>Đơn giá</th>
+                        <th>Đơn giá nhập</th>
                         <th>Ngày sử dụng</th>
                         <th></th>
                     </tr>
@@ -100,10 +100,10 @@ const MaterialUsed = () => {
                 <tbody>
                     {materialsUsed.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.MaVT}</td>
-                            <td>{item.TenVT}</td>
+                            <td>{item.maVatTu}</td>
+                            <td>{item.tenVatTu}</td>
                             <td>{item.SL}</td>
-                            <td>{item.DonGia}</td>
+                            <td>{item.donGiaNhap}</td>
                             <td>{item.NgaySuDung}</td>
                             <td className="fit">
                                 <span className="actions">

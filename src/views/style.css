@@ -443,7 +443,7 @@ input[type=file]::-webkit-file-upload-button {
 .next_prevBtn_disabled {
     font-size: 35px;
     color: #007cd4;
-    filter: brightness(0.94);
+    filter: brightness(0.7);
     cursor: not-allowed
 }
 
@@ -453,7 +453,6 @@ input[type=file]::-webkit-file-upload-button {
 }
 
 .signature {
-    font-size: 19px !important;
     border: none !important;
     box-shadow: none !important;
 }
