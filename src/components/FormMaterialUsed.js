@@ -6,7 +6,7 @@ export const FormMaterialUsed = ({ closeModal, onSubmit, defaultValue, materials
             maVatTu: "",
             tenVatTu: "",
             soLuongTonKho: "",
-            donGia: "",
+            donGiaNhap: "",
             NgaySuDung: "",
             SL: "",
         }
@@ -23,7 +23,7 @@ export const FormMaterialUsed = ({ closeModal, onSubmit, defaultValue, materials
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formState.tenVatTu)
+        console.log(formState.SL)
     };
 
     return (
@@ -37,8 +37,8 @@ export const FormMaterialUsed = ({ closeModal, onSubmit, defaultValue, materials
                 <form>
                     <div className="mb-2"><b>Mã vật tư thiết bị</b></div>
                     <Select className="mb-2"
-                        value={materials.find(item => item.maVatTu === formState.maVatTu)}
-                        onChange={(value) => value !== null ? setFormState({ ...formState, maVatTu: value.maVatTu, tenVatTu: value.tenVatTu, soLuongTonKho: value.soLuongTonKho, donGia: value.donGia }) : setFormState({ ...formState, maVatTu: "" })}
+                        value={materials.find(item => item.maVatTu === formState.maVatTu) || ''}
+                        onChange={(value) => value !== null ? setFormState({ ...formState, maVatTu: value.maVatTu, tenVatTu: value.tenVatTu, soLuongTonKho: value.soLuongTonKho, donGia: value.donGia }) : setFormState({ ...formState, maVatTu: "", tenVatTu: "" })}
                         options={materials}
                         isClearable
                         getOptionLabel={(item) => item.maVatTu}
@@ -47,9 +47,8 @@ export const FormMaterialUsed = ({ closeModal, onSubmit, defaultValue, materials
                     />
                     <div className="mb-2"><b>Tên vật tư thiết bị</b></div>
                     <Select className="mb-2"
-
-                        value={materials.find(item => item.maVatTu === formState.maVatTu)}
-                        onChange={(value) => value !== null ? setFormState({ ...formState, maVatTu: value.maVatTu, tenVatTu: value.tenVatTu, soLuongTonKho: value.soLuongTonKho, donGia: value.donGia }) : setFormState({ ...formState, tenVatTu: "" })}
+                        value={materials.find(item => item.maVatTu === formState.maVatTu) || ''}
+                        onChange={(value) => value !== null ? setFormState({ ...formState, maVatTu: value.maVatTu, tenVatTu: value.tenVatTu, soLuongTonKho: value.soLuongTonKho, donGia: value.donGia }) : setFormState({ ...formState, maVatTu: "", tenVatTu: "" })}
                         options={materials}
                         isClearable
                         getOptionLabel={(item) => item.tenVatTu}
@@ -61,7 +60,7 @@ export const FormMaterialUsed = ({ closeModal, onSubmit, defaultValue, materials
                     <div className="mb-2"><b>Số lượng</b></div>
                     <input type="number" className="form-control pb-2 pt-2 mb-2" min="0" max={formState.soLuongTonKho} id="SL" name="SL" value={formState.SL} onChange={(e) => { setFormState({ ...formState, [e.target.name]: e.target.value }) }} required />
                     <div className="mb-2"><b>Đơn giá</b></div>
-                    <div className="form-control pb-2 pt-2 mb-2">{formState.donGia}</div>
+                    <div className="form-control pb-2 pt-2 mb-2" style={{ minHeight: "40px" }}>{formState.donGia}</div>
                     {errors && <div className="error">{errors}</div>}
                     <div className="text-end">
                         <button type="submit" className="btn pb-2 pt-2 ps-3 pe-3 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={(e) => handleSubmit(e)}>
