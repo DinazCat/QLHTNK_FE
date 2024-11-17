@@ -455,4 +455,5 @@ input[type=file]::-webkit-file-upload-button {
 .signature {
     border: none !important;
     box-shadow: none !important;
+    outline: none !important;
 }

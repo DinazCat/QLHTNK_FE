@@ -220,7 +220,7 @@ const BillManagement = (props) => {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className='text-end' style={{ fontSize: "18px" }}><b>Tổng tiền điều trị: 50000</b></div>
+                            <div style={{ fontSize: "18px" }}><b>Tổng tiền điều trị: 50000</b></div>
                             <div align="center" style={{ fontWeight: "bold", fontSize: "18px" }}>ĐƠN THUỐC</div>
                             <table className="table table-borderless" >
                                 <tbody>
@@ -238,19 +238,48 @@ const BillManagement = (props) => {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className='text-end' style={{ fontSize: "18px" }}><b>Tổng tiền thuốc: 50000</b></div>
-                            <div className='text-end mt-3' style={{ fontSize: "18px" }}>
-                                <div><b>Thành tiền: 900000</b></div>
-                                <div><b>Công nợ thanh toán: 4500000</b></div>
-                                <div><b>Số tiền đã thanh toán: 5400000</b></div>
-                                <div><b>Công nợ sau thanh toán: 0</b></div>
+                            <div style={{ fontSize: "18px" }}><b>Tổng tiền thuốc: 50000</b></div>
+
+                            <div align="right" className='mt-3'>
+                                <table className="table table-borderless table-sm w-auto" style={{ fontSize: "18px", borderSpacing: 0, borderCollapse: "separate" }}>
+                                    <tbody>
+                                        <tr>
+                                            <th>Thành tiền:</th>
+                                            <th>4500000</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Công nợ trước thanh toán:</th>
+                                            <th>900000</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Số tiền đã thanh toán:</th>
+                                            <th>
+                                                <input type="text" className='signature' id="MaNV" name="MaNV" size={1} placeholder="" style={{
+                                                    width: "100%",
+                                                    boxSizing: "border-box"
+                                                }} />
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th> Công nợ sau thanh toán:</th>
+                                            <th>0</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Thành tiền:</th>
+                                            <th>900000</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div className='text-end mt-4'>
                                 <div style={{ fontSize: "19px" }}><b>NHÂN VIÊN THỰC HIỆN</b></div>
                                 <div style={{ height: "50px" }}></div>
                                 <div className='mt-5'>
-                                    <input type="text" className="form-control pb-2 pt-2 mb-2 text-end signature" style={{ fontSize: "19px", fontWeight: "bold" }} id="MaNV" name="MaNV" placeholder='Nhập mã nhân viên' />
-                                    <input type="text" className="form-control pb-2 pt-2 mb-2 text-end signature" style={{ fontSize: "19px", fontWeight: "bold" }} id="TenNV" name="TenNV" placeholder='Nhập tên nhân viên' />
+                                    <input type="text" className="text-end signature" style={{ fontSize: "19px", fontWeight: "bold", direction: "RTL" }} id="MaNV" name="MaNV" placeholder='Nhập mã nhân viên' />
+                                </div>
+                                <div>
+                                    <input type="text" className="text-end signature" style={{ fontSize: "19px", fontWeight: "bold" }} id="TenNV" name="TenNV" placeholder='Nhập tên nhân viên' />
                                 </div>
                                 <button type="submit" className="btn pb-2 pt-2 mt-3 mb-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
                                     Lưu
