@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { browserHistory, Router, Route, Switch } from 'react-router';
 import XemThongTinNhanVien from './QuanLyNhanVien-detail-page2';
 import XemBangLuong from './QuanLyNhanVien-detail-page1';
-import { Nav } from 'react-bootstrap';
+import ChamCong from './QuanLyNhanVien-ChamCong';
 const QuanLyNhanVien = (props) => {
   const activeLink = " bg-blue-100 text-black";
   const normalLink = "";
@@ -20,6 +20,9 @@ const QuanLyNhanVien = (props) => {
           <li className="nav-item">
             <NavLink className="nav-link" to="/manager/quanlynhanvien/xembangluong">Xem bảng lương</NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/manager/quanlynhanvien/chamcong">Chấm công</NavLink>
+          </li>
 
         </ul>
       </div>
@@ -30,6 +33,9 @@ const QuanLyNhanVien = (props) => {
           </Route>
           <Route path="/manager/quanlynhanvien/xemthongtinnhanvien">
             <XemThongTinNhanVien />
+          </Route>
+          <Route path="/manager/quanlynhanvien/chamcong">
+            <ChamCong />
           </Route>
         </Switch>
       </div>
