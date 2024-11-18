@@ -37,7 +37,7 @@ const schedules = [
         MaBN: "BN001",
         TenNS: "Nguyễn Văn A",
         MaNS: "NS001",
-        NgayHen: '2023-12-23',
+        NgayHen: '2023-12-28',
         GioBatDau: '08:00',
         GioKetThuc: '08:30',
         DichVu: "Nhổ răng khôn",
@@ -50,7 +50,7 @@ const schedules = [
         MaBN: "",
         MaNS: "NS003",
         TenNS: "Ngô Nguyễn Trường An",
-        NgayHen: '2023-12-20',
+        NgayHen: '2023-12-28',
         GioBatDau: '07:00',
         GioKetThuc: '07:30',
         DichVu: "Niềng răng",
@@ -63,7 +63,7 @@ const schedules = [
         MaBN: "BN001",
         TenNS: "Nguyễn Văn A",
         MaNS: "NS001",
-        NgayHen: '2023-12-22',
+        NgayHen: '2023-12-29',
         GioBatDau: '14:00',
         GioKetThuc: '14:30',
         DichVu: "Nhổ răng khôn",
@@ -76,7 +76,7 @@ const schedules = [
         MaBN: "BN002",
         MaNS: "NS003",
         TenNS: "Ngô Nguyễn Trường An",
-        NgayHen: '2023-12-22',
+        NgayHen: '2023-12-29',
         GioBatDau: '14:00',
         GioKetThuc: '14:30',
         DichVu: "Niềng răng",
@@ -138,8 +138,8 @@ const ScheduleDetail = () => {
                 views={views}
                 showCurrentTimeIndicator={false}
                 defaultCurrentView='day'
-                startDayHour={7}
-                endDayHour={17}
+                startDayHour={8}
+                endDayHour={20}
                 cellDuration={15}
                 editing={false}
                 showAllDayPanel={false}

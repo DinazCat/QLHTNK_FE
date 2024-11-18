@@ -8,13 +8,13 @@ const BookingSchedule = () => {
         {
             MaNS: "NS001",
             TenNS: "Nguyễn Văn A",
-            HocVi: "Tiến sĩ sĩ",
+            HocVi: "Tiến sĩ",
             KinhNghiem: "6",
         },
         {
             MaNS: "NS003",
             TenNS: "Ngô Nguyễn Trường An",
-            HocVi: "Tiến sĩ sĩ",
+            HocVi: "Tiến sĩ",
             KinhNghiem: "3",
         }
     ]

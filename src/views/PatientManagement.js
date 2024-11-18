@@ -203,7 +203,7 @@ const PatientManagement = (props) => {
                                 <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaBN" name="MaBN" onChange={handleChange} />
                             </div>
                             <div className="col-md-6">
-                                <div className="mb-2">Họ tên</div>
+                                <div className="mb-2">Tên bệnh nhân</div>
                                 <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenBN" name="TenBN" onChange={handleChange} />
                             </div>
                             <div className="col-md-6">
@@ -286,11 +286,11 @@ const PatientManagement = (props) => {
                         <div className="row mt-2">
                             <div className="row" style={{ fontWeight: "500" }}>
                                 <div className="col-lg-4 col-md-10">
-                                    <div className="mb-2 col-md-6">Mã bác sĩ</div>
+                                    <div className="mb-2 col-md-6">Mã nha sĩ</div>
                                     <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaBN" name="MaBN" />
                                 </div>
                                 <div className="col-lg-4 col-md-10">
-                                    <div className="mb-2">Tên bác sĩ</div>
+                                    <div className="mb-2">Tên nha sĩ</div>
                                     <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenBN" name="TenBN" />
                                 </div>
                                 <div className="col-lg-4 col-md-10">
@@ -322,13 +322,14 @@ const PatientManagement = (props) => {
                                         <td>{item.Ngay}</td>
                                         <td className="fit">
                                             <span className="actions">
+                                                <BsEye
+                                                    size={19}
+                                                    color='#0096FF'
+                                                    onClick={() => handleEditRecordRow(item)}
+                                                />
                                                 <BsFillTrashFill
                                                     className="delete-btn"
                                                     onClick={() => handleDeleteRecordRow(item)}
-                                                />
-                                                <BsFillPencilFill
-                                                    className="edit-btn"
-                                                    onClick={() => handleEditRecordRow(item)}
                                                 />
                                             </span>
                                         </td>
@@ -345,7 +346,7 @@ const PatientManagement = (props) => {
                     : null}
                 {(page === 3) ?
                     <div className='pe-2 ps-2'>
-                        <div align="center" style={{ fontSize: "25px", fontWeight: "bold" }}>HỒ SƠ ĐIỀU TRỊ</div>
+                        <div align="center" style={{ fontSize: "25px", fontWeight: "bold" }}>CHI TIẾT HỒ SƠ ĐIỀU TRỊ</div>
                         <div align="center" style={{ fontStyle: "italic", fontSize: "14px", color: "#6b6b6b" }}>Ngày 12 tháng 11 năm 2023</div>
                         <div><span style={{ fontWeight: "600" }}>Mã hồ sơ điều trị: </span>HS001</div>
                         <div><span style={{ fontWeight: "600" }}>Mã BN: </span>BN001</div>
@@ -413,13 +414,13 @@ const PatientManagement = (props) => {
                                         <td>{item.SL}</td>
                                         <td className="fit">
                                             <span className="actions">
-                                                <BsFillTrashFill
-                                                    className="delete-btn"
-                                                    onClick={() => handleDeleteServiceRow(index)}
-                                                />
                                                 <BsFillPencilFill
                                                     className="edit-btn"
                                                     onClick={() => handleEditServiceRow(index)}
+                                                />
+                                                <BsFillTrashFill
+                                                    className="delete-btn"
+                                                    onClick={() => handleDeleteServiceRow(index)}
                                                 />
                                             </span>
                                         </td>
@@ -441,13 +442,13 @@ const PatientManagement = (props) => {
                                         <td>{item.DonGia}/viên</td>
                                         <td className="fit">
                                             <span className="actions">
-                                                <BsFillTrashFill
-                                                    className="delete-btn"
-                                                    onClick={() => handleDeleteMedicineRow(index)}
-                                                />
                                                 <BsFillPencilFill
                                                     className="edit-btn"
                                                     onClick={() => handleEditMedicineRow(index)}
+                                                />
+                                                <BsFillTrashFill
+                                                    className="delete-btn"
+                                                    onClick={() => handleDeleteMedicineRow(index)}
                                                 />
                                             </span>
                                         </td>

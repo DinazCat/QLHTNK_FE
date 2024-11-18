@@ -57,6 +57,9 @@ const ChamCong = () => {
                 </tbody>
             </table>
             <div className="text-end">
+                <button type="button" className="btn pb-2 pt-2 ps-3 pe-3 mt-2 me-2" style={{ color: "#0096FF", border: "1px solid #0096FF" }}>
+                    Mặc định
+                </button>
                 <button type="submit" className="btn pb-2 pt-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
                     Lưu
                 </button>

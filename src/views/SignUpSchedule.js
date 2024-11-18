@@ -1,213 +1,95 @@
-import { useState } from "react";
-import moment from 'moment'
-import { FormSignUpSchedule } from "../components/FormSignUpSchedule";
+import { useState } from "react"
 const SignUpSchedule = () => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const schedules = [
+    const [scheduleSignedUp, setScheduleSignUp] = useState([
         {
-            MaLH: "LH001",
-            TenBN: "Lê Văn Dần",
-            MaBN: "",
-            TenNS: "",
-            MaNS: "NV001",
-            NgayHen: '2023-12-21',
-            GioBatDau: "08:00",
-            GioKetThuc: "08:30",
-            DichVu: "Nhổ răng khôn",
-            GhiChu: "",
-            TinhTrang: "Trống"
+            Thu: "Thứ hai",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         },
         {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            MaNS: "NV003",
-            TenNS: "Ngô Nguyễn Trường An",
-            NgayHen: '2023-12-22',
-            GioBatDau: "16:00",
-            GioKetThuc: "16:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
+            Thu: "Thứ ba",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         },
         {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            MaNS: "NV003",
-            TenNS: "Ngô Nguyễn Trường An",
-            NgayHen: '2023-12-22',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
+            Thu: "Thứ tư",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         },
         {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-20',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
-        }
-        ,
-        {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-20',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
-        }
-        ,
-        {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-21',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
-        }
-        ,
-        {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-21',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
-        }
-        ,
-        {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-25',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
-        }
-        ,
-        {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-25',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
+            Thu: "Thứ năm",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         },
         {
-            MaLH: "LH002",
-            TenBN: "",
-            MaBN: "",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-25',
-            GioBatDau: "10:00",
-            GioKetThuc: "10:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Trống"
+            Thu: "Thứ sáu",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         },
         {
-            MaLH: "LH002",
-            TenBN: "Lê Văn Sơn",
-            MaBN: "BN002",
-            TenNS: "Nguyễn Văn A",
-            MaNS: "NS001",
-            NgayHen: '2023-12-21',
-            GioBatDau: "15:00",
-            GioKetThuc: "15:30",
-            DichVu: "Niềng răng",
-            GhiChu: "",
-            TinhTrang: "Đã đặt"
+            Thu: "Thứ bảy",
+            Sang: false,
+            Trua: false,
+            Chieu: false
+        },
+        {
+            Thu: "Chủ nhật",
+            Sang: false,
+            Trua: false,
+            Chieu: false
         }
-    ];
-
-    const handleSubmit = () => {
-
+    ])
+    const handleChange = (Thu, Buoi, GiaTri) => {
+        setScheduleSignUp(
+            scheduleSignedUp.map(item => item.Thu === Thu ? {
+                ...item, [Buoi]: !GiaTri
+            } : item)
+        )
     }
-    //delete schedule
-    const deleteSchedule = () => {
-    }
-    const [date, setDate] = useState(moment().add(1, 'days').format('YYYY-MM-DD'));
+
     return (
-        <div className="row">
-            <div className="col-3"></div>
-            <div className="col-lg" style={{ backgroundColor: "#F0F6FB" }}>
-                <div className="datepicker-wrp">
-                    <div className="btn-wrp">
-                        <input type="date" className="btn-clck" value={date} onChange={(e) => setDate(e.target.value)} min={moment().add(1, 'days').format('YYYY-MM-DD')} />
+        <div className="row g-0">
+            {scheduleSignedUp.map((item, index) => (
+                <div className="col-lg col-auto seven-color text-center" style={{ color: "#FFF" }}>
+                    <div className="wrapcolor d-flex align-items-center justify-content-center" style={{ height: "65px" }}>
+                        <b>{item.Thu}</b>
                     </div>
-                    <button className="btn btnIconDate">
-                        <img alt="" src="/images/dropdown.png" style={{ width: "15px" }} />
-                    </button>
-                </div>
-                <div style={{ height: "340px", overflowY: "auto", fontWeight: "bold" }}>
-                    <div className="row ms-0 me-0" >
-                        {schedules.filter((item1) => item1.NgayHen === date).length === 0 ?
-                            <div className="mt-3">
-                                Không có lịch
-                            </div>
-                            : schedules.filter((item1) => item1.NgayHen === date).map((item, index) => {
-                                return (
-                                    <div className="col-auto" style={{ cursor: "default" }}>
-                                        <div className="mt-3 p-2" style={{ backgroundColor: item.TinhTrang === "Đã đặt" ? "#bfbfbf" : "#0096FF" }}>
-                                            {item.GioBatDau} - {item.GioKetThuc}
-                                            {item.TinhTrang === "Trống" ? <span className="ms-1"><i className="fa-solid fa-xmark" onClick={() => deleteSchedule(item.MaLH)}></i></span> : null}
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                    <div className="p-3">
+                        <div
+                            className="mb-3 p-2"
+                            style={{ backgroundColor: item.Sang ? "#bfbfbf" : "#0096FF", borderRadius: "10px" }}
+                            onClick={() => handleChange(item.Thu, "Sang", item.Sang)}>
+                            Sáng
+                        </div>
+                        <div
+                            className="mb-3 p-2"
+                            style={{ backgroundColor: item.Chieu ? "#bfbfbf" : "#0096FF", borderRadius: "10px" }}
+                            onClick={() => handleChange(item.Thu, "Chieu", item.Chieu)}>
+                            Chiều
+                        </div>
+                        <div
+                            className="mb-3 p-2"
+                            style={{ backgroundColor: item.Toi ? "#bfbfbf" : "#0096FF", borderRadius: "10px" }}
+                            onClick={() => handleChange(item.Thu, "Toi", item.Toi)}>
+                            Tối
+                        </div>
                     </div>
                 </div>
-                <div className="text-end">
-                    <button type="submit" className="btn pb-2 pt-2 mt-3 mb-3" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={() => setModalOpen(true)}>
-                        Thêm lịch
-                    </button>
-                </div>
+
+            ))}
+            <div className="text-end">
+                <button type="button" className="btn pb-2 pt-2 ps-3 pe-3 mt-2 me-2" style={{ color: "#0096FF", border: "1px solid #0096FF" }}>
+                    Mặc định
+                </button>
+                <button type="submit" className="btn pb-2 pt-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
+                    Lưu
+                </button>
             </div>
-            <div className="col-3"></div>
-            {modalOpen && (
-                <FormSignUpSchedule
-                    closeModal={() => {
-                        setModalOpen(false);
-                    }}
-                    onSubmit={handleSubmit}
-                    schedules={schedules}
-                    time={date}
-                />
-            )}
         </div >
     )
 }

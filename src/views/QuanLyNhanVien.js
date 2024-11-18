@@ -7,6 +7,7 @@ import { browserHistory, Router, Route, Switch } from 'react-router';
 import XemThongTinNhanVien from './QuanLyNhanVien-detail-page2';
 import XemBangLuong from './QuanLyNhanVien-detail-page1';
 import ChamCong from './QuanLyNhanVien-ChamCong';
+import LuongThuong from './QuanLyNhanVien-LuongThuong';
 const QuanLyNhanVien = (props) => {
   const activeLink = " bg-blue-100 text-black";
   const normalLink = "";
@@ -23,7 +24,9 @@ const QuanLyNhanVien = (props) => {
           <li className="nav-item">
             <NavLink className="nav-link" to="/manager/quanlynhanvien/chamcong">Chấm công</NavLink>
           </li>
-
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/manager/quanlynhanvien/luongthuong">Lương thưởng</NavLink>
+          </li>
         </ul>
       </div>
       <div className="container mt-3" >
@@ -36,6 +39,9 @@ const QuanLyNhanVien = (props) => {
           </Route>
           <Route path="/manager/quanlynhanvien/chamcong">
             <ChamCong />
+          </Route>
+          <Route path="/manager/quanlynhanvien/luongthuong">
+            <LuongThuong />
           </Route>
         </Switch>
       </div>

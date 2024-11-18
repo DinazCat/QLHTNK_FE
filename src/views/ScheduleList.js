@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import { BsFillTrashFill } from "react-icons/bs";
 const ScheduleList = () => {
     const schedules = [
         {
@@ -175,6 +176,7 @@ const ScheduleList = () => {
                         <th>Giờ hẹn</th>
                         <th>Dịch vụ</th>
                         <th>Ghi chú</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -188,6 +190,13 @@ const ScheduleList = () => {
                             <td>{item.GioBatDau} - {item.GioKetThuc}</td>
                             <td>{item.DichVu}</td>
                             <td>{item.GhiChu}</td>
+                            <td className="fit">
+                                <span className="actions">
+                                    <BsFillTrashFill
+                                        className="delete-btn"
+                                    />
+                                </span>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

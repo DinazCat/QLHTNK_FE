@@ -7,11 +7,11 @@ const Footer = (props) => {
     const [showDialog, setShowDialog] = useState(false);
 
     const onSubmit = async (e) => {
-        if(text != ''){
+        if (text != '') {
             e.preventDefault();
             const currentDate = new Date();
             const data = {
-                ngay: `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`,
+                ngay: `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`,
                 gio: `${currentDate.getHours()}:${currentDate.getMinutes().toString().padStart(2, '0')}`,
                 noidung: text
             }
@@ -36,7 +36,11 @@ const Footer = (props) => {
                         <p className="mt-3">
                             <span style={{ fontSize: "19px" }}>Giờ mở cửa toàn chi nhánh</span>
                             <br />
-                            Từ thứ 2 đến thứ 7: từ 7g30 đến 16g30
+                            <ul>
+                                <li>Sáng: 08:30 - 11:30</li>
+                                <li>Chiều: 13:30 - 17:00</li>
+                                <li>Tối: 17:00 - 20:00</li>
+                            </ul>
                         </p>
                         <p className="mt-3">
                             <span style={{ fontSize: "19px" }}>Địa chỉ</span>
@@ -59,10 +63,10 @@ const Footer = (props) => {
                         <div className="send-area col-10">
                             <form>
                                 <textarea rows="4" className="mb-4" required value={text}
-                                onChange={(e) =>  {setText(e.target.value)}}></textarea>
+                                    onChange={(e) => { setText(e.target.value) }}></textarea>
 
                                 <button className="btn btn-primary"
-                                onClick={(e) => onSubmit(e)}>Gửi</button>
+                                    onClick={(e) => onSubmit(e)}>Gửi</button>
                             </form>
                         </div>
                     </div>
@@ -70,7 +74,7 @@ const Footer = (props) => {
             </div>
             <Modal show={showDialog} onHide={() => setShowDialog(false)}>
                 <Modal.Header closeButton>
-                <Modal.Title>Thông báo</Modal.Title>
+                    <Modal.Title>Thông báo</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Đã gửi thành công!</Modal.Body>
             </Modal>
