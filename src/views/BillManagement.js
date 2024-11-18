@@ -4,33 +4,27 @@ import moment from 'moment';
 
 const BillManagement = (props) => {
     //fake data
-    const customers = [
+    const CTHD = [
         {
             MaBN: "BN001",
             TenBN: "Lê Văn Dần",
-            CCCD: "066303007350",
-            GioiTinh: "Nam",
-            NgaySinh: "2023-11-14",
-            SDT: "0843593598",
-            DiaChi: "502 Hoàng Diệu, TP BMT"
+            MaHD: "HD001",
+            Ngay: "2023-28-12",
+            TinhTrang: "Chưa thanh toán",
         },
         {
             MaBN: "BN003",
             TenBN: "Lê Trần Long",
-            CCCD: "066303007350",
-            GioiTinh: "Nam",
-            NgaySinh: "2023-11-14",
-            SDT: "0843593598",
-            DiaChi: "149/3 Ama Khê, TP BMT"
+            MaHD: "HD001",
+            Ngay: "2023-29-12",
+            TinhTrang: "Chưa thanh toán",
         },
         {
             MaBN: "BN004",
             TenBN: "Lê Trần Long",
-            CCCD: "066303007350",
-            GioiTinh: "Nam",
-            NgaySinh: "2023-11-14",
-            SDT: "0843593598",
-            DiaChi: "252 Tạ Quang Bửu, quận 9, HCM"
+            MaHD: "HD001",
+            Ngay: "2023-28-12",
+            TinhTrang: "Đã thanh toán",
         }
     ]
     const CTHSDT = [
@@ -43,7 +37,8 @@ const BillManagement = (props) => {
             TenDV: "Phẫu thuật nhổ răng khó mức III",
             Ngay: "2023-10-26",
             DonGia: "1500000",
-            SL: "2"
+            SL: "2",
+            MaHD: ""
         },
         {
             MaCTHSDT: "CTHS001",
@@ -54,7 +49,7 @@ const BillManagement = (props) => {
             TenNS: "Nguyễn Văn Thái",
             Ngay: "2023-10-26",
             DonGia: "1500000",
-
+            MaHD: "",
             SL: "1"
         }
     ]
@@ -85,18 +80,17 @@ const BillManagement = (props) => {
             SL: "5",
             DonGia: "50",
             Ngay: "2023-10-11",
-            GhiChu: "Ngày uống 1 lần, mỗi lần 1 viên(sáng - sau ăn)"
+            GhiChu: "Ngày uống 1 lần, mỗi lần 1 viên(sáng - sau ăn)",
+
         }
     ]
 
     const [searchCriteria, setSearchCriteria] = useState({
+        MaHD: "",
         MaBN: "",
         TenBN: "",
-        CCCD: "",
-        GioiTinh: "",
-        NgaySinh: "",
-        SDT: "",
-        DiaChi: ""
+        Ngay: "",
+        TinhTrang: ""
     })
 
     const handleChange = (e) => {
@@ -104,7 +98,7 @@ const BillManagement = (props) => {
     };
     const [selectedRow, setSelectedRow] = useState(null);
     const setSelectedRowById = (id) => {
-        setSelectedRow(customers[id])
+        setSelectedRow(CTHD[id])
         setPage(2)
     }
     const [page, setPage] = useState(1);
@@ -124,20 +118,28 @@ const BillManagement = (props) => {
                     <div className="row">
                         <form className="row ms-0 me-0" style={{ fontWeight: "500" }}>
                             <div className="col-md-6">
+                                <div className="mb-2 col-md-6">Mã hóa đơn</div>
+                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaHD" name="MaHD" onChange={handleChange} value={searchCriteria.MaHD} />
+                            </div>
+                            <div className="col-md-6">
                                 <div className="mb-2 col-md-6">Mã bệnh nhân</div>
-                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaBN" name="MaBN" onChange={handleChange} />
+                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaBN" name="MaBN" onChange={handleChange} value={searchCriteria.MaBN} />
                             </div>
                             <div className="col-md-6">
-                                <div className="mb-2">Họ tên</div>
-                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenBN" name="TenBN" onChange={handleChange} />
+                                <div className="mb-2">Tên bệnh nhân</div>
+                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenBN" name="TenBN" onChange={handleChange} value={searchCriteria.TenBN} />
                             </div>
                             <div className="col-md-6">
-                                <div className="mb-2">Số điện thoại</div>
-                                <input type="tel" className="form-control pb-2 pt-2 mb-2" id="SDT" name="SDT" onChange={handleChange} />
+                                <div className="mb-2">Ngày lập gần nhất</div>
+                                <input type="date" className="form-control pb-3 pt-3" id="Ngay" name="Ngay" value={searchCriteria.Ngay} onChange={handleChange} />
                             </div>
                             <div className="col-md-6">
-                                <div className="mb-2">Căn cước công dân</div>
-                                <input type="text" className="form-control pb-2 pt-2 mb-2" id="CCCD" name="CCCD" onChange={handleChange} />
+                                <div className="mb-2">Tình trạng</div>
+                                <select className="form-select pb-2 pt-2 mb-2" aria-label="Chọn tình trạng" id="TinhTrang" name="TinhTrang" onChange={handleChange} value={searchCriteria.TinhTrang}>
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Đã thanh toán">Đã thanh toán</option>
+                                    <option value="Chưa thanh toán">Chưa thanh toán</option>
+                                </select>
                             </div>
                             <div className="text-end">
                                 <button type="submit" className="btn pb-2 pt-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}>
@@ -150,25 +152,21 @@ const BillManagement = (props) => {
                     <table className="table" >
                         <thead>
                             <tr className="table-secondary">
+                                <th>Mã hóa đơn</th>
                                 <th>Mã bệnh nhân</th>
                                 <th>Tên bệnh nhân</th>
-                                <th>CCCD</th>
-                                <th>Giới tính</th>
-                                <th>Ngày sinh</th>
-                                <th>SDT</th>
-                                <th>Địa chỉ</th>
+                                <th>Ngày lập gần nhất</th>
+                                <th>Tình trạng</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {customers.map((item, index) => (
+                            {CTHD.map((item, index) => (
                                 <tr key={index} onClick={() => setSelectedRowById(index)}>
+                                    <td>{item.MaHD}</td>
                                     <td>{item.MaBN}</td>
                                     <td>{item.TenBN}</td>
-                                    <td>{item.CCCD}</td>
-                                    <td>{item.GioiTinh}</td>
-                                    <td>{item.NgaySinh}</td>
-                                    <td>{item.SDT}</td>
-                                    <td>{item.DiaChi}</td>
+                                    <td>{item.Ngay}</td>
+                                    <td style={{ fontStyle: "italic", color: item.TinhTrang === "Đã thanh toán" ? "#269A6C" : "#B74141" }}>{item.TinhTrang}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -190,11 +188,12 @@ const BillManagement = (props) => {
                             </div>
                         </div>
                         <div className='mt-2 pe-2 ps-2'>
-                            <div align="center" style={{ fontSize: "25px", fontWeight: "bold" }}>PHIẾU THU</div>
+                            <div align="center" style={{ fontSize: "25px", fontWeight: "bold" }}>HÓA ĐƠN</div>
                             <div align="center" style={{ fontStyle: "italic", fontSize: "14px", color: "#6b6b6b" }}>Ngày {moment().date()} tháng {moment().month() + 1} năm {moment().year()}</div>
                             <div><span style={{ fontWeight: "600" }}>Mã hóa đơn: </span>HD001</div>
                             <div><span style={{ fontWeight: "600" }}>Mã BN: </span>BN001</div>
                             <div><span style={{ fontWeight: "600" }}>Tên BN: </span>Lê Văn Dần</div>
+                            <div><span style={{ fontWeight: "600" }}>Tên NS: </span>Lê Hoài An</div>
                             <div><span style={{ fontWeight: "600" }}>Địa chỉ: </span>Trần Hưng Đạo, Quận 1, HCM</div>
                             <div><span style={{ fontWeight: "600" }}>Tuổi: </span>24</div>
                             <div><span style={{ fontWeight: "600" }}>Giới tính: </span>Nữ</div>
@@ -203,7 +202,6 @@ const BillManagement = (props) => {
                             <table className="table" >
                                 <thead>
                                     <tr className="table-secondary">
-                                        <th>Nha sĩ điều trị</th>
                                         <th>Dịch vụ</th>
                                         <th>Đơn giá</th>
                                         <th>Số lượng</th>
@@ -212,7 +210,6 @@ const BillManagement = (props) => {
                                 <tbody>
                                     {CTHSDT.map((item, index) => (
                                         <tr key={index} onClick={() => setSelectedRowById(index)}>
-                                            <td>{item.TenNS}</td>
                                             <td>{item.TenDV}</td>
                                             <td>{item.DonGia}</td>
                                             <td>{item.SL}</td>

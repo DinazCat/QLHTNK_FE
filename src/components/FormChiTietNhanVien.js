@@ -7,7 +7,7 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
       tenNhanVien: "",
       soDienThoai: "",
       chucVu: "Nha sĩ",
-      email:"",
+      email: "",
       luongCoBan: "",
       chiNhanh: "",
     }
@@ -22,13 +22,13 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
   const getBranches = async () => {
     const branches = await api.getAllBranchs();
     setBranches(branches);
-    if(!defaultValue) formState.chiNhanh = branches[0].tenChiNhanh;  
+    if (!defaultValue) formState.chiNhanh = branches[0].tenChiNhanh;
   }
   const validateForm = () => {
     console.log(formState)
-    if (formState.maNhanVien!='' && formState.tenNhanVien!='' && formState.soDienThoai!='' && formState.chucVu!='' && formState.email!='' && formState.chiNhanh!='') {
+    if (formState.maNhanVien != '' && formState.tenNhanVien != '' && formState.soDienThoai != '' && formState.chucVu != '' && formState.email != '' && formState.chiNhanh != '') {
       const isIdExists = staffs.some(staff => staff.maNhanVien == formState.maNhanVien);
-      if(!defaultValue && isIdExists){
+      if (!defaultValue && isIdExists) {
         setErrors("Mã nhân viên này đã tồn tại! Vui lòng nhập một mã nhân viên khác.");
         return false;
       }
@@ -40,18 +40,18 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
         if (value == "") {
-          switch (key){
-            case 'maNhanVien': 
+          switch (key) {
+            case 'maNhanVien':
               errorFields.push("Mã nhân viên"); break;
-            case 'tenNhanVien': 
+            case 'tenNhanVien':
               errorFields.push("Tên nhân viên"); break;
-            case 'soDienThoai': 
+            case 'soDienThoai':
               errorFields.push("Số điện thoại"); break;
-            case 'email': 
+            case 'email':
               errorFields.push("Email"); break;
-            case 'luongCoBan': 
-              errorFields.push("Lương cơ bản"); break;  
-            default: break;         
+            case 'luongCoBan':
+              errorFields.push("Lương cơ bản"); break;
+            default: break;
           }
         }
       }
@@ -85,19 +85,19 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
         <form>
           <div className="form-group">
             <label for="maNhanVien">Mã nhân viên</label>
-            <input name="maNhanVien" type="text"            
-            onChange={handleChange} 
-            value={formState.maNhanVien} />
+            <input name="maNhanVien" type="text"
+              onChange={handleChange}
+              value={formState.maNhanVien} />
           </div>
           <div className="form-group">
             <label for="tenNhanVien">Họ và tên</label>
-            <input name="tenNhanVien" type="text" 
-            onChange={handleChange} 
-            value={formState.tenNhanVien} />
+            <input name="tenNhanVien" type="text"
+              onChange={handleChange}
+              value={formState.tenNhanVien} />
           </div>
           <div className="form-group">
             <label for="soDienThoai">Số điện thoại</label>
-            <input 
+            <input
               name="soDienThoai"
               onChange={handleChange}
               type="number"
@@ -106,20 +106,20 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
           </div>
           <div className="form-group">
             <div className="form-group">
-            <label for="chucVu">Chức vụ</label>
-            <select
-              name="chucVu"
-              onChange={handleChange}
-              value={formState.chucVu}
-              
-            >
-              {positions.map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </div>
+              <label for="chucVu">Chức vụ</label>
+              <select
+                name="chucVu"
+                onChange={handleChange}
+                value={formState.chucVu}
+
+              >
+                {positions.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -133,7 +133,7 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
           <div className="form-group">
             <label htmlFor="luongCoBan">Lương cơ bản</label>
             <input
-            type="number"
+              type="number"
               name="luongCoBan"
               onChange={handleChange}
               value={formState.luongCoBan}
@@ -144,9 +144,9 @@ export const FormChiTietNhanVien = ({ closeModal, onSubmit, defaultValue, staffs
             <select
               name="chiNhanh"
               onChange={handleChange}
-              value={formState.chiNhanh}         
+              value={formState.chiNhanh}
             >
-            {branches.map((item, index) => (
+              {branches.map((item, index) => (
                 <option key={index} value={item.tenChiNhanh}>
                   {item.tenChiNhanh}
                 </option>
