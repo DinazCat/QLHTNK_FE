@@ -7,7 +7,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
       tenThuoc: "",
       soLuongNhap: "",
       donGiaNhap: "",
-      donGia: "",
+      donGiaBan: "",
       hanSuDung: "",
       ngayNhap: "",
       soLuongTonKho: "",
@@ -17,8 +17,16 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
 
   const validateForm = () => {
     if (!defaultValue) formState.soLuongTonKho = formState.soLuongNhap;
-    if (formState.maThuoc != "" && formState.tenThuoc != "" && formState.soLuongNhap != "" && formState.donGia != "" && formState.donGiaNhap != ""
-      && formState.hanSuDung != "" && formState.ngayNhap != "" && (defaultValue ? formState.soLuongTonKho != "" : true)) {
+    if (
+      //formState.maThuoc != "" &&
+      formState.tenThuoc != "" &&
+      formState.soLuongNhap != "" &&
+      formState.donGiaBan != "" &&
+      formState.donGiaNhap != "" &&
+      formState.hanSuDung != "" &&
+      formState.ngayNhap != "" &&
+      (defaultValue ? formState.soLuongTonKho != "" : true)
+    ) {
       if (parseInt(formState.soLuongNhap) < parseInt(formState.soLuongTonKho)) {
         setErrors("Số lượng tồn kho không được lớn hơn số lượng nhập!");
         return false;
@@ -30,23 +38,31 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
       for (const [key, value] of Object.entries(formState)) {
         if (value == "") {
           switch (key) {
-            case 'maThuoc':
-              errorFields.push("Mã thuốc"); break;
-            case 'tenThuoc':
-              errorFields.push("Tên thuốc"); break;
-            case 'soLuongNhap':
-              errorFields.push("Số lượng nhập"); break;
-            case 'soLuongTonKho':
-              errorFields.push("Số lượng tồn kho"); break;
-            case 'donGiaNhap':
-              errorFields.push("Đơn giá nhập"); break;
-            case 'donGia':
-              errorFields.push("Đơn giá"); break;
-            case 'hanSuDung':
-              errorFields.push("Hạn sử dụng"); break;
-            case 'ngayNhap':
-              errorFields.push("Ngày nhập"); break;
-            default: break;
+            // case 'maThuoc':
+            //   errorFields.push("Mã thuốc"); break;
+            case "tenThuoc":
+              errorFields.push("Tên thuốc");
+              break;
+            case "soLuongNhap":
+              errorFields.push("Số lượng nhập");
+              break;
+            case "soLuongTonKho":
+              errorFields.push("Số lượng tồn kho");
+              break;
+            case "donGiaNhap":
+              errorFields.push("Đơn giá nhập");
+              break;
+            case "donGiaBan":
+              errorFields.push("Đơn giá bán");
+              break;
+            case "hanSuDung":
+              errorFields.push("Hạn sử dụng");
+              break;
+            case "ngayNhap":
+              errorFields.push("Ngày nhập");
+              break;
+            default:
+              break;
           }
         }
       }
@@ -78,12 +94,16 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
     >
       <div className="col-sm-4 modal1">
         <form>
-          <div className="form-group">
-            <label for="maThuoc">Mã thuốc</label>
-            <input name="maThuoc"
-              onChange={handleChange}
-              value={formState.maThuoc} />
-          </div>
+          {formState.maThuoc && (
+            <div className="form-group">
+              <label for="maThuoc">Mã thuốc</label>
+              <input
+                name="maThuoc"
+                onChange={handleChange}
+                value={formState.maThuoc}
+              />
+            </div>
+          )}
           <div className="form-group">
             <label for="tenThuoc">Tên thuốc</label>
             <input
@@ -112,12 +132,12 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="donGia">Đơn giá</label>
+            <label htmlFor="donGiaBan">Đơn giá</label>
             <input
-              name="donGia"
+              name="donGiaBan"
               type="number"
               onChange={handleChange}
-              value={formState.donGia}
+              value={formState.donGiaBan}
             />
           </div>
           <div className="form-group">
@@ -138,7 +158,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
               value={formState.ngayNhap}
             />
           </div>
-          {defaultValue &&
+          {defaultValue && (
             <div className="form-group">
               <label htmlFor="soLuongTonKho">Số lượng tồn kho</label>
               <input
@@ -148,7 +168,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
                 value={formState.soLuongTonKho}
               />
             </div>
-          }
+          )}
           {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
             Submit

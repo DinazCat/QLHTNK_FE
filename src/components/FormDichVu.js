@@ -1,55 +1,76 @@
 import React, { useState } from "react";
 
-export const FormDichVu = ({ closeModal, onSubmit, defaultValue, services}) => {
+export const FormDichVu = ({
+  closeModal,
+  onSubmit,
+  defaultValue,
+  services,
+}) => {
   const [formState, setFormState] = useState(
     defaultValue || {
-      maDichVu: "",
-      tenDichVu: "",
-      loaiDichVu: "",
-      giaDichVu: "",
-      baoHanh: "Có",
-      coTraGop: "Có",
+      maDv: "",
+      tenDv: "",
+      loaiDv: "",
+      giaThapNhat: "",
+      giaCaoNhat: "",
+      moTa: "",
+      chinhSachBaoHanh: "",
     }
   );
   const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    if (formState.maDichVu != "" && formState.tenDichVu != "" && formState.loaiDichVu != "" && formState.giaDichVu != "") {
-      const isIdExists = services.some(service => service.maDichVu == formState.maDichVu);
-      if(!defaultValue && isIdExists){
-        setErrors("Mã dịch vụ này đã tồn tại! Vui lòng nhập một mã dịch vụ khác.");
+    if (
+      //formState.maDv != "" &&
+      formState.tenDv != "" &&
+      formState.loaiDv != "" &&
+      formState.giaThapNhat != "" &&
+      formState.giaCaoNhat != ""
+    ) {
+      const isIdExists = services.some(
+        (service) => service.maDv == formState.maDv
+      );
+      if (!defaultValue && defaultValue.maDv != formState.maDv && isIdExists) {
+        setErrors(
+          "Mã dịch vụ này đã tồn tại! Vui lòng nhập một mã dịch vụ khác."
+        );
         return false;
-      }
-      else {
+      } else {
         setErrors("");
         return true;
       }
-    } 
-    else {
+    } else {
       let errorFields = [];
       for (const [key, value] of Object.entries(formState)) {
         if (value == "") {
-          switch (key){
-            case 'maDichVu': 
-              errorFields.push("Mã dịch vụ"); break;
-            case 'tenDichVu': 
-              errorFields.push("Tên dịch vụ"); break;
-            case 'loaiDichVu': 
-              errorFields.push("Loại dịch vụ"); break;
-            case 'giaDichVu': 
-              errorFields.push("Giá dịch vụ"); break; 
-            default: break;         
+          switch (key) {
+            // case "maDv":
+            //   errorFields.push("Mã dịch vụ");
+            //   break;
+            case "tenDv":
+              errorFields.push("Tên dịch vụ");
+              break;
+            case "loaiDv":
+              errorFields.push("Loại dịch vụ");
+              break;
+            case "giaThapNhat":
+              errorFields.push("Giá thấp nhất");
+              break;
+            case "giaCaoNhat":
+              errorFields.push("Giá cao nhất");
+              break;
+            default:
+              break;
           }
         }
       }
       setErrors("Vui lòng nhập: " + errorFields.join(", "));
       return false;
     }
-
   };
 
   const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value })
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -71,60 +92,70 @@ export const FormDichVu = ({ closeModal, onSubmit, defaultValue, services}) => {
     >
       <div className="col-sm-4 modal1">
         <form>
-          <div className="form-group">
-            <label for="maDichVu">Mã dịch vụ</label>
-            <input name="maDichVu" 
-            onChange={handleChange} 
-            value={formState.maDichVu} />
-          </div>
+          {formState.maDv && (
+            <div className="form-group">
+              <label for="maDichVu">Mã dịch vụ</label>
+              <input
+                name="maDv"
+                onChange={handleChange}
+                value={formState.maDv}
+                disabled
+              />
+            </div>
+          )}
           <div className="form-group">
             <label for="tenDichVu">Tên dịch vụ</label>
             <input
-              name="tenDichVu"
+              name="tenDv"
               onChange={handleChange}
               type="text"
-              value={formState.tenDichVu}
+              value={formState.tenDv}
             />
           </div>
           <div className="form-group">
             <label for="loaiDichVu">Loại dịch vụ</label>
             <input
-              name="loaiDichVu"
+              name="loaiDv"
               onChange={handleChange}
               type="text"
-              value={formState.loaiDichVu}
+              value={formState.loaiDv}
             />
           </div>
           <div className="form-group">
-            <label for="giaDichVu">Giá dịch vụ</label>
+            <label for="giaThapNhat">Giá thấp nhất</label>
             <input
-              name="giaDichVu"
+              name="giaThapNhat"
               onChange={handleChange}
               type="number"
-              value={formState.giaDichVu}
+              value={formState.giaThapNhat}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="baoHanh">Bảo hành</label>
-            <select
-              name="baoHanh"
+            <label for="giaCaoNhat">Giá cao nhất</label>
+            <input
+              name="giaCaoNhat"
               onChange={handleChange}
-              value={formState.baoHanh}
-            >
-              <option value="Có">Có</option>
-              <option value="Không">Không</option>
-            </select>
+              type="number"
+              value={formState.giaCaoNhat}
+            />
           </div>
           <div className="form-group">
-            <label htmlFor="coTraGop">Có trả góp</label>
-            <select
-              name="coTraGop"
+            <label htmlFor="moTa">Mô tả</label>
+            <input
+              name="moTa"
               onChange={handleChange}
-              value={formState.coTraGop}
-            >
-              <option value="Có">Có</option>
-              <option value="Không">Không</option>
-            </select>
+              type="text"
+              value={formState.moTa}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="chinhSachBaoHanh">Chính sách bảo hành</label>
+            <input
+              name="chinhSachBaoHanh"
+              onChange={handleChange}
+              type="text"
+              value={formState.chinhSachBaoHanh}
+            />
           </div>
           {errors && <div className="error">{errors}</div>}
           <button type="submit" className="btnSummit" onClick={handleSubmit}>
