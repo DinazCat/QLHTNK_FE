@@ -1,64 +1,65 @@
 import { client } from "./client";
 
-const getAllBills = async () => {
-  try {
-    const response = await client.get("/BillManagement/getBills");
-    if (response.data.success) {
-      return response.data.bills;
-    } else {
-      console.log("not get bills");
-    }
-  } catch (error) {
-    console.log("error: ", error.message);
-    return [];
-  }
-};
-const addBill = async (data) => {
-  const endpoint = "/BillManagement/add";
-  try {
-    const response = await client.post(endpoint, data);
-    return response.data.docId;
-  } catch (error) {
-    console.log("error: ", error.message);
-  }
-};
-const updateBill = async (data, id) => {
-  const endpoint = "/BillManagement/update/" + id;
-  try {
-    await client.put(endpoint, data);
-  } catch (error) {
-    console.error("error: ", error.message);
-  }
-};
-const deleteBill = async (id) => {
-  try {
-    await client.delete("/BillManagement/delete/" + id);
-  } catch (error) {
-    console.log("error: ", error.message);
-  }
-};
-const getBillsBySearch = async (searchCriteria) => {
-  try {
-    alert("Hehe");
-    const queryParams = new URLSearchParams(searchCriteria).toString();
-    alert(queryParams);
-    const response = await client.get(`/BillManagement/Bills${queryParams}`);
-    alert("hihi");
-    if (response.data.success) {
-      alert("true");
-      return response.data.bills;
-    } else {
-      console.log("not get bills");
-    }
-  } catch (error) {
-    console.log("error: ", error.message);
-    return [];
-  }
-};
 
+const createBill = async(bill)=>{
+    try {
+        const response = await client.post('/HoaDon', bill);
+
+        return response.data;
+    } catch (error) {
+        return error.response?.data
+    }
+}
+
+const getAllBill= async () => {
+    const endpoint = "/HoaDon";
+    try {
+      const response = await client.get(endpoint);
+        return response.data;
+    } catch (error) {
+        console.error("Error get all bill data:", error.response?.data || error.message);
+        return error.response?.data
+    }
+  };
+  const updateBill = async (id, BillData) => {
+    try {
+      const response = await client.put(`/HoaDon/${id}`,BillData);
+      return response.data; // Trả về dữ liệu từ server
+    } catch (error) {
+        console.error("Error update bill data:", error.response?.data || error.message);
+        return error.response?.data
+    }
+  };
+  const deleteBill = async (id) => {
+    try {
+      const response = await client.delete(`/HoaDon/${id}`);
+      return { success: true, message: response.data.message };
+    } catch (error) {
+      if (error.response) {
+        // Lỗi từ server
+        console.error(error.response.data);
+        return { success: false, message: error.response.data.message || "An error occurred." };
+      } else {
+        // Lỗi từ client
+        console.error(error.message);
+        return { success: false, message: "Unable to connect to the server." };
+      }
+    }
+  };
+  const searchBill= async (params) => {
+    const endpoint = "/HoaDon/search";
+     // Chuyển các tham số thành query string
+  const queryParams = new URLSearchParams(params).toString(); 
+  
+  try {
+    // Gửi request đến API với query string
+    const response = await client.get(`${endpoint}?${queryParams}`);
+        return response.data.bills;
+    } catch (error) {
+        console.error("Error get all bill data:", error.response?.data || error.message);
+        return error.response?.data
+    }
+  };
 export default {
-  getAllBills,
-  addBill,
-  updateBill,
-  getBillsBySearch,
-};
+    createBill, getAllBill, updateBill, deleteBill, searchBill
+}

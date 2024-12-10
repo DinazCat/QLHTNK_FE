@@ -1,9 +1,9 @@
 import { client } from "./client";
 
 
-const createDiscount = async(Discount)=>{
+const createItem = async(item)=>{
     try {
-        const response = await client.post('/Discount', Discount);
+        const response = await client.post('/MaterialHistory', item);
 
         return response.data;
     } catch (error) {
@@ -11,28 +11,28 @@ const createDiscount = async(Discount)=>{
     }
 }
 
-const getAllDiscount= async () => {
-    const endpoint = "/Discount";
+const getAllItem= async () => {
+    const endpoint = "/MaterialHistory";
     try {
       const response = await client.get(endpoint);
         return response.data;
     } catch (error) {
-        console.error("Error get all Discount data:", error.response?.data || error.message);
+        console.error("Error get all item data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
-  const updateDiscount = async (id, DiscountData) => {
+  const updateItem = async (id, itemData) => {
     try {
-      const response = await client.put(`/Discount/${id}`,DiscountData);
+      const response = await client.put(`/MaterialHistory/${id}`,itemData);
       return response.data; // Trả về dữ liệu từ server
     } catch (error) {
-        console.error("Error update Discount data:", error.response?.data || error.message);
+        console.error("Error update item data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
-  const deleteDiscount= async (id) => {
+  const deleteItem= async (id) => {
     try {
-      const response = await client.delete(`/Discount/${id}`);
+      const response = await client.delete(`/MaterialHistory/${id}`);
       return { success: true, message: response.data.message };
     } catch (error) {
       if (error.response) {
@@ -46,20 +46,20 @@ const getAllDiscount= async () => {
       }
     }
   };
-  const searchDiscount= async (params) => {
-    const endpoint = "/Discount/search";
+  const searchItem= async (params) => {
+    const endpoint = "/MaterialHistory/search";
      // Chuyển các tham số thành query string
   const queryParams = new URLSearchParams(params).toString(); 
   
   try {
     // Gửi request đến API với query string
     const response = await client.get(`${endpoint}?${queryParams}`);
-        return response.data.discounts;
+        return response.data.items;
     } catch (error) {
-        console.error("Error get all discount data:", error.response?.data || error.message);
+        console.error("Error get all user data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
 export default {
-    createDiscount, getAllDiscount, updateDiscount, deleteDiscount, searchDiscount
+    createItem, getAllItem, updateItem, deleteItem, searchItem
 }

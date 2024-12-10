@@ -1,9 +1,16 @@
 import { client } from "./client";
 
 
-const createDiscount = async(Discount)=>{
+const createCTHSDT = async(CTHSDT, dichvu, thuoc, anh, hoadon)=>{
     try {
-        const response = await client.post('/Discount', Discount);
+        const param = {
+            ChiTietHsdt:CTHSDT,
+            DichVus: dichvu,
+            Thuocs: thuoc,
+            Anhs: anh,
+            HoaDon: hoadon
+        }
+        const response = await client.post('/CTHSDT', param);
 
         return response.data;
     } catch (error) {
@@ -11,28 +18,28 @@ const createDiscount = async(Discount)=>{
     }
 }
 
-const getAllDiscount= async () => {
-    const endpoint = "/Discount";
+const getAllCTHSDT= async (patientId) => {
+    const endpoint = `/CTHSDT/${patientId}/treatment-details`;
     try {
       const response = await client.get(endpoint);
         return response.data;
     } catch (error) {
-        console.error("Error get all Discount data:", error.response?.data || error.message);
+        console.error("Error get all CTHSDT data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
-  const updateDiscount = async (id, DiscountData) => {
+  const updateCTHSDT = async (id, CTHSDTData) => {
     try {
-      const response = await client.put(`/Discount/${id}`,DiscountData);
+      const response = await client.put(`/CTHSDT/${id}`,CTHSDTData);
       return response.data; // Trả về dữ liệu từ server
     } catch (error) {
-        console.error("Error update Discount data:", error.response?.data || error.message);
+        console.error("Error update CTHSDT data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
-  const deleteDiscount= async (id) => {
+  const deleteCTHSDT= async (id) => {
     try {
-      const response = await client.delete(`/Discount/${id}`);
+      const response = await client.delete(`/CTHSDT/${id}`);
       return { success: true, message: response.data.message };
     } catch (error) {
       if (error.response) {
@@ -46,20 +53,20 @@ const getAllDiscount= async () => {
       }
     }
   };
-  const searchDiscount= async (params) => {
-    const endpoint = "/Discount/search";
+  const searchCTHSDT= async (params) => {
+    const endpoint = "/CTHSDT/search";
      // Chuyển các tham số thành query string
   const queryParams = new URLSearchParams(params).toString(); 
   
   try {
     // Gửi request đến API với query string
     const response = await client.get(`${endpoint}?${queryParams}`);
-        return response.data.discounts;
+        return response.data.cthsdts;
     } catch (error) {
-        console.error("Error get all discount data:", error.response?.data || error.message);
+        console.error("Error get all CTHSDT data:", error.response?.data || error.message);
         return error.response?.data
     }
   };
 export default {
-    createDiscount, getAllDiscount, updateDiscount, deleteDiscount, searchDiscount
+    createCTHSDT, getAllCTHSDT, updateCTHSDT, deleteCTHSDT, searchCTHSDT
 }
