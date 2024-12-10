@@ -7,6 +7,10 @@ import BillApi from "./BillApi";
 import DiscountApi from "./DiscountApi";
 import EmployeeApi from "./EmployeeApi";
 import ScheduleApi from "./ScheduleApi";
+import cthsdtApi from "./cthsdtApi";
+import materialUsedApi from "./materialUsedApi";
+import patientApi from "./patientApi";
+import bonusApi from "./bonusApi";
 
 const getTreatmentRecordDetailById = async (id) => {
   try {
@@ -34,4 +38,8 @@ export default {
   ...DiscountApi,
   ...EmployeeApi,
   ...ScheduleApi,
+  ...cthsdtApi,
+  ...bonusApi,
+  ...patientApi,
+  ...materialUsedApi
 };
