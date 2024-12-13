@@ -19,7 +19,7 @@ const getAllFeedbacks = async (sortOrder) => {
   }
 };
 const addFeedback = async (data) => {
-  const endpoint = "/FeedbackManagement/add";
+  const endpoint = "/Feedback";
   try {
     const response = await client.post(endpoint, data);
     return response.data.docId;

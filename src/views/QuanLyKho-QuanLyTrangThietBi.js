@@ -59,9 +59,8 @@ const QuanLyTrangThietBi = (props) => {
       maCn: 1000,
     };
     if (rowToEdit == null) {
-      const id = await api.addMaterial(data);
-      //newRow.maVt = id;
-      setMaterials([...materials, newRow]);
+      const newMaterial = await api.addMaterial(data);
+      setMaterials([...materials, newMaterial]);
     } else {
       api.updateMaterial(newRow, newRow.maVt);
       let updatedMaterials = materials.map((currRow, idx) => {
@@ -81,7 +80,7 @@ const QuanLyTrangThietBi = (props) => {
 
     const searchResults = await api.getMaterialsBySeacrh(searchCriteria);
     console.log(searchResults);
-    setMaterials(searchResults);
+    setMaterials(searchResults.materials);
   };
   return (
     <div>
@@ -115,7 +114,7 @@ const QuanLyTrangThietBi = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000"
             name="slnCuoi"
             onChange={handleChange}
           />
@@ -133,7 +132,7 @@ const QuanLyTrangThietBi = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000"
             name="sltkCuoi"
             onChange={handleChange}
           />
@@ -151,7 +150,7 @@ const QuanLyTrangThietBi = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000000"
             name="giaCuoi"
             onChange={handleChange}
           />
@@ -200,7 +199,7 @@ const QuanLyTrangThietBi = (props) => {
             <th></th>
           </tr>
         </thead>
-        {materials.map((row, idx) => {
+        {materials?.map((row, idx) => {
           return (
             <tr key={row.maVt}>
               <td>{row.maVt}</td>

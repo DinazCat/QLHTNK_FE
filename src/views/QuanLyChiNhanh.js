@@ -14,8 +14,8 @@ const QuanLyChiNhanh = (props) => {
   const [branchs, setBranchs] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
   const [searchCriteria, setSearchCriteria] = useState({
-    maCn: "",
-    tenCn: "",
+    maChiNhanh: "",
+    tenChiNhanh: "",
   });
 
   useEffect(() => {
@@ -50,9 +50,8 @@ const QuanLyChiNhanh = (props) => {
       moTa: newRow.moTa,
     };
     if (rowToEdit == null) {
-      const id = await api.addBranch(data);
-      //newRow.Id = id;
-      setBranchs([...branchs, newRow]);
+      const newBranch = await api.addBranch(data);
+      setBranchs([...branchs, newBranch]);
     } else {
       api.updateBranch(newRow.maCn, newRow);
       let updatedBranchs = branchs.map((currRow, idx) => {
@@ -68,29 +67,26 @@ const QuanLyChiNhanh = (props) => {
   };
 
   const onSearch = async () => {
-    console.log(searchCriteria);
-
     const searchResults = await api.getBranchsBySeacrh(searchCriteria);
-    console.log(searchResults);
     setBranchs(searchResults);
   };
   return (
     <div>
       <div className="mb-3 mt-3">
         <input
-          className="block m-2 px-4 customBox"
+          className="block m-2 px-2 customBox"
           type="text"
-          id="maCn"
+          id="maChiNhanh"
           placeholder="Nhập mã chi nhánh"
-          name="maCn"
+          name="maChiNhanh"
           onChange={handleChange}
         />
         <input
-          className="block m-2 px-4 customBox"
+          className="block m-2 px-2 customBox"
           type="text"
-          id="tenCn"
+          id="tenChiNhanh"
           placeholder="Nhập tên chi nhánh"
-          name="tenCn"
+          name="tenChiNhanh"
           onChange={handleChange}
         />
       </div>

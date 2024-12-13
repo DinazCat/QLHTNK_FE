@@ -289,7 +289,7 @@ input[type="date"]:not(.has-value):before {
 
 .datepicker-wrp {
     position: relative;
-    width: 135px;
+    width: 150px;
 }
 
 .btn-wrp {

@@ -66,9 +66,8 @@ const QuanLyThuoc = (props) => {
       maCn: 1000,
     };
     if (rowToEdit == null) {
-      const id = await api.addDrug(data);
-      //newRow.maThuoc = id;
-      setDrugs([...drugs, newRow]);
+      const newDrug = await api.addDrug(data);
+      setDrugs([...drugs, newDrug]);
     } else {
       api.updateDrug(newRow, newRow.maThuoc);
       let updatedDrugs = drugs.map((currRow, idx) => {
@@ -122,7 +121,7 @@ const QuanLyThuoc = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000"
             name="slnCuoi"
             onChange={handleChange}
           />
@@ -140,7 +139,7 @@ const QuanLyThuoc = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000"
             name="sltkCuoi"
             onChange={handleChange}
           />
@@ -158,7 +157,7 @@ const QuanLyThuoc = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000000"
             name="giaNhapCuoi"
             onChange={handleChange}
           />
@@ -176,7 +175,7 @@ const QuanLyThuoc = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000000"
             name="giaCuoi"
             onChange={handleChange}
           />

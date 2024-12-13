@@ -13,9 +13,9 @@ const QuanLyDichVu = (props) => {
   const [services, setServices] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
   const [searchCriteria, setSearchCriteria] = useState({
-    maDichVu: "",
-    tenDichVu: "",
-    loaiDichVu: "",
+    maDv: "",
+    tenDv: "",
+    loaiDv: "",
     giaDau: "",
     giaCuoi: "",
   });
@@ -53,9 +53,8 @@ const QuanLyDichVu = (props) => {
       chinhSachBaoHanh: newRow.chinhSachBaoHanh,
     };
     if (rowToEdit == null) {
-      const id = await api.addService(data);
-      //newRow.Id = id;
-      setServices([...services, newRow]);
+      const newService = await api.addService(data);
+      setServices([...services, newService]);
     } else {
       api.updateService(newRow.maDv, newRow);
       let updatedServices = services.map((currRow, idx) => {
@@ -72,10 +71,10 @@ const QuanLyDichVu = (props) => {
 
   const onSearch = async () => {
     console.log(searchCriteria);
+    const searchResults = await api.getServicesBySearch(searchCriteria);
 
-    const searchResults = await api.getServicesBySeacrh(searchCriteria);
     console.log(searchResults);
-    setServices(searchResults);
+    setServices(searchResults.services);
   };
   return (
     <div>
@@ -83,28 +82,28 @@ const QuanLyDichVu = (props) => {
         <input
           className="block m-2 px-4 customBox"
           type="text"
-          id="maDichVu"
+          id="maDv"
           placeholder="Nhập mã dịch vụ"
-          name="maDichVu"
-          value={searchCriteria.maDichVu}
+          name="maDv"
+          value={searchCriteria.maDv}
           onChange={handleChange}
         />
         <input
           className="block m-2 px-4 customBox"
           type="text"
-          id="tenDichVu"
+          id="tenDv"
           placeholder="Nhập tên dịch vụ"
-          name="tenDichVu"
-          value={searchCriteria.tenDichVu}
+          name="tenDv"
+          value={searchCriteria.tenDv}
           onChange={handleChange}
         />
         <input
           className="block m-2 px-4 customBox"
           type="text"
-          id="loaiDichVu"
+          id="loaiDv"
           placeholder="Nhập loại dịch vụ"
-          name="loaiDichVu"
-          value={searchCriteria.loaiDichVu}
+          name="loaiDv"
+          value={searchCriteria.loaiDv}
           onChange={handleChange}
         />
         <div>
@@ -121,7 +120,7 @@ const QuanLyDichVu = (props) => {
           <input
             className="block m-2 px-4 customBox"
             type="number"
-            placeholder="1000000000"
+            placeholder="1000000"
             name="giaCuoi"
             value={searchCriteria.giaCuoi}
             onChange={handleChange}
@@ -154,7 +153,7 @@ const QuanLyDichVu = (props) => {
             <th></th>
           </tr>
         </thead>
-        {services.map((row, idx) => {
+        {services?.map((row, idx) => {
           return (
             <tr key={row.Id}>
               <td>{row.maDv}</td>

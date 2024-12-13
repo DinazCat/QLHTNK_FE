@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import { FormBookingSchedule } from "../components/FormBookingSchedule";
 import Api from "../api/Api";
+import NotificationModal from "../components/NotificationModal";
+import TopNav from "../components/TopNav";
+import Footer from "../components/Footer";
 
-const BookingSchedule = () => {
+const BookingOnline = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [doctorSchedules, setDoctorSchedules] = useState();
@@ -263,4 +266,4 @@ const BookingSchedule = () => {
     </div>
   );
 };
-export default BookingSchedule;
+export default BookingOnline;
