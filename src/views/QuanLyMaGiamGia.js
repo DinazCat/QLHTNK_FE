@@ -99,7 +99,7 @@ const QuanLyMaGiamGia = (props) => {
   };
 
   const getDiscounts = async () => {
-    const discounts = await api.getAllItem()
+    const discounts = await api.getAllDiscount()
     setRows(discounts);
   };
 

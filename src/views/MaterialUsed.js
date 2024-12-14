@@ -49,10 +49,10 @@ const MaterialUsed = () => {
         getMatierialUsed()
     }, []);
     const getMaterials = async () => {
-        // const materials = await api.getAllMaterials()
-        // const fil = materials.filter((item, idx) => item.chiNhanh === user?.chinhanh)
-        // setMaterials(fil);
-        setMaterials(materialsDB)
+        const materials = await api.getAllMaterials()
+        const fil = materials.filter((item, idx) => item.maChiNhanh === user?.maCN)
+        setMaterials(fil);
+        // setMaterials(materialsDB)
     }
     const getMatierialUsed = async () => {
         const res = await materialUsedApi.getAllItem()

@@ -11,6 +11,7 @@ import cthsdtApi from "./cthsdtApi";
 import materialUsedApi from "./materialUsedApi";
 import patientApi from "./patientApi";
 import bonusApi from "./bonusApi";
+import accountApi from "./accountApi";
 
 const addDoc = async (controller, data) => {
   try {
@@ -92,6 +93,7 @@ export default {
   ...bonusApi,
   ...patientApi,
   ...materialUsedApi,
+  ...accountApi,
   addDoc,
   getDocs,
   updateDoc,

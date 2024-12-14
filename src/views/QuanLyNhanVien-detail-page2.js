@@ -45,10 +45,13 @@ const XemThongTinNhanVien = (props) => {
 
   const getStaffs = async () => {
     const staffs = await api.getAllStaff();
-    if (user?.loaiNguoiDung !== "ChuHeThong") {
+    console.log(staffs)
+    if (user !=null&&user?.loaiNguoiDung !== "ChuHeThong") {
+      console.log("hihi")
       const fil2 = staffs?.filter((item, idx) => item.maChiNhanh=== user?.maCN);
       setStaffs(fil2);
     } else {
+      console.log("hiha")
       setStaffs(staffs);
     }
   }

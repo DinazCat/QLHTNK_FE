@@ -1,22 +1,30 @@
-import React from "react";
-import "./App.css";
-import ScrollToTop from "./components/ScrollToTop";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import DoctorsPage from "./views/DoctorsPage";
-import BookingPage from "./views/BookingPage";
-import BookingOnline from "./views/BookingOnline";
-import SignInPage from "./views/SignInPage";
-import SignUpPage from "./views/SignUpPage";
-import IntroductionPage from "./views/IntroductionPage";
-import Manager from "./views/Manager";
-import NotFoundPage from "./views/NotFoundPage";
-import ServicesPage from "./views/ServicesPage";
-import ContactPage from "./views/ContactPage";
-import ForgetPassword from "./views/ForgetPassword";
-import Profile from "./views/Profile";
+import React from 'react';
+import './App.css';
+import ScrollToTop from './components/ScrollToTop';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import DoctorsPage from './views/DoctorsPage';
+import BookingPage from './views/BookingPage';
+import SignInPage from './views/SignInPage';
+import SignUpPage from './views/SignUpPage';
+import IntroductionPage from './views/IntroductionPage'
+import Manager from './views/Manager'
+import NotFoundPage from './views/NotFoundPage';
+import ServicesPage from './views/ServicesPage';
+import ContactPage from './views/ContactPage';
+import ForgetPassword from './views/ForgetPassword';
+import Profile from './views/Profile';
+import ConfirmEmail from './views/ConfirmEmail';
+import { AuthProvider } from './hook/AuthProvider';
+import XemHSDT from './views/XemHSDT';
 
 function App() {
+
   return (
+    <AuthProvider>
     <Router>
       <ScrollToTop />
       <Switch>
@@ -32,9 +40,6 @@ function App() {
         <Route path="/booking">
           <BookingPage />
         </Route>
-        <Route path="/bookingOnline">
-          <BookingOnline />
-        </Route>
         <Route path="/sign_in">
           <SignInPage />
         </Route>
@@ -47,18 +52,25 @@ function App() {
         <Route path="/profile">
           <Profile />
         </Route>
+        <Route path="/mytreatmentrecord">
+          <XemHSDT />
+        </Route>
         <Route path="/manager">
           <Manager />
+        </Route>
+        <Route path="/confirm_email">
+          <ConfirmEmail />
         </Route>
 
         <Route path="/" exact>
           <IntroductionPage />
         </Route>
-        <Route path="*">
+        <Route path="*" >
           <NotFoundPage />
         </Route>
       </Switch>
-    </Router>
+    </Router >
+    </AuthProvider>
   );
 }
 

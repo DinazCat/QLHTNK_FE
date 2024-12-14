@@ -33,6 +33,7 @@ const SignInPage = (props) => {
         Email:name,
         Password:pass
        })
+       console.log(res)
        if(res?.message == undefined){
         console.log(res)
         localStorage.setItem('accessToken', res.accessToken);

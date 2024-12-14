@@ -1,11 +1,11 @@
-import axios from "axios";
+// import axios from "axios";
 
-const client = axios.create({
-    baseURL:'https://localhost:7132/api',
-    headers: {
-        'Content-Type': 'application/json',
-      },
-})
+// const client = axios.create({
+//     baseURL:'https://localhost:7132/api',
+//     headers: {
+//         'Content-Type': 'application/json',
+//       },
+// })
 // client.interceptors.request.use(
 //     (config) => {
 //       const token = localStorage.Item('accessToken');
@@ -18,7 +18,7 @@ const client = axios.create({
 //       return Promise.reject(error);
 //     }
 //   );
-
+import { client } from "./client";
 const createAccount = async(user)=>{
     try {
         const response = await client.post('/Account', user);

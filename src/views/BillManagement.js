@@ -167,10 +167,12 @@ const handleSubmitthanhtoan = (e) => {
   const getBills = async () => {
     const res = await api.getAllBill();
     console.log(res)
-        const fil = res?.filter(
-      (item, idx) => item.maCthsdtNavigation.maChiNhanh === user?.maCN
-    );
-    setBills(fil)
+    if(user != null){
+      const fil = res?.filter(
+        (item, idx) => item.maCthsdtNavigation.maChiNhanh === user?.maCN
+      );
+      setBills(fil)
+    }
   };
 
   const getStaffs = async () => {

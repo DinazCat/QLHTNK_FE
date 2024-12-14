@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import nav from './PhanQuyen'
-import Api from "../api/Api";
+// import Api from "../api/Api";
+import api from "../api/Api";
 import { Alert } from "react-bootstrap";
-import patientApi from "../api/patientApi";
 export const AuthContext = createContext({});
 
 
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     console.log("13"+accessToken);
     if (accessToken != undefined) {
       const id = localStorage.getItem('id');
-      const userData = await Api.getUserData(id);
+      const userData = await api.getUserData(id);
       if (userData!=null && userData?.message === undefined) {
         setUser({...userData,maCN:userData?.maNhaSiNavigation?.maChiNhanh});
         console.log(userData);
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         if (userData?.loaiNguoiDung === 'Customer') {
         
           if (userData.maNguoiDung !== '') {
-            const res = await patientApi.getPatientData(userData.maNguoiDung)
+            const res = await api.getPatientData(userData.maNguoiDung)
           if(res?.message === undefined){
             console.log("hihi",res)
             setScope(nav.nav1);
