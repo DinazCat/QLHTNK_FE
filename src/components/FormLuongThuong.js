@@ -97,15 +97,18 @@ export const FormLuongThuong = ({
 
   const handleChange = async (e) => {
         if (e.target.name === "MaChiNhanh") {
-      const fil = staffs0.filter(
-        (item, idx) => item.maCn === e.target.value
+      const fil = staffs0?.filter(
+        (item, idx) => item.maChiNhanh === e.target.value
       );
+      console.log(e.target.value)
+      console.log(staffs0)
       setStaffs(fil);
     }
     if (e.target.name=='LoaiNV'&&e.target.value != "Cá nhân"){
       setFormState({ ...formState, [e.target.name]: e.target.value, MaNV: null });
     }
     else if(e.target.name=='LoaiNV'&&e.target.value == "Cá nhân"){
+      console.log(staffs)
       setFormState({ ...formState, [e.target.name]: e.target.value, MaNV: staffs&&staffs[0].maNv });
     }
     else {

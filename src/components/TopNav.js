@@ -47,7 +47,7 @@ const TopNav = () => {
                 </li>
               );
             })}
-            {(user !== null || user?.loaiNguoiDung === "Customer") && (
+            {(user === null || user?.loaiNguoiDung === "Customer") && (
               <div className="dropdown mb-2 col-auto">
                 <button
                   className="d-flex align-items-center justify-content-center link-dark text-decoration-none dropdown-toggle mt-2 ps-md-2 p-0"

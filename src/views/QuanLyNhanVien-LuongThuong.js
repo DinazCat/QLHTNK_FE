@@ -28,7 +28,7 @@ const LuongThuong = () => {
     getStaffs();
     getBonuses();
     getBranches();
-  }, []);
+  }, [user]);
   const getStaffs = async () => {
     const staffs = await api.getAllStaff();
     if (user?.loaiNguoiDung !== "ChuHeThong") {
@@ -48,6 +48,7 @@ const LuongThuong = () => {
     // setBonuses(res)
     // const endpoint = "/StaffManagement/getAll/LuongThuong";
     // const bonuses = await Api.getDocs(endpoint);
+    // console.log(res)
     const currentDate = new Date();
     if (user?.loaiNguoiDung !== "ChuHeThong") {
       const fil = res?.filter(
@@ -57,16 +58,16 @@ const LuongThuong = () => {
       setBonuses(
         fil?.filter(
           (item) =>
-            item.Thang == currentDate.getMonth() + 1 &&
-            item.Nam == currentDate.getFullYear()
+            item.thang == currentDate.getMonth() + 1 &&
+            item.nam == currentDate.getFullYear()
         )
       );
     } else {
-      setBonuses(
-        bonuses?.filter(
+      setBonuses( 
+        res?.filter(
           (item) =>
-            item.Thang == currentDate.getMonth() + 1 &&
-            item.Nam == currentDate.getFullYear()
+            item.thang == currentDate.getMonth() + 1 &&
+            item.nam == currentDate.getFullYear()
         )
       );
     }
@@ -136,13 +137,24 @@ const LuongThuong = () => {
             onChange={async (e) => {
               // const endpoint = "/StaffManagement/getAll/LuongThuong";
               // const bonuses = await Api.getDocs(endpoint);
+              const currentDate = new Date();
+              const res = await api.getAllBonus()
+              let list = []
+              if(res.message == undefined){ 
+                list = res?.filter(
+                  (item) =>
+                    item.thang == currentDate.getMonth() + 1 &&
+                    item.nam == currentDate.getFullYear()
+                )
+              }
+              console.log(list)
               if (user?.loaiNguoiDung === "ChuHeThong") {
-                const fil = bonuses?.filter(
-                  (item, idx) => item?.maCN === e.target.value
+                const fil = list?.filter(
+                  (item, idx) => item?.maCN === e.target.value ||e.target.value=="Tất cả"
                 );
                 setBonuses(fil);
               } else {
-                const fil = bonuses?.filter(
+                const fil = list?.filter(
                   (item, idx) =>
                     item?.maCN === user?.maCN
                 );
@@ -222,7 +234,7 @@ const LuongThuong = () => {
           defaultValue={rowToEdit !== null && bonuses[rowToEdit]}
           onSubmit={handleSubmit}
           branches={branches}
-          staffs = {staffs}
+          staffs0 = {staffs}
         />
       )}
        <CustomModal

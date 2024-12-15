@@ -939,10 +939,9 @@ const PatientManagement = (props) => {
                   />
                 </div>
               </div>
-              <div style={{ fontWeight: "600" }}>Ảnh sau khi điều trị:</div>
-              <div className="col-md-4 col-sm-6 m-auto">
-                {/* cthsdt.AnhSauDieuTri!=null?cthsdt.AnhSauDieuTri:"/images/ava.png */}
-                <img
+              {/* <div style={{ fontWeight: "600" }}>Ảnh sau khi điều trị:</div> */}
+              {/* <div className="col-md-4 col-sm-6 m-auto"> */}
+                {/* <img
                   src={
                     cthsdt.AnhSauDieuTri != null
                       ? cthsdt.AnhSauDieuTri
@@ -954,16 +953,16 @@ const PatientManagement = (props) => {
                     objectFit: "cover",
                   }}
                   id="imagePreview"
-                />
-                <input
+                /> */}
+                {/* <input
                   type="file"
                   hidden
                   accept="image/*"
                   name="HinhAnhSauDieuTri"
                   id="HinhAnhSauDieuTri"
                   onChange={handleImageChange}
-                />
-                {(cthsdt.edit !== true || state === "create") && (
+                /> */}
+                {/* {(cthsdt.edit !== true || state === "create") && (
                   <div className="mt-3" align="center">
                     <label
                       for="HinhAnhSauDieuTri"
@@ -979,8 +978,8 @@ const PatientManagement = (props) => {
                       <div className="m-auto">Đăng ảnh</div>
                     </label>
                   </div>
-                )}
-              </div>
+                )} */}
+              {/* </div> */}
               {(cthsdt?.edit !== true || state == "create") && (
                 <div className="text-end">
                   <button

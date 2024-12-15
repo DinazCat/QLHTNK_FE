@@ -9,29 +9,54 @@ const ServicesPage = (props) => {
     //fake service list
     const serviceList = [
         {
-            image: "/images/kham7.png",
-            name: "Vệ sinh răng miệng",
-            price: "200000-500000 đồng",
-            description: "Phòng khám nha khoa chuyên cung cấp dịch vụ vệ sinh răng miệng chuyên nghiệp và chất lượng cao. Chúng tôi nhận thức rõ rằng vệ sinh răng miệng đóng vai trò quan trọng trong việc duy trì sức khỏe và sự tự tin của bạn. Dịch vụ vệ sinh răng miệng của chúng tôi được tiến hành bởi các bác sĩ nha khoa có kinh nghiệm và được đào tạo chuyên sâu về phương pháp vệ sinh răng miệng tiên tiến. Chúng tôi sử dụng công nghệ và thiết bị hiện đại nhằm đảm bảo vệ sinh sạch sẽ và hiệu quả cho răng miệng của bạn. Khi bạn đến phòng khám nha khoa, chúng tôi sẽ tiến hành một cuộc khám răng miệng holistically toàn diện, kiểm tra tình trạng răng, nướu và môi trường miệng của bạn. Qua đó, chúng tôi sẽ đưa ra đánh giá chi tiết về tình trạng sức khỏe răng miệng của bạn và tư vấn các biện pháp phòng ngừa và điều trị phù hợp. Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu.Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu."
+            image: "/images/chinhhinh.png",
+            name: "Chỉnh hình răng",
+            price: "30.000.000-50.000.000 đồng",
+            description: "Niềng răng là quá trình điều chỉnh vị trí của răng để cải thiện hàm răng và ngoại hình. Bằng cách sử dụng các bộ niềng răng, các chuyên gia nha khoa có thể di chuyển răng từ vị trí ban đầu của chúng đến vị trí mong muốn, giúp cải thiện sự cân đối của khuôn mặt và tăng tính thẩm mỹ của nụ cười."
         },
         {
-            image: "/images/kham7.png",
-            name: "Vệ sinh răng miệng",
-            price: "200000-500000 đồng",
-            description: "Phòng khám nha khoa chuyên cung cấp dịch vụ vệ sinh răng miệng chuyên nghiệp và chất lượng cao. Chúng tôi nhận thức rõ rằng vệ sinh răng miệng đóng vai trò quan trọng trong việc duy trì sức khỏe và sự tự tin của bạn. Dịch vụ vệ sinh răng miệng của chúng tôi được tiến hành bởi các bác sĩ nha khoa có kinh nghiệm và được đào tạo chuyên sâu về phương pháp vệ sinh răng miệng tiên tiến. Chúng tôi sử dụng công nghệ và thiết bị hiện đại nhằm đảm bảo vệ sinh sạch sẽ và hiệu quả cho răng miệng của bạn. Khi bạn đến phòng khám nha khoa, chúng tôi sẽ tiến hành một cuộc khám răng miệng holistically toàn diện, kiểm tra tình trạng răng, nướu và môi trường miệng của bạn. Qua đó, chúng tôi sẽ đưa ra đánh giá chi tiết về tình trạng sức khỏe răng miệng của bạn và tư vấn các biện pháp phòng ngừa và điều trị phù hợp. Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu.Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu."
+            image: "/images/dieutrituy.png",
+            name: "Điều trị tủy",
+            price: "1.500.000-2.000.000 đồng",
+            description: "Điều trị tủy là quá trình y tế nhằm điều trị các vấn đề liên quan đến tủy răng khi tủy bị viêm, tổn thương hoặc nhiễm trùng. Quá trình này thường bao gồm việc loại bỏ tủy răng bị tổn thương, làm sạch và điều trị khuẩn tủy, sau đó điền kín khoang tủy để ngăn vi khuẩn xâm nhập và tái phát triển. Điều trị tủy không chỉ giữ cho răng được bảo tồn mà còn ngăn ngừa sự lan rộng của nhiễm trùng đến các cấu trúc xung quanh."
         },
         {
-            image: "/images/kham7.png",
-            name: "Vệ sinh răng miệng",
-            price: "200000-500000 đồng",
-            description: "Phòng khám nha khoa chuyên cung cấp dịch vụ vệ sinh răng miệng chuyên nghiệp và chất lượng cao. Chúng tôi nhận thức rõ rằng vệ sinh răng miệng đóng vai trò quan trọng trong việc duy trì sức khỏe và sự tự tin của bạn. Dịch vụ vệ sinh răng miệng của chúng tôi được tiến hành bởi các bác sĩ nha khoa có kinh nghiệm và được đào tạo chuyên sâu về phương pháp vệ sinh răng miệng tiên tiến. Chúng tôi sử dụng công nghệ và thiết bị hiện đại nhằm đảm bảo vệ sinh sạch sẽ và hiệu quả cho răng miệng của bạn. Khi bạn đến phòng khám nha khoa, chúng tôi sẽ tiến hành một cuộc khám răng miệng holistically toàn diện, kiểm tra tình trạng răng, nướu và môi trường miệng của bạn. Qua đó, chúng tôi sẽ đưa ra đánh giá chi tiết về tình trạng sức khỏe răng miệng của bạn và tư vấn các biện pháp phòng ngừa và điều trị phù hợp. Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu.Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu."
+            image: "/images/nhorang.png",
+            name: "Nhổ răng",
+            price: "300.000-1.500.000 đồng",
+            description: "Việc nhổ răng là quá trình y tế được thực hiện để loại bỏ răng đã bị tổn thương, bị nhiễm trùng hoặc không thể được điều trị. Quá trình này thường được thực hiện bởi các chuyên gia nha khoa hoặc các bác sĩ nha khoa có kỹ năng chuyên sâu. Việc nhổ răng được thực hiện sau khi xác định rằng răng không thể được cứu chữa hoặc không tốt cho sức khỏe nướu miệng và hàm răng. Đôi khi, việc nhổ răng cũng có thể là phần của quá trình điều trị nha khoa khác như chuẩn bị cho việc cấy ghép răng hoặc để tạo không gian cho các điều trị khác."
         },
         {
-            image: "/images/kham7.png",
-            name: "Vệ sinh răng miệng",
-            price: "200000-500000 đồng",
-            description: "Phòng khám nha khoa chuyên cung cấp dịch vụ vệ sinh răng miệng chuyên nghiệp và chất lượng cao. Chúng tôi nhận thức rõ rằng vệ sinh răng miệng đóng vai trò quan trọng trong việc duy trì sức khỏe và sự tự tin của bạn. Dịch vụ vệ sinh răng miệng của chúng tôi được tiến hành bởi các bác sĩ nha khoa có kinh nghiệm và được đào tạo chuyên sâu về phương pháp vệ sinh răng miệng tiên tiến. Chúng tôi sử dụng công nghệ và thiết bị hiện đại nhằm đảm bảo vệ sinh sạch sẽ và hiệu quả cho răng miệng của bạn. Khi bạn đến phòng khám nha khoa, chúng tôi sẽ tiến hành một cuộc khám răng miệng holistically toàn diện, kiểm tra tình trạng răng, nướu và môi trường miệng của bạn. Qua đó, chúng tôi sẽ đưa ra đánh giá chi tiết về tình trạng sức khỏe răng miệng của bạn và tư vấn các biện pháp phòng ngừa và điều trị phù hợp. Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu.Quá trình vệ sinh răng miệng bao gồm loại bỏ mảng bám, nhồi thạch và chà răng. Chúng tôi sử dụng các công cụ và kỹ thuật chuyên sắc có thẩm quyền để loại bỏ mảng bám, giữ cho răng của bạn sạch sẽ và giảm nguy cơ bị sâu răng và viêm nướu."
-        }
+            image: "/images/laycaorang.png",
+            name: "Cạo vôi răng",
+            price: "400.000 đồng",
+            description: "Cạo vôi răng là quá trình loại bỏ các cặn bám và mảng bám trên bề mặt của răng để làm sạch và ngăn ngừa sự hình thành của sâu răng và bệnh nướu. Thông qua việc sử dụng các dụng cụ chuyên dụng như cạo vôi và máy siêu âm, chuyên gia nha khoa sẽ loại bỏ các cặn bám, mảng bám và mảng vi khuẩn tích tụ trên răng và quanh nướu. Quá trình này giúp duy trì sức khỏe nướu miệng, ngăn ngừa sâu răng và các vấn đề liên quan đến vi khuẩn gây bệnh trong miệng."
+        },
+        {
+            image: "/images/phuchinh.png",
+            name: "Phục hình cố định",
+            price: "1.000.000-5.000.000 đồng",
+            description: "Phục hình cố định răng là quá trình khôi phục và cải thiện hàm răng bằng cách sử dụng các cấu trúc cố định như cầu răng, bọc răng, hay cấy ghép để thay thế răng bị mất, bị hỏng hoặc không còn khả năng sử dụng. Quá trình này thường được thực hiện bởi các chuyên gia nha khoa có kỹ năng chuyên sâu, nhằm tái tạo hàm răng hoàn chỉnh và cải thiện chức năng nhai cũng như thẩm mỹ nụ cười. "
+        },
+        {
+            image: "/images/ranggia.png",
+            name: "Răng giả tháo lắp",
+            price: "6.000.000 đồng",
+            description: "Răng giả tháo lắp là một loại phục hình không cố định, cho phép người dùng tháo lắp nó từ và lên trên nướu miệng một cách dễ dàng. Thường được làm từ chất liệu như nhựa hoặc kim loại nhẹ, răng giả tháo lắp có thể được đặt và tháo ra khỏi miệng hàng ngày để làm sạch, vệ sinh hoặc trong những trường hợp cần thiết khác. Điều này mang lại tính linh hoạt và thuận tiện cho người dùng so với các loại phục hình cố định khác, giúp duy trì sự thoải mái và sức khỏe tốt cho nướu miệng."
+        },
+        {
+            image: "/images/taytrang.png",
+            name: "Tẩy trắng răng",
+            price: "1.000.000-2.000.000 đồng",
+            description: "Tẩy trắng răng là quá trình sử dụng các chất hóa học hoặc công nghệ để loại bỏ hoặc làm mờ các vết ố vàng, bám trên bề mặt răng, giúp răng trở nên sáng và trắng hơn. Quá trình này thường được thực hiện tại phòng nha khoa hoặc bằng cách sử dụng các sản phẩm tẩy trắng tại nhà dưới sự hướng dẫn của chuyên gia. Tẩy trắng răng không chỉ cải thiện thẩm mỹ của nụ cười mà còn giúp tăng cường tự tin và làm tăng độ trắng sáng của răng trong thời gian ngắn. "
+        },
+        {
+            image: "/images/tieuphaurangkhon.png",
+            name: "Tiểu phẩu răng khôn",
+            price: "1.000.000-2.500.000 đồng",
+            description: "Tiểu phẩu răng khôn là quá trình loại bỏ răng khôn (hay còn gọi là răng số 8) thông qua một ca phẫu thuật nhỏ. Răng khôn thường nằm ở cuối hàm và có thể gây ra các vấn đề như viêm nhiễm, đau nhức, hoặc áp lực lên các răng lân cận do không có đủ không gian để phát triển hoặc mọc đúng hướng. Tiểu phẩu răng khôn thường được thực hiện dưới tình trạng tê cục bộ hoặc tình trạng tê toàn bộ, sau đó răng được loại bỏ một cách cẩn thận để giảm thiểu đau đớn và tối ưu hóa quá trình phục hồi sau phẫu thuật."
+        },
+
     ]
     const doctorPerPage = 3;
     const [startOffset, setStartOffset] = useState(0);
