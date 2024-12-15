@@ -391,10 +391,12 @@ const handleSubmitthanhtoan = (e) => {
                     <td
                       style={{
                         fontStyle: "italic",
-                        color:
-                          item.tinhTrang === "Đã thanh toán"
-                            ? "#269A6C":(item.tinhTrang === null?
-                            "#B74141": "#FFCC00"),
+    color:
+      item?.tinhTrang === "Đã thanh toán"
+        ? "#269A6C"
+        : item.tinhTrang == null
+        ? "#B74141"
+        : "#FFCC00",
                       }}
                     >
                       {item.tinhTrang == null?"Chưa thanh toán":item.tinhTrang}
@@ -618,28 +620,37 @@ const handleSubmitthanhtoan = (e) => {
                                   item.maGiamGia === recentDiscount?.maGiamGia
                               ) || ""}
                               isDisabled = {disableDiscount}
-                              onChange={(value) =>
-                                value !== null &&
-                               (setSoTienGiam(
-                                    (TongTienDV * value.phanTramGiam) / 100
-                                  ),
+                              onChange={(value) =>{
+                                if(value !== null) 
+                                {setSoTienGiam(
+                                    ((TongTienDV+TongTienThuoc) * value.phanTramGiam) / 100
+                                  );
                                     setTTSGG(
                                       TongTienDV +
                                       TongTienThuoc -
                                       ((TongTienDV+TongTienThuoc)* value.phanTramGiam) / 100
-                                    ),
+                                    );
                                     setConNo(
                                       TongTienDV +
                                       TongTienThuoc -
                                       ((TongTienDV+TongTienThuoc) * value.phanTramGiam) / 100 - tongTienThanhToan
-                                    ),
+                                    );
                                     // setNoSauThanhToan(
                                     //   patient.congNo +
                                     //   TongTienDV +
                                     //   TongTienThuoc -
                                     //   (TongTienDV * value.phanTramGiam) / 100
                                     // ),
-                                    setRecentDiscount(value))
+                                    setRecentDiscount(value)}
+                                    else {
+                                      // Nếu người dùng xóa lựa chọn (bấm vào dấu "X")
+                                      // Thực hiện các hành động cần thiết khi không có lựa chọn
+                                      setSoTienGiam(0);
+                                      setTTSGG(TongTienDV + TongTienThuoc);
+                                      setConNo(TongTienDV + TongTienThuoc - tongTienThanhToan);
+                                      setRecentDiscount(null); // Đặt lại recentDiscount
+                                    }
+                                  }
                                  
                               }
                               options={maGiamGia}
@@ -786,7 +797,7 @@ const handleSubmitthanhtoan = (e) => {
                 </div>
                 <div className="text-end mt-4">
                   <div style={{ fontSize: "19px" }}><b>NHÂN VIÊN THỰC HIỆN</b></div>
-                  <div style={{ height: "50px" }}></div>
+                  <div style={{ height: "15px" }}></div>
                   <div className='mt-5 text-uppercase' style={{ fontSize: "19px" }}>
                     <b>{user?.ten}</b>
                   </div>
