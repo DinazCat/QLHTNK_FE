@@ -3,7 +3,7 @@ import "./mistyles.css";
 import Api from "../api/Api";
 import moment from "moment";
 import { AuthContext } from "../hook/AuthProvider";
-// ExcelJS from "exceljs";
+import ExcelJS from "exceljs";
 
 const XemBaoCaoTheoThang = (props) => {
   const [table, setTable] = useState([]);
@@ -13,47 +13,54 @@ const XemBaoCaoTheoThang = (props) => {
   const [totalRevenue, setTotalRevenue] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const chiTietHSDT = await Api.getAllChiTietHSDT();
-        const dichVuDaSuDung = await Api.getAllDichVuDaSuDung();
-        const hoaDon = await Api.getAllHoaDon();
-        const chiTietThanhToan = await Api.getAllChiTietThanhToan();
-        updateTable(chiTietHSDT, dichVuDaSuDung, hoaDon, chiTietThanhToan);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, [selectedMonth]);
 
-  const updateTable = (
-    chiTietHSDT,
-    dichVuDaSuDung,
-    hoaDon,
-    chiTietThanhToan
-  ) => {
+  const fetchData = async () => {
+    try {
+      const chiTietHSDT = await Api.searchCTHSDT({});
+      const hoaDon = await Api.getAllBill();
+      updateTable(chiTietHSDT, hoaDon);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const updateTable = (chiTietHSDT, hoaDon) => {
     const selectedMonthStart = moment(selectedMonth).startOf("month");
     const selectedMonthEnd = moment(selectedMonth).endOf("month");
 
-    const revenueTable = chiTietHSDT.reduce((acc, record) => {
-      const ngayDieuTri = moment(record.NgayDieuTri, "YYYY-MM-DD");
+    const revenueTable = chiTietHSDT?.reduce((acc, record) => {
+      const ngayDieuTri = moment(record.ngayDieuTri, "YYYY-MM-DD");
       if (
         ngayDieuTri.isBetween(selectedMonthStart, selectedMonthEnd, null, "[]")
       ) {
         const soCa = 1;
-        const soDichVu = dichVuDaSuDung
-          .filter((dv) => dv.MaCTHSDT === record.MaCTHSDT)
-          .reduce((sum, dv) => sum + dv.SoLuong, 0);
-        const soBenhNhan = 1; // Each record represents one patient
-        const doanhThu = chiTietThanhToan
-          .filter(
-            (ct) =>
-              ct.MaHD ===
-              hoaDon.find((hd) => hd.MaCTHSDT === record.MaCTHSDT)?.MaHD
-          )
-          .reduce((sum, ct) => sum + ct.SoTienThanhToan, 0);
+        const soDichVu = record.dichVuDaSuDungs.reduce(
+          (sum, dv) => sum + (dv.soLuong || 0),
+          0
+        );
+
+        // Count unique patients by maBn
+        const uniquePatients = new Set(
+          chiTietHSDT
+            .filter((r) =>
+              moment(r.ngayDieuTri, "YYYY-MM-DD").isSame(ngayDieuTri, "day")
+            )
+            .map((r) => r.maBn)
+        ).size;
+
+        const doanhThu = hoaDon
+          .filter((hd) => hd.maCthsdt === record.maCthsdt)
+          .reduce(
+            (sum, hd) =>
+              sum +
+              hd.chiTietThanhToans.reduce(
+                (ctSum, ct) => ctSum + (ct.soTienThanhToan || 0),
+                0
+              ),
+            0
+          );
 
         if (!acc[ngayDieuTri.format("YYYY-MM-DD")]) {
           acc[ngayDieuTri.format("YYYY-MM-DD")] = {
@@ -67,7 +74,7 @@ const XemBaoCaoTheoThang = (props) => {
 
         acc[ngayDieuTri.format("YYYY-MM-DD")].soLuongCaThucHien += soCa;
         acc[ngayDieuTri.format("YYYY-MM-DD")].soDichVuThucHien += soDichVu;
-        acc[ngayDieuTri.format("YYYY-MM-DD")].soBenhNhan += soBenhNhan;
+        acc[ngayDieuTri.format("YYYY-MM-DD")].soBenhNhan = uniquePatients;
         acc[ngayDieuTri.format("YYYY-MM-DD")].doanhThu += doanhThu;
       }
       return acc;
@@ -78,13 +85,81 @@ const XemBaoCaoTheoThang = (props) => {
       0
     );
 
-    const result = Object.values(revenueTable).map((item) => ({
-      ...item,
-      tyLe: parseFloat(((item.doanhThu * 100) / tongDoanhThu).toFixed(1)),
-    }));
+    const result = Object.values(revenueTable)
+      .map((item) => ({
+        ...item,
+        tyLe: parseFloat(((item.doanhThu * 100) / tongDoanhThu).toFixed(1)),
+      }))
+      .sort((a, b) => new Date(a.ngay) - new Date(b.ngay));
 
     setTable(result);
     setTotalRevenue(tongDoanhThu);
+  };
+
+  const handleExport = () => {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Báo cáo");
+    sheet.columns = [
+      { header: "Ngày", key: "ngay", width: 20 },
+      { header: "Số ca thực hiện", key: "soLuongCaThucHien", width: 20 },
+      { header: "Số dịch vụ thực hiện", key: "soDichVuThucHien", width: 20 },
+      { header: "Số bệnh nhân", key: "soBenhNhan", width: 20 },
+      { header: "Doanh thu", key: "doanhThu", width: 20 },
+      { header: "Tỉ lệ(%)", key: "tyLe", width: 20 },
+    ];
+    sheet.getRow(1).font = { bold: true };
+    for (let i = 1; i <= 6; i++) {
+      if (i !== 5)
+        sheet.getColumn(i).alignment = {
+          vertical: "middle",
+          horizontal: "center",
+          wrapText: true,
+        };
+    }
+    sheet.getColumn(5).numFmt = "#,##0";
+    sheet.getCell("E1").alignment = {
+      vertical: "middle",
+      horizontal: "center",
+      wrapText: true,
+    };
+
+    const promise = Promise.all(
+      table.map((item, index) => {
+        sheet.addRow({
+          ngay: moment(new Date(item?.ngay)).format("DD/MM/YYYY"),
+          soLuongCaThucHien: item?.soLuongCaThucHien,
+          soDichVuThucHien: item?.soDichVuThucHien,
+          soBenhNhan: item?.soBenhNhan,
+          doanhThu: item?.doanhThu,
+          tyLe: item?.tyLe,
+        });
+      })
+    );
+    promise.then(() => {
+      sheet.addRow({
+        ngay: "",
+        soLuongCaThucHien: "",
+        soDichVuThucHien: "",
+        soBenhNhan: "",
+        doanhThu: totalRevenue,
+        tyLe: "",
+      });
+      sheet.getCell("E" + (table.length + 2)).font = { bold: true };
+      workbook.xlsx.writeBuffer().then(function (data) {
+        const blob = new Blob([data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download =
+          "Báo cáo " +
+          moment(new Date(selectedMonth)).format("MM/YYYY") +
+          ".xlsx";
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+      });
+    });
   };
 
   return (
@@ -106,7 +181,7 @@ const XemBaoCaoTheoThang = (props) => {
           />
           <div className="text-end">
             <button
-              //onClick={handleExport}
+              onClick={handleExport}
               className="btn pb-2 pt-2 mb-3 me-3"
               style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}
             >
@@ -117,7 +192,7 @@ const XemBaoCaoTheoThang = (props) => {
               type="submit"
               className="btn pb-2 pt-2 mb-3"
               style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}
-              onClick={updateTable}
+              onClick={fetchData}
             >
               Xem
             </button>
