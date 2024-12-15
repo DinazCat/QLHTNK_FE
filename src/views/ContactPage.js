@@ -13,83 +13,92 @@ const ContactPage = (props) => {
         {
             MaCN: "CN001",
             TenCN: "Chi nhánh 1",
-            DiaChi: "ABC, quận 7, Hồ Chí Minh",
-            Email: "abc@gmail.com",
+            DiaChi: "Khu phố 6, Linh Trung, Thủ Đức, Hồ Chí Minh",
+            Email: "nhakhoathuduc@gmail.com",
             SDT: "0835363598"
         },
         {
             MaCN: "CN002",
             TenCN: "Chi nhánh 2",
-            DiaChi: "ABC, quận 8, Hồ Chí Minh",
-            Email: "abc@gmail.com",
-            SDT: "0835363598"
+            DiaChi: "Lâm Văn Bền, Quận 7, Hồ Chí Minh",
+            Email: "nhakhoaquan7@gmail.com",
+            SDT: "0835363597"
         },
         {
             MaCN: "CN003",
             TenCN: "Chi nhánh 3",
-            DiaChi: "ABC, quận 9, Hồ Chí Minh",
-            Email: "abc@gmail.com",
-            SDT: "0835363598"
-        }
+            DiaChi: "Huỳnh Tấn Phát, Quận 8, Hồ Chí Minh",
+            Email: "nhakhoathuducquan8@gmail.com",
+            SDT: "0835363599"
+        },
+        {
+            MaCN: "CN004",
+            TenCN: "Chi nhánh 4",
+            DiaChi: "Điện Biên Phủ, quận Bình Thạnh, Hồ Chí Minh",
+            Email: "nhakhoabinhthanh@gmail.com",
+            SDT: "0835363600"
+        },
+
     ]
 
-    //fake review list
+
     const reviewList = [
         {
-            fullname: "Trần Thị C",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng nhất có thể"
+            fullname: "Trần Hoàng Thảo An ",
+            image: "/images/khach1.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Có các bác sĩ nha khoa và nhân viên có kinh nghiệm, đào tạo tốt và nhiệt tình, tạo cảm giác an tâm cho bệnh nhân."
         },
         {
-            fullname: "Trần Văn Yến",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 2",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Trần Thị Yến",
+            image: "/images/khach5.png",
+            brach: "Chi nhánh quận 7",
+            review: "Không kéo dài thời gian chờ đợi cho bệnh nhân, tạo cảm giác tiện lợi và tôn trọng thời gian của chúng tôi."
         },
         {
-            fullname: "Trần Thị C",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Hoàng Văn Bình",
+            image: "/images/khach2.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Cung cấp thông tin rõ ràng và tư vấn chăm sóc sau điều trị, giúp bệnh nhân hiểu rõ về tình trạng sức khỏe của mình."
         },
         {
-            fullname: "Trần Văn Yến",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 2",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Phan Hải Anh",
+            image: "/images/khach4.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Nha khoa tốt có bác sĩ rất tốt, họ giúp răng của mình trở nên khỏe mạnh và sáng bóng. Cháu rất vui"
         },
         {
-            fullname: "Ẩn danh",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Hoàng Lê Bảo Châu",
+            image: "/images/khach3.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Bác sĩ và nhân viên tại nha khoa tốt thường rất tận tâm. Thời gian đặt lịch rất rõ ràng không cần chờ đợi."
         },
         {
-            fullname: "Ẩn danh",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 2",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
-        },
-        {
-            fullname: "Ẩn danh",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Trần Vũ Thảo My",
+            image: "/images/khach6.png",
+            brach: "Chi nhánh quận 8",
+            review: "Đội ngũ y tá ở đây rất chu đáo và nhẹ nhàng, họ luôn tạo cảm giác an tâm và thoải mái cho bệnh nhân."
         }
         ,
         {
-            fullname: "Ẩn danh",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Trương Anh Trinh",
+            image: "/images/khach7.png",
+            brach: "Chi nhánh quận 7",
+            review: "Tôi thích việc được tư vấn về cách chăm sóc răng miệng và lựa chọn sản phẩm phù hợp cho nụ cười của mình."
         }
         ,
         {
-            fullname: "Ẩn danh",
-            image: "/images/ava.png",
-            brach: "Chi nhánh quận 1",
-            review: "Đặt lịch rất dễ dàng, luôn tạo điều kiện tốt cho khách hàng"
+            fullname: "Phạm Hải Lam",
+            image: "/images/khach8.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Bác sĩ nữ ở nha khoa tốt thường rất tận tâm và chu đáo trong việc tư vấn về việc chăm sóc răng miệng sau điều trị."
+        }
+        ,
+        {
+            fullname: "Nguyễn Thị Bảo Thương",
+            image: "/images/khach9.png",
+            brach: "Chi nhánh Thủ Đức",
+            review: "Tôi thích điều trị ở nha khoa tốt vì họ sử dụng các trang thiết bị hiện đại và phương pháp làm đẹp răng hiệu quả."
         }
     ]
     //custom setting for slider
@@ -182,7 +191,7 @@ const ContactPage = (props) => {
                                         <div className="custom-slider-item pt-5 pb-5 pe-3 px-3 mb-4" >
                                             <p className="truncation-text">{item.review}</p>
                                         </div>
-                                        <img alt="" className="img-thumbnail" src="/images/ava.png" style={{ borderRadius: "50%", width: "40%" }} />
+                                        <img alt="" className="img-thumbnail" src={item.image} style={{ borderRadius: "50%", width: "40%" }} />
                                         <h5 className='mt-2'>{item.fullname}</h5>
                                         <p>{item.brach}</p>
                                     </div>

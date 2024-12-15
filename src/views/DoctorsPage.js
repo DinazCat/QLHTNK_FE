@@ -10,61 +10,53 @@ const DoctorsPage = (props) => {
     //fake list doctor
     const doctorList = [
         {
-            image: "/images/doctor1.jpg",//can add height but not recommend
-            fullName: "Nguyễn Văn A",
-            brach: "Quận 7, HCM",
+            image: "/images/doctor10.png",
+            fullName: "Nguyễn Gia Bảo",
+            brach: "Thủ Đức, thành phố Hồ Chí Minh",
+            speciality: "Chuyên khoa II Răng Hàm Mặt",
         },
         {
             image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
+            fullName: "Nguyễn Thanh Thư",
+            brach: "Thủ Đức, thành phố Hồ Chí Minh",
+            speciality: "Bác sĩ Răng Hàm Mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Văn A",
-            brach: "Quận 7, HCM",
+            image: "/images/doctor8.png",
+            fullName: "Phan Nguyễn Cao Trí",
+            brach: "Thủ Đức, thành phố Hồ Chí Minh",
+            speciality: "Thạc sĩ Răng Hàm Mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
+            image: "/images/doctor6.png",
+            fullName: "Lê Thị Lan Nhi",
+            brach: "Thủ Đức, thành phố Hồ Chí Minh",
+            speciality: "Chuyên khoa I Răng hàm mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Văn A",
-            brach: "Quận 7, HCM",
+            image: "/images/doctor9.png",
+            fullName: "Trần Gia Nghĩa",
+            brach: "Thủ Đức, thành phố Hồ Chí Minh",
+            speciality: "Chuyên khoa I Răng Hàm Mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
-        }
-        ,
-        {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
+            image: "/images/doctor7.png",
+            fullName: "Hoàng Thị Thảo",
+            brach: "Quận 8, thành phố Hồ Chí Minh",
+            speciality: "Bác sĩ Răng Hàm Mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Văn A",
-            brach: "Quận 7, HCM",
+            image: "/images/doctor5.png",
+            fullName: "Trần Thị Hà",
+            brach: "Quận 7, thành phố Hồ Chí Minh",
+            speciality: "Bác sĩ Răng Hàm Mặt",
         },
         {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
+            image: "/images/doctor11.png",
+            fullName: "Trương Hoài An",
+            brach: "Quận 7, thành phố Hồ Chí Minh",
+            speciality: "Bác sĩ Răng Hàm Mặt",
         },
-        {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
-        },
-        {
-            image: "/images/doctor1.jpg",
-            fullName: "Nguyễn Thị Bé",
-            brach: "Quận 8, HCM",
-        }
     ]
     const doctorPerPage = 4;
     const [startOffset, setStartOffset] = useState(0);
@@ -101,7 +93,7 @@ const DoctorsPage = (props) => {
                                 <img src={item.image} alt="" style={{ width: "100%" }} />
                                 <p className="mt-3">
                                     {item.fullName}<br />
-                                    Chuyên khoa:<br />
+                                    Chuyên khoa: {item.speciality}<br />
                                     Chi nhánh:  {item.brach}
                                 </p>
 

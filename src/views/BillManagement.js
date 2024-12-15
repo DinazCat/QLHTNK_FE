@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import "./style.css";
 import moment from "moment";
-// import ReactToPrint from 'react-to-print';
+import ReactToPrint from 'react-to-print';
 import api from "../api/Api";
 import Select from "react-select";
 import { AuthContext } from "../hook/AuthProvider";
@@ -24,6 +24,7 @@ const BillManagement = (props) => {
   const [patient, setPatient] = useState();
   const [traGop, setTraGop] = useState(false);
   const [minimum, setMinimum] = useState(0);
+
   //Mine
   const [isModal, setIsModal] = useState(false);
   const [tongTienThanhToan, setTongTienThanhToan] = useState(0);
@@ -792,14 +793,14 @@ const handleSubmitthanhtoan = (e) => {
                 </div>
               </div>
               <div className="text-end">
-                {/* <ReactToPrint
+                <ReactToPrint
                   trigger={() =>
                     <button className="btn pb-2 pt-2 mt-3 mb-3 me-3"
                       style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}
                     >In hóa đơn
                     </button>}
                   content={() => componentToPrintRef.current}
-                /> */}
+                />
                 <button
                   type="submit"
                   onClick={handleSubmit}

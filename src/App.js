@@ -20,6 +20,7 @@ import Profile from './views/Profile';
 import ConfirmEmail from './views/ConfirmEmail';
 import { AuthProvider } from './hook/AuthProvider';
 import XemHSDT from './views/XemHSDT';
+import BookingOnline from './views/BookingOnline';
 
 function App() {
 
@@ -61,7 +62,9 @@ function App() {
         <Route path="/confirm_email">
           <ConfirmEmail />
         </Route>
-
+        <Route path="/bookingOnline">
+          <BookingOnline/>
+        </Route>
         <Route path="/" exact>
           <IntroductionPage />
         </Route>
