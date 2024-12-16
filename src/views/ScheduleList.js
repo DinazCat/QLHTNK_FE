@@ -136,7 +136,14 @@ const ScheduleList = () => {
       };
       console.log(data);
       const res = await api.addDoc("Appointment", data);
-      setAppointments([...appointments, res]);
+      const newAppointments = [...appointments, res];
+      setAppointments(
+        newAppointments.sort((a, b) => {
+          const dateTimeA = new Date(`${normalizeDate(a.ngay)}T${a.gio}`);
+          const dateTimeB = new Date(`${normalizeDate(b.ngay)}T${b.gio}`);
+          return dateTimeB - dateTimeA;
+        })
+      );
     } else {
       newRow = {
         ...newRow,

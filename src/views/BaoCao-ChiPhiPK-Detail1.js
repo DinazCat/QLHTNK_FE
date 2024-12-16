@@ -194,7 +194,7 @@ const XemBaoCaoCPPKTheoThang = (props) => {
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
           />
-          <div className="text-end">
+          <div className="text-start">
             <button
               onClick={handleExport}
               className="btn pb-2 pt-2 mb-3 me-3"

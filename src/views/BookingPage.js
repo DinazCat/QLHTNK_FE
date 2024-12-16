@@ -30,6 +30,11 @@ const BookingPage = (props) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
+  function isValidPhoneNumber(phoneNumber) {
+    const phoneRegex = /^(?:\+84|0)(\d{9,10})$/;
+    return phoneRegex.test(phoneNumber);
+  }
+
   const validateForm = () => {
     console.log(formState);
     setSuccessMessage("");
@@ -38,6 +43,10 @@ const BookingPage = (props) => {
       formState.HoTen != "" &&
       formState.SoDienThoai != ""
     ) {
+      if (!isValidPhoneNumber(formState.soDienThoai)) {
+        setErrors("Số điện thoại không hợp lệ!");
+        return false;
+      }
       setErrors("");
       return true;
     } else {

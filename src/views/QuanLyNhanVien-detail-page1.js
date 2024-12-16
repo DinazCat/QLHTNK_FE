@@ -84,6 +84,7 @@ const XemBangLuong = (props) => {
           class="customBox"
           name="nameNhanVien"
           value={selectedMonth}
+          max={new Date().toISOString().slice(0, 7)}
           onChange={(e) => setSelectedMonth(e.target.value)}
         />
       </div>

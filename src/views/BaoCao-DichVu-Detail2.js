@@ -187,7 +187,7 @@ const XemBaoCaoTheoDichVuTheoNam = (props) => {
             onChange={(e) => setSelectedYear(e.target.value)}
             className="form-control pb-2 pt-2 mb-3"
           />
-          <div className="text-end">
+          <div className="text-start">
             <button
               onClick={handleExport}
               className="btn pb-2 pt-2 mb-3 me-3"

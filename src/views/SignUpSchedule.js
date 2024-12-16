@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Api from "../api/Api";
 import NotificationModal from "../components/NotificationModal";
+import { AuthContext } from "../hook/AuthProvider";
 
 const table = [
   {
@@ -47,8 +48,9 @@ const table = [
   },
 ];
 const SignUpSchedule = () => {
-  const doctorId = "1006";
-  const doctorName = "Lê Minh Phương";
+  const { user } = useContext(AuthContext);
+  const doctorId = user.maNV;
+  const doctorName = user.ten;
   const [scheduleSignedUp, setScheduleSignUp] = useState(table);
   const [currentSchedule, setCurrentSchedule] = useState(table);
   const [doctorSchedule, setDoctorSchedule] = useState(null);
@@ -165,6 +167,11 @@ const SignUpSchedule = () => {
     };
 
     localStorage.setItem("doctorSchedule2", JSON.stringify(data));
+
+    // const schedules = generateMonthlySchedule(data);
+    // for (const item of schedules) {
+    //   await Api.addDoc("Appointment/DoctorSchedule", item);
+    // }
   };
 
   function generateMonthlySchedule(data) {

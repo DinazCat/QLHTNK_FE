@@ -17,12 +17,21 @@ export const FormBookingSchedule = ({
     console.log(defaultValue);
   }, []);
 
+  function isValidPhoneNumber(phoneNumber) {
+    const phoneRegex = /^(?:\+84|0)(\d{9,10})$/;
+    return phoneRegex.test(phoneNumber);
+  }
+
   const validateForm = () => {
     if (
       formState.hoTen != "" &&
       formState.soDienThoai != "" &&
       formState.lyDoKham != ""
     ) {
+      if (!isValidPhoneNumber(formState.soDienThoai)) {
+        setErrors("Số điện thoại không hợp lệ!");
+        return false;
+      }
       setErrors("");
       return true;
     } else {

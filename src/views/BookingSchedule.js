@@ -44,6 +44,7 @@ const BookingSchedule = () => {
         maChiNhanh: 1000,
         hoTen: newData.hoTen,
         soDienThoai: newData.soDienThoai,
+        maNs: newData.maNs,
         ngay: newData.ngay,
         gio: newData.gioBatDau,
         lyDoKham: newData.lyDoKham,

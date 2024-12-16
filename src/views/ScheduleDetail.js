@@ -1,12 +1,14 @@
 import Scheduler, { Resource } from "devextreme-react/scheduler";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { ColorList } from "../constData/ColorList";
 import AppointmentToolTip from "../components/AppointmentToolTip";
 import { locale, loadMessages, formatMessage } from "devextreme/localization";
 import viMessages from "devextreme/localization/messages/vi.json";
 import Api from "../api/Api";
+import { AuthContext } from "../hook/AuthProvider";
 
 const ScheduleDetail = () => {
+  const { user } = useContext(AuthContext);
   //default views
   const views = ["day", "week", "agenda"];
 
@@ -20,7 +22,8 @@ const ScheduleDetail = () => {
   //set today button
   const schedulerRef = useRef();
   // fake currentuser
-  const doctorId = "1006";
+  const doctorId =
+    user.maNhaSiNavigation?.chucVu == "Nha sĩ" ? user.maNv : null;
 
   useEffect(() => {
     getAppointments();
@@ -29,7 +32,10 @@ const ScheduleDetail = () => {
   const getAppointments = async () => {
     const res = await Api.getDocs("Appointment");
 
-    const appointments = res.filter((item) => item.maNs == doctorId);
+    let appointments = [];
+    if (doctorId) appointments = res.filter((item) => item.maNs == doctorId);
+    else appointments = res.filter((item) => item.maNs != null);
+    console.log(appointments);
     if (appointments)
       setAppointments(
         appointments.map((item) => {
@@ -56,7 +62,7 @@ const ScheduleDetail = () => {
   };
 
   const addMinutesToTime = (time, minutesToAdd) => {
-    const [hours, minutes] = time.split(":").map(Number);
+    const [hours, minutes] = time?.split(":").map(Number);
     const date = new Date();
     date.setHours(hours, minutes + minutesToAdd);
     return `${date.getHours()}:${date

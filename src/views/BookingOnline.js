@@ -5,13 +5,17 @@ import Api from "../api/Api";
 import NotificationModal from "../components/NotificationModal";
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
+import { AuthContext } from "../hook/AuthProvider";
 
 const BookingOnline = () => {
+  const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [doctorSchedules, setDoctorSchedules] = useState();
   const [doctors, setDoctors] = useState([]);
   const [flag, setFlag] = useState("");
+  const [showNoti, setShowNoti] = useState(false);
+  const [notiBody, setNotiBody] = useState("");
 
   useEffect(() => {
     getDoctorSchedules();
@@ -47,6 +51,7 @@ const BookingOnline = () => {
         maChiNhanh: 1000,
         hoTen: newData.hoTen,
         soDienThoai: newData.soDienThoai,
+        maNs: newData.maNs,
         ngay: newData.ngay,
         gio: newData.gioBatDau,
         lyDoKham: newData.lyDoKham,
@@ -71,9 +76,13 @@ const BookingOnline = () => {
             item.maLichLamViec == newData.maLichLamViec ? newData : item
           )
         );
+        setNotiBody("Bạn đã đặt lịch thành công!");
+        setShowNoti(true);
       }
     } else if (flag == "edit") {
       await Api.updateDoc("Appointment", newData.maLichHen, newData);
+      setNotiBody("Thay đổi lịch thành công!");
+      setShowNoti(true);
     }
   };
 
@@ -96,6 +105,8 @@ const BookingOnline = () => {
         item.maLichLamViec == newData.maLichLamViec ? newData : item
       )
     );
+    setNotiBody("Bạn đã hủy lịch hẹn thành công!");
+    setShowNoti(true);
   };
 
   const setItemToEdit = async (worktime, doctor) => {
@@ -121,6 +132,7 @@ const BookingOnline = () => {
       });
       setModalOpen(true);
     } else {
+      if (!user) return;
       setFlag("edit");
       const appointment = await Api.getDoc("Appointment", worktime.ghiChu);
       console.log(appointment);
@@ -171,86 +183,96 @@ const BookingOnline = () => {
 
   return (
     <div>
-      {doctors?.map((item) => {
-        return (
-          <div
-            className="row p-2 mt-3"
-            style={{
-              border: "2px solid grey",
-              borderRadius: "5px",
-              boxShadow: "3px 3px #888888",
-            }}
-          >
-            <div className="col-lg-6 mt-2">
-              <div className="row justify-content-center align-items-center">
-                <div className="col-auto">
-                  <img
-                    alt=""
-                    src="/images/ava.png"
-                    style={{ borderRadius: "50%", width: "100px" }}
-                  />
-                </div>
-                <div className="col">
-                  <div>
-                    {item?.bangCap}, {item?.tenNv}
+      <TopNav />
+      <div className="p-5">
+        {doctors?.map((item) => {
+          return (
+            <div
+              className="row p-2 mt-3"
+              style={{
+                border: "2px solid grey",
+                borderRadius: "5px",
+                boxShadow: "3px 3px #888888",
+              }}
+            >
+              <div className="col-lg-6 mt-2">
+                <div className="row justify-content-center align-items-center">
+                  <div className="col-auto">
+                    <img
+                      alt=""
+                      src="/images/ava.png"
+                      style={{ borderRadius: "50%", width: "100px" }}
+                    />
                   </div>
-                  <div>Kinh nghiệm: {item?.kinhNghiem} năm</div>
+                  <div className="col">
+                    <div>
+                      {item?.bangCap}, {item?.tenNv}
+                    </div>
+                    <div>Kinh nghiệm: {item?.kinhNghiem} năm</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-lg-6">
-              <div className="datepicker-wrp">
-                <div className="btn-wrp">
-                  <input
-                    type="date"
-                    className="btn-clck"
-                    value={item?.date}
-                    min={moment().format("YYYY-MM-DD")}
-                    onChange={(e) => changeDate(e, item?.maNv)}
-                  />
+              <div className="col-lg-6">
+                <div className="datepicker-wrp">
+                  <div className="btn-wrp">
+                    <input
+                      type="date"
+                      className="btn-clck"
+                      value={item?.date}
+                      min={moment().format("YYYY-MM-DD")}
+                      onChange={(e) => changeDate(e, item?.maNv)}
+                    />
+                  </div>
+                  <button className="btn btnIconDate">
+                    <img alt="" src="/images/dropdown.png" />
+                  </button>
                 </div>
-                <button className="btn btnIconDate">
-                  <img alt="" src="/images/dropdown.png" />
-                </button>
-              </div>
-              <div
-                style={{
-                  height: "340px",
-                  overflowY: "auto",
-                  fontWeight: "bold",
-                }}
-              >
-                <div className="row ms-0 me-0" style={{ fontWeight: "bold" }}>
-                  {!getWorkTime(item) ? (
-                    <div className="mt-3">Không có lịch</div>
-                  ) : (
-                    getWorkTimes(item)?.map((worktime, index) => {
-                      return (
-                        <div className="col-auto" style={{ cursor: "default" }}>
+                <div
+                  style={{
+                    height: "340px",
+                    overflowY: "auto",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <div className="row ms-0 me-0" style={{ fontWeight: "bold" }}>
+                    {!getWorkTime(item) ? (
+                      <div className="mt-3">Không có lịch</div>
+                    ) : (
+                      getWorkTimes(item)?.map((worktime, index) => {
+                        return (
                           <div
-                            className="mt-3 p-2"
-                            style={{
-                              backgroundColor:
-                                worktime.ghiChu ||
-                                isTimeRangePassed(worktime.gioBatDau, item.date)
-                                  ? "#bfbfbf"
-                                  : "#0096FF",
-                            }}
-                            onClick={() => setItemToEdit(worktime, item)}
+                            className="col-auto"
+                            style={{ cursor: "default" }}
                           >
-                            {worktime.gioBatDau}
+                            <div
+                              className="mt-3 p-2"
+                              style={{
+                                backgroundColor:
+                                  worktime.ghiChu ||
+                                  isTimeRangePassed(
+                                    worktime.gioBatDau,
+                                    item.date
+                                  )
+                                    ? "#bfbfbf"
+                                    : "#0096FF",
+                              }}
+                              onClick={() => setItemToEdit(worktime, item)}
+                            >
+                              {worktime.gioBatDau}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })
-                  )}
+                        );
+                      })
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+
       {modalOpen && (
         <FormBookingSchedule
           closeModal={() => {
@@ -263,6 +285,13 @@ const BookingOnline = () => {
           flag={flag}
         />
       )}
+      <Footer style={{ marginTop: 0 }} />
+      <NotificationModal
+        show={showNoti}
+        onHide={() => setShowNoti(false)}
+        title="LOGOIPSUM"
+        message={notiBody}
+      />
     </div>
   );
 };

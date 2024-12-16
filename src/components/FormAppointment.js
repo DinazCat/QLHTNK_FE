@@ -36,11 +36,21 @@ export const FormAppointment = ({
     console.log(formState);
     if (
       (formState.benhNhan || formState.maBn || formState.hoTen) &&
-      //formState.nhaSi &&
+      //formState.soDienThoai &&
       formState.ngay &&
       formState.gio &&
       formState.lyDoKham
     ) {
+      const existingAppointment = appointments.find(
+        (appointment) =>
+          appointment.maNs == formState.nhaSi?.maNv &&
+          appointment.ngay == formState.ngay &&
+          appointment.gio == formState.gio
+      );
+      if (formState.nhaSi && existingAppointment) {
+        setErrors("Nha sĩ đã có lịch hẹn vào thời gian này.");
+        return false;
+      }
       setErrors("");
       return true;
     } else {
@@ -114,7 +124,7 @@ export const FormAppointment = ({
         <form>
           <div className="form-group">
             <label htmlFor="benhNhan">Bệnh nhân</label>
-            {defaultValue && defaultValue.maBn ? (
+            {!defaultValue || (defaultValue && defaultValue.maBn) ? (
               <Select
                 options={patients.map((v) => ({
                   value: v,
