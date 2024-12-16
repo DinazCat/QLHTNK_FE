@@ -85,7 +85,7 @@ const LuongThuong = () => {
       // const id = await Api.addDoc(endpoint, { ...newRow, chiNhanh: chiNhanh });
       // newRow.Id = id;
       // setBonuses([...bonuses, newRow]);
-      const res = await api.createBonus({...newRow,MaChiNhanh:chiNhanh});
+      const res = await api.createBonus({...newRow,MaCN:chiNhanh});
       if(res?.message == undefined){
         setBonuses([...bonuses, res]);
       }
@@ -93,7 +93,7 @@ const LuongThuong = () => {
         handleShowDialog(`Error adding bonus! ${res?res?.message:""}`)
       }
     } else {
-      const res = await api.updateBonus(bonuses[rowToEdit].maLT,{...newRow,MaLT:bonuses[rowToEdit].maLT,MaChiNhanh:chiNhanh})
+      const res = await api.updateBonus(bonuses[rowToEdit].maLT,{...newRow,MaLT:bonuses[rowToEdit].maLT,MaCN:chiNhanh})
       if(res?.message == undefined){
         let updatedBonuses = bonuses.map((currRow, idx) => {
           if (idx !== rowToEdit) return currRow;
@@ -150,7 +150,7 @@ const LuongThuong = () => {
               console.log(list)
               if (user?.loaiNguoiDung === "ChuHeThong") {
                 const fil = list?.filter(
-                  (item, idx) => item?.maCN === e.target.value ||e.target.value=="Tất cả"
+                  (item, idx) => item?.maCN == e.target.value ||e.target.value=="Tất cả"
                 );
                 setBonuses(fil);
               } else {

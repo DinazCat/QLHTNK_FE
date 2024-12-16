@@ -98,10 +98,12 @@ export const FormLuongThuong = ({
   const handleChange = async (e) => {
         if (e.target.name === "MaChiNhanh") {
       const fil = staffs0?.filter(
-        (item, idx) => item.maChiNhanh === e.target.value
+        (item, idx) => {
+          console.log(item.maChiNhanh == e.target.value)
+          // console.log(e.target.value)
+          return item.maChiNhanh == e.target.value}
       );
-      console.log(e.target.value)
-      console.log(staffs0)
+      setFormState({...formState,[e.target.name]: e.target.value });
       setStaffs(fil);
     }
     if (e.target.name=='LoaiNV'&&e.target.value != "Cá nhân"){
@@ -109,7 +111,11 @@ export const FormLuongThuong = ({
     }
     else if(e.target.name=='LoaiNV'&&e.target.value == "Cá nhân"){
       console.log(staffs)
-      setFormState({ ...formState, [e.target.name]: e.target.value, MaNV: staffs&&staffs[0].maNv });
+      const fil = staffs0?.filter(
+        (item, idx) => {
+          return item.maChiNhanh == branches[1]?.maCn})
+          setStaffs(fil)
+      setFormState({ ...formState, [e.target.name]: e.target.value, MaNV: staffs&&staffs[0].maNv, MaChiNhanh: branches[1]?.maCn});
     }
     else {
       setFormState({...formState,[e.target.name]: e.target.value });

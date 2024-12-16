@@ -22,7 +22,7 @@ const ConfirmEmail = () => {
 
       try {
         const response = await axios.get(
-          `https://localhost:7132/api/Account/confirm-email?token=${token}&email=${email}`
+          `http://localhost:7132/api/Account/confirm-email?token=${token}&email=${email}`
         );
         alert(response.data.message || "Email confirmed successfully!");
       } catch (error) {

@@ -61,7 +61,7 @@ const getAllPatient= async () => {
     }
   };
   const getPatientData = async (PatientId) => {
-    const endpoint = "/Patient/" + PatientId;
+    const endpoint = "/Patient/" + PatientId.toString();
     try {
       const response = await client.get(endpoint);
         return response.data;

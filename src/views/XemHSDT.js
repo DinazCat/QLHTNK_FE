@@ -60,24 +60,27 @@ const XemHSDT = () => {
           setListCTHSDT(res)
         }
         else{
-          setListCTHSDT([])
+          setListCTHSDT(null)
         }
     }
     useEffect(() => {
+      if(user != null)
         getPatient();
-    }, []);
+    }, [user]);
 
     const getPatient = async () => {
         const patients = await patientApi.searchPatient({
             maBn: "",
             tenBn: "",
-            cccd: user.maNguoiDung,
+            cccd: user?.maNguoiDung,
             soDienThoai: ""
         })
         console.log(patients)
+        if(patients && patients.length > 0){
         setSelectedPatient(patients[0])
         setHSDT(patients[0])
-        getlistCTHSDT(patients[0].maBn)
+        getlistCTHSDT(patients[0]?.maBn)
+        }
     }
     const nextPage = () => {
         setPage(page + 1);

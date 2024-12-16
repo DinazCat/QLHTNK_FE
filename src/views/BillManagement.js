@@ -85,7 +85,12 @@ const BillManagement = (props) => {
       setCTTTnew([formState]);
     } else {
       setCTTT([...CTTT, formState]);
-      setCTTTnew([...CTTTnew, formState]);
+      if(CTTTnew == null){
+        setCTTTnew([formState]);
+      }
+      else{
+        setCTTTnew([...CTTTnew, formState]);
+      }
     }
     setIsModal(false);
   };
@@ -166,11 +171,17 @@ const BillManagement = (props) => {
 
   const getBills = async () => {
     const res = await api.getAllBill();
-    console.log(res);
+    console.log(res[1].tinhTrang);
     if (user != null) {
-      const fil = res?.filter(
+      let fil = res?.filter(
         (item, idx) => item.maCthsdtNavigation.maChiNhanh === user?.maCN
       );
+      fil = fil?.sort((a, b) => {
+        const dateA = new Date(a.ngayLap);  // Chuyển 'ngayLap' thành đối tượng Date
+        const dateB = new Date(b.ngayLap);  // Chuyển 'ngayLap' thành đối tượng Date
+      
+        return dateB - dateA;  // So sánh theo thứ tự giảm dần (mới nhất -> cũ nhất)
+      });
       setBills(fil);
     }
   };
@@ -238,7 +249,7 @@ const BillManagement = (props) => {
           conNo == 0
             ? "Đã thanh toán"
             : conNo < TongTienDV + TongTienThuoc - SoTienGiam
-            ? "Đang trả góp"
+            ? "Còn nợ"
             : null,
       };
       const obj2 = CTTTnew.map((item) => ({
@@ -345,10 +356,10 @@ const BillManagement = (props) => {
                     onChange={handleChange}
                     value={searchCriteria?.tinhTrang}
                   >
-                    <option value="">Tất cả</option>
+                    <option value="Tất cả">Tất cả</option>
                     <option value="Đã thanh toán">Đã thanh toán</option>
-                    <option value="Chưa thanh toán">Chưa thanh toán</option>
-                    <option value="Đang trả góp">Đang trả góp</option>
+                    <option value=''>Chưa thanh toán</option>
+                    <option value="Còn nợ">Còn nợ</option>
                   </select>
                 </div>
                 <div className="text-end">
@@ -394,7 +405,7 @@ const BillManagement = (props) => {
                       style={{
                         fontStyle: "italic",
                         color:
-                          item?.tinhTrang === "Đã thanh toán"
+                           (item?.tinhTrang =="Ðã thanh toán" ||item?.tinhTrang == "Đã thanh toán")
                             ? "#269A6C"
                             : item.tinhTrang == null
                             ? "#B74141"

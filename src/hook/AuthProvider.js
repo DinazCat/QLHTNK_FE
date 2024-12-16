@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
         console.log(userData);
 
         if (userData?.loaiNguoiDung === 'Customer') {
-        
           if (userData.maNguoiDung !== '') {
             const res = await api.getPatientData(userData.maNguoiDung)
           if(res?.message === undefined){
@@ -39,6 +38,7 @@ export const AuthProvider = ({ children }) => {
           // if(res?.message === undefined){
           //   setUser({...userData,maCN:res.maChiNhanh})
           // }
+  
           setScope(nav.nav2);
 
           switch (userData?.loaiNguoiDung) {
@@ -66,12 +66,14 @@ export const AuthProvider = ({ children }) => {
         }
       }
       else{
+
         alert("Your account may have been deleted!");
         localStorage.removeItem('accessToken');
         localStorage.removeItem('id');
         localStorage.removeItem('role');
       }
     } else {
+
       setUser(null);
     }
   };
