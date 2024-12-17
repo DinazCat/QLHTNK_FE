@@ -886,20 +886,14 @@ const PatientManagement = (props) => {
                 className="mb-2"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <div style={{ fontWeight: "600" }}>Nha sĩ điều trị:</div>
+                <div style={{ fontWeight: "600", marginRight: "10px" }}>
+                  Nha sĩ điều trị:{" "}
+                </div>
                 {user?.loaiNguoiDung === "Nha sĩ" && (
                   <div>
-                    <input
-                      type="text"
-                      className="form-control signature"
-                      id="MaNV"
-                      name="MaNhaSi"
-                      value={
-                        state === "create"
-                          ? user?.ten
-                          : cthsdt.maNhaSiNavigation.tenNv
-                      }
-                    />
+                    {state === "create"
+                      ? user?.ten
+                      : cthsdt.maNhaSiNavigation.tenNv}
                   </div>
                 )}
                 {user?.loaiNguoiDung === "Phụ tá" && (

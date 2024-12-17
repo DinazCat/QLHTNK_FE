@@ -35,6 +35,7 @@ const deleteDoc = async (controller, id) => {
     console.log("Doc deleted successfully.");
   } catch (error) {
     console.log("error: ", error.message);
+    return "error";
   }
 };
 const getDoc = async (collection, id) => {

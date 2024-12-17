@@ -23,11 +23,11 @@ const ScheduleDetail = () => {
   const schedulerRef = useRef();
   // fake currentuser
   const doctorId =
-    user.maNhaSiNavigation?.chucVu == "Nha sĩ" ? user.maNv : null;
+    user.maNhaSiNavigation?.chucVu == "Nha sĩ" ? user.maNV : null;
 
   useEffect(() => {
     getAppointments();
-  }, []);
+  }, [user]);
 
   const getAppointments = async () => {
     const res = await Api.getDocs("Appointment");

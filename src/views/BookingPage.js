@@ -43,7 +43,7 @@ const BookingPage = (props) => {
       formState.HoTen != "" &&
       formState.SoDienThoai != ""
     ) {
-      if (!isValidPhoneNumber(formState.soDienThoai)) {
+      if (!isValidPhoneNumber(formState.SoDienThoai)) {
         setErrors("Số điện thoại không hợp lệ!");
         return false;
       }

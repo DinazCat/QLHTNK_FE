@@ -6,8 +6,10 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { FormVatTuThietBi } from "../components/FormVatTuThietBi";
 import { useEffect, useState, useContext } from "react";
 import api from "../api/Api";
+import { AuthContext } from "../hook/AuthProvider";
 
 const QuanLyTrangThietBi = (props) => {
+  const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [materials, setMaterials] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
@@ -26,20 +28,26 @@ const QuanLyTrangThietBi = (props) => {
 
   useEffect(() => {
     getMaterials();
-  }, []);
+  }, [user]);
 
   const getMaterials = async () => {
     const materials = await api.getAllMaterials();
     setMaterials(materials);
   };
 
-  const handleDeleteRow = (targetIndex) => {
+  const handleDeleteRow = async (targetIndex) => {
     const shouldDelete = window.confirm(
       "Are you sure you want to delete this material?"
     );
     if (shouldDelete) {
-      setMaterials(materials.filter((_, idx) => idx !== targetIndex));
-      api.deleteMaterial(materials[targetIndex].maVt);
+      const res = await api.deleteMaterial(materials[targetIndex].maVt);
+      if (res == "error") {
+        alert(
+          "Không thể xóa vì dữ liệu này có liên kết đến các thông tin khác trong hệ thống."
+        );
+      } else {
+        setMaterials(materials.filter((_, idx) => idx !== targetIndex));
+      }
     }
   };
 
@@ -56,7 +64,7 @@ const QuanLyTrangThietBi = (props) => {
       soLuongTonKho: newRow.soLuongTonKho,
       donGiaNhap: newRow.donGiaNhap,
       ngayNhap: newRow.ngayNhap,
-      maCn: 1000,
+      maCn: user.maCN,
     };
     if (rowToEdit == null) {
       const newMaterial = await api.addMaterial(data);

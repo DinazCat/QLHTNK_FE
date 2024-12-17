@@ -28,13 +28,19 @@ const QuanLyDichVu = (props) => {
     setServices(services);
   };
 
-  const handleDeleteRow = (targetIndex) => {
+  const handleDeleteRow = async (targetIndex) => {
     const shouldDelete = window.confirm(
       "Are you sure you want to delete this service?"
     );
     if (shouldDelete) {
-      setServices(services.filter((_, idx) => idx !== targetIndex));
-      api.deleteService(services[targetIndex].maDv);
+      const res = await api.deleteService(services[targetIndex].maDv);
+      if (res == "error") {
+        alert(
+          "Không thể xóa vì dữ liệu này có liên kết đến các thông tin khác trong hệ thống."
+        );
+      } else {
+        setServices(services.filter((_, idx) => idx !== targetIndex));
+      }
     }
   };
 

@@ -147,6 +147,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
               type="date"
               onChange={handleChange}
               value={formState.hanSuDung}
+              min={new Date().toISOString().split("T")[0]}
             />
           </div>
           <div className="form-group">
@@ -156,6 +157,7 @@ export const FormThuoc = ({ closeModal, onSubmit, defaultValue }) => {
               type="date"
               onChange={handleChange}
               value={formState.ngayNhap}
+              max={new Date().toISOString().split("T")[0]}
             />
           </div>
           {defaultValue && (

@@ -6,8 +6,10 @@ import { FormThuoc } from "../components/FormThuoc";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import api from "../api/Api";
+import { AuthContext } from "../hook/AuthProvider";
 
 const QuanLyThuoc = (props) => {
+  const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [drugs, setDrugs] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
@@ -30,20 +32,26 @@ const QuanLyThuoc = (props) => {
 
   useEffect(() => {
     getDrugs();
-  }, []);
+  }, [user]);
 
   const getDrugs = async () => {
     const drugs = await api.getAllDrugs();
     setDrugs(drugs);
   };
 
-  const handleDeleteRow = (targetIndex) => {
+  const handleDeleteRow = async (targetIndex) => {
     const shouldDelete = window.confirm(
       "Are you sure you want to delete this drug?"
     );
     if (shouldDelete) {
-      setDrugs(drugs.filter((_, idx) => idx !== targetIndex));
-      api.deleteDrug(drugs[targetIndex].maThuoc);
+      const res = await api.deleteDrug(drugs[targetIndex].maThuoc);
+      if (res == "error") {
+        alert(
+          "Không thể xóa vì dữ liệu này có liên kết đến các thông tin khác trong hệ thống."
+        );
+      } else {
+        setDrugs(drugs.filter((_, idx) => idx !== targetIndex));
+      }
     }
   };
 
@@ -63,7 +71,7 @@ const QuanLyThuoc = (props) => {
       hanSuDung: newRow.hanSuDung,
       ngayNhap: newRow.ngayNhap,
       soLuongTonKho: newRow.soLuongTonKho,
-      maCn: 1000,
+      maCn: user.maCN,
     };
     if (rowToEdit == null) {
       const newDrug = await api.addDrug(data);

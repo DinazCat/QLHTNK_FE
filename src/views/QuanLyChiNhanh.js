@@ -27,13 +27,19 @@ const QuanLyChiNhanh = (props) => {
     setBranchs(branchs);
   };
 
-  const handleDeleteRow = (targetIndex) => {
+  const handleDeleteRow = async (targetIndex) => {
     const shouldDelete = window.confirm(
       "Are you sure you want to delete this branch?"
     );
     if (shouldDelete) {
-      setBranchs(branchs.filter((_, idx) => idx !== targetIndex));
-      api.deleteBranch(branchs[targetIndex].maCn);
+      const res = await api.deleteBranch(branchs[targetIndex].maCn);
+      if (res == "error") {
+        alert(
+          "Không thể xóa vì dữ liệu này có liên kết đến các thông tin khác trong hệ thống."
+        );
+      } else {
+        setBranchs(branchs.filter((_, idx) => idx !== targetIndex));
+      }
     }
   };
 

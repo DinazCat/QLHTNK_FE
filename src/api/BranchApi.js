@@ -52,6 +52,7 @@ const deleteBranch = async (id) => {
     } else {
       console.error("Error setting up request:", error.message);
     }
+    return "error";
   }
 };
 

@@ -139,6 +139,7 @@ export const FormVatTuThietBi = ({ closeModal, onSubmit, defaultValue }) => {
               onChange={handleChange}
               type="date"
               value={formState.ngayNhap}
+              max={new Date().toISOString().split("T")[0]}
             />
           </div>
 

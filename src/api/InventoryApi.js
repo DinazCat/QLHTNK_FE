@@ -70,6 +70,7 @@ const deleteMaterial = async (id) => {
     } else {
       console.error("Error setting up request:", error.message);
     }
+    return "error";
   }
 };
 
@@ -165,6 +166,7 @@ const deleteDrug = async (id) => {
     } else {
       console.error("Error setting up request:", error.message);
     }
+    return "error";
   }
 };
 

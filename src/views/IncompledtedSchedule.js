@@ -81,7 +81,7 @@ const IncompletedSchedule = () => {
         {sentSchedules.map((item, index) => {
           return (
             <div
-              className="col-sm-12 col-md-9 col-lg-6 mt-4"
+              className="col-sm-12 col-md-6 col-lg-3 mt-4"
               style={{ fontWeight: "500" }}
             >
               <div

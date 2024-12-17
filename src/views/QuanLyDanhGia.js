@@ -48,8 +48,8 @@ const QuanLyDanhGia = (props) => {
           value={sortOrder}
           onChange={handleSelectChange}
         >
-          <option value="desc">Sắp xếp theo mới nhất</option>
           <option value="asc">Sắp xếp theo cũ nhất</option>
+          <option value="desc">Sắp xếp theo mới nhất</option>
         </select>
       </div>
 

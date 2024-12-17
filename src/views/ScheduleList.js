@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 import Api from "../api/Api";
 import moment from "moment";
 import { FormAppointment } from "../components/FormAppointment";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import api from "../api/Api";
+import { AuthContext } from "../hook/AuthProvider";
 
 const ScheduleList = () => {
+  const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [searchCriteria, setSearchCriteria] = useState({
@@ -39,7 +41,7 @@ const ScheduleList = () => {
     getAppointments();
     getDentists();
     getPatients();
-  }, []);
+  }, [user]);
 
   const normalizeDate = (date) => {
     const [year, month, day] = date.split("-");
@@ -122,7 +124,7 @@ const ScheduleList = () => {
 
     if (rowToEdit == null) {
       const data = {
-        maChiNhanh: 1000,
+        maChiNhanh: user.maCN,
         maBn: newRow.benhNhan?.maBn,
         hoTen: newRow.benhNhan?.tenBn,
         maNs: newRow.nhaSi?.maNv,
@@ -159,6 +161,25 @@ const ScheduleList = () => {
         return newRow;
       });
       setAppointments(updatedAppointments);
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Chờ xác nhận":
+        return "orange";
+      case "Đã xác nhận":
+        return "#0096FF";
+      case "Đã đến":
+        return "green";
+      case "Đang khám":
+        return "purple";
+      case "Đã ra về":
+        return "#555555";
+      case "Đã hủy":
+        return "red";
+      default:
+        return "black";
     }
   };
 
@@ -320,7 +341,9 @@ const ScheduleList = () => {
               <td>{item.gio}</td>
               <td>{item.lyDoKham}</td>
               <td>{item.loaiLichHen}</td>
-              <td>{item.trangThai}</td>
+              <td style={{ color: getStatusColor(item.trangThai) }}>
+                {item.trangThai}
+              </td>
               <td>{item.ghiChu}</td>
               <td className="fit">
                 <span className="actions">

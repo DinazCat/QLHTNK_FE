@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { FormLuongThuong } from "../components/FormLuongThuong";
 import { AuthContext } from "../hook/AuthProvider";
 import api from "../api/Api";
-import CustomModal from '../components/MessageBox.js';
+import CustomModal from "../components/MessageBox.js";
 
 const LuongThuong = () => {
   const { user } = useContext(AuthContext);
@@ -14,25 +14,28 @@ const LuongThuong = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [signal, setSignal] = useState(null);
   const [staffs, setStaffs] = useState([]);
-    const [ndshow, setNdshow] = useState('');
-    const handleShowDialog = (body) => {
-      setNdshow(body)
-      setShowDialog(true);
-    };
-  
-    const handleCloseDialog = () => {
-      setShowDialog(false);
-    };
+  const [ndshow, setNdshow] = useState("");
+  const handleShowDialog = (body) => {
+    setNdshow(body);
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+  };
   const [targetBranch, setTargetBranch] = useState("Tất cả");
   useEffect(() => {
     getStaffs();
     getBonuses();
     getBranches();
+    console.log(user);
   }, [user]);
   const getStaffs = async () => {
     const staffs = await api.getAllStaff();
     if (user?.loaiNguoiDung !== "ChuHeThong") {
-      const fil2 = staffs?.filter((item, idx) => item.maChiNhanh=== user?.maCN);
+      const fil2 = staffs?.filter(
+        (item, idx) => item.maChiNhanh === user?.maCN
+      );
       setStaffs(fil2);
     } else {
       setStaffs(staffs);
@@ -40,21 +43,13 @@ const LuongThuong = () => {
   };
   const getBranches = async () => {
     const branches = await api.getAllBranchs();
-    setBranches([{ tenCn: 'Tất cả' , maCn:null}, ...branches]);
+    setBranches([{ tenCn: "Tất cả", maCn: null }, ...branches]);
   };
   const getBonuses = async () => {
-    const res = await api.getAllBonus()
-    // console.log(res)
-    // setBonuses(res)
-    // const endpoint = "/StaffManagement/getAll/LuongThuong";
-    // const bonuses = await Api.getDocs(endpoint);
-    // console.log(res)
+    const res = await api.getAllBonus();
     const currentDate = new Date();
     if (user?.loaiNguoiDung !== "ChuHeThong") {
-      const fil = res?.filter(
-        (item, idx) =>
-          item.maCN === user?.maCN
-      );
+      const fil = res?.filter((item, idx) => item.maCN === user?.maCN);
       setBonuses(
         fil?.filter(
           (item) =>
@@ -63,7 +58,7 @@ const LuongThuong = () => {
         )
       );
     } else {
-      setBonuses( 
+      setBonuses(
         res?.filter(
           (item) =>
             item.thang == currentDate.getMonth() + 1 &&
@@ -85,38 +80,40 @@ const LuongThuong = () => {
       // const id = await Api.addDoc(endpoint, { ...newRow, chiNhanh: chiNhanh });
       // newRow.Id = id;
       // setBonuses([...bonuses, newRow]);
-      const res = await api.createBonus({...newRow,MaCN:chiNhanh});
-      if(res?.message == undefined){
+      const res = await api.createBonus({ ...newRow, MaCN: chiNhanh });
+      if (res?.message == undefined) {
         setBonuses([...bonuses, res]);
-      }
-      else{
-        handleShowDialog(`Error adding bonus! ${res?res?.message:""}`)
+      } else {
+        handleShowDialog(`Error adding bonus! ${res ? res?.message : ""}`);
       }
     } else {
-      const res = await api.updateBonus(bonuses[rowToEdit].maLT,{...newRow,MaLT:bonuses[rowToEdit].maLT,MaCN:chiNhanh})
-      if(res?.message == undefined){
+      const res = await api.updateBonus(bonuses[rowToEdit].maLT, {
+        ...newRow,
+        MaLT: bonuses[rowToEdit].maLT,
+        MaCN: chiNhanh,
+      });
+      if (res?.message == undefined) {
         let updatedBonuses = bonuses.map((currRow, idx) => {
           if (idx !== rowToEdit) return currRow;
           return res;
-        })
+        });
         setBonuses(updatedBonuses);
-      }
-      else{
-        handleShowDialog(`Error edit bonus! ${res?res?.message:""}`)
+      } else {
+        handleShowDialog(`Error edit bonus! ${res ? res?.message : ""}`);
       }
     }
   };
 
   const handleDeleteRow = async (targetIndex) => {
     const shouldDelete = window.confirm(
-      'Bạn có chắc chắn muốn xóa lương thưởng này không?'
+      "Bạn có chắc chắn muốn xóa lương thưởng này không?"
     );
     if (shouldDelete) {
-      const res = await api.deleteBonus(bonuses[targetIndex].maLT)
-      if(res?.success){
+      const res = await api.deleteBonus(bonuses[targetIndex].maLT);
+      if (res?.success) {
         setBonuses(bonuses?.filter((_, idx) => idx !== targetIndex));
       }
-      handleShowDialog(res?.message)
+      handleShowDialog(res?.message);
     }
   };
 
@@ -128,7 +125,9 @@ const LuongThuong = () => {
   return (
     <div>
       <div className="row align-items-center">
-        <div className="col-auto mb-3"><b>Áp dụng: </b></div>
+        <div className="col-auto mb-3">
+          <b>Áp dụng: </b>
+        </div>
         <div className="col-lg-5 col-md-7 me-3 mb-3">
           <select
             className="form-select pb-2 pt-2"
@@ -138,25 +137,25 @@ const LuongThuong = () => {
               // const endpoint = "/StaffManagement/getAll/LuongThuong";
               // const bonuses = await Api.getDocs(endpoint);
               const currentDate = new Date();
-              const res = await api.getAllBonus()
-              let list = []
-              if(res.message == undefined){ 
+              const res = await api.getAllBonus();
+              let list = [];
+              if (res.message == undefined) {
                 list = res?.filter(
                   (item) =>
                     item.thang == currentDate.getMonth() + 1 &&
                     item.nam == currentDate.getFullYear()
-                )
+                );
               }
-              console.log(list)
+              console.log(list);
               if (user?.loaiNguoiDung === "ChuHeThong") {
                 const fil = list?.filter(
-                  (item, idx) => item?.maCN == e.target.value ||e.target.value=="Tất cả"
+                  (item, idx) =>
+                    item?.maCN == e.target.value || e.target.value == "Tất cả"
                 );
                 setBonuses(fil);
               } else {
                 const fil = list?.filter(
-                  (item, idx) =>
-                    item?.maCN === user?.maCN
+                  (item, idx) => item?.maCN === user?.maCN
                 );
                 setBonuses(fil);
               }
@@ -234,10 +233,10 @@ const LuongThuong = () => {
           defaultValue={rowToEdit !== null && bonuses[rowToEdit]}
           onSubmit={handleSubmit}
           branches={branches}
-          staffs0 = {staffs}
+          staffs0={staffs}
         />
       )}
-       <CustomModal
+      <CustomModal
         show={showDialog}
         handleClose={handleCloseDialog}
         body={ndshow}
