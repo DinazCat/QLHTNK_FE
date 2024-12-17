@@ -12,17 +12,32 @@ import TopNav from "../components/TopNav";
 import Footer from '../components/Footer';
 import patientApi from '../api/patientApi';
 import cthsdtApi from '../api/cthsdtApi';
+import Select from "react-select";
 
 const XemHSDT = () => {
     const { user } = useContext(AuthContext);
 
     const onSearch1 = async () => {
-        const res = await cthsdtApi.searchCTHSDT(searchCriteria1)
-        if(res?.message == undefined){
-          setListCTHSDT(res);
+        // const res = await cthsdtApi.searchCTHSDT(searchCriteria1)
+        // console.log(res)
+        // if(res?.message == undefined){
+        //   setListCTHSDT(res);
+        // }
+        // else{
+        //   alert(`Error search treatment! ${res?res?.message:""}`)
+        // }
+        console.log(searchCriteria1)
+        if(listcthsdt != null){
+          let fil = listcthsdt1
+        if(searchCriteria1.MaNhaSi != ''&& searchCriteria1.MaNhaSi != null ){
+          fil = fil?.filter((item, idx) => item.maNhaSi == searchCriteria1.MaNhaSi);
         }
-        else{
-          alert(`Error search treatment! ${res?res?.message:""}`)
+        if(searchCriteria1.NgayDieuTri != ''){
+          fil = fil?.filter((item, idx) => item.ngayDieuTri == searchCriteria1.NgayDieuTri)
+        }
+        if (searchCriteria1.NgayDieuTri == '' && (searchCriteria1.MaNhaSi == null && searchCriteria1.MaNhaSi == ''))
+          fil = listcthsdt1
+          setListCTHSDT(fil)
         }
     }
     const [searchCriteria1, setSearchCriteria1] = useState({
@@ -54,20 +69,49 @@ const XemHSDT = () => {
         Thuoc:[]
       })
     const [listcthsdt, setListCTHSDT] = useState(null);
+    const [listcthsdt1, setListCTHSDT1] = useState(null);
     const getlistCTHSDT = async (patientId) => {
-        const res = await cthsdtApi.getAllCTHSDT(patientId)
-        if(res?.message == undefined){
-          setListCTHSDT(res)
-        }
-        else{
-          setListCTHSDT(null)
-        }
+        const res = await cthsdtApi.getAllCTHSDT(patientId);
+            if (res?.message == undefined) {
+              setListCTHSDT(res);
+              setListCTHSDT1(res);
+            } else {
+              setListCTHSDT([]);
+              setListCTHSDT1([]);
+            }
     }
+      const [medicines, setMedicines] = useState(null);
+    
+      const [services, setServices] = useState(null);
+      const [nhasi, setNhaSi] = useState([])
     useEffect(() => {
       if(user != null)
         getPatient();
+      getService();
+      getMedicine();
+      getNhaSi();
     }, [user]);
+      const getNhaSi = async () => {
+          const response = await api.getAllStaff();
+          console.log("hhhhh");
+          console.log(response);
+          var nhasi1 = response?.filter((ns) => {
+            return ns.chucVu === "Nha sĩ";
+          });
 
+          setNhaSi(nhasi1);
+      };
+  const getService = async () => {
+    const services = await api.getAllServices();
+    console.log(services);
+    setServices(services);
+  };
+  const getMedicine = async () => {
+    const medicine = await api.getAllDrugs();
+    const fil = medicine.filter((item, idx) => item.maChiNhanh === user?.maCN);
+    console.log(fil);
+    setMedicines(fil);
+  };
     const getPatient = async () => {
         const patients = await patientApi.searchPatient({
             maBn: "",
@@ -91,9 +135,46 @@ const XemHSDT = () => {
         window.scrollTo(0, 0);
     }
     const handleEditRecordRow = (item, index) => {
+      console.log(item)
         setSelectedRecord(item);
         setRecordRowToEdit(index)
-        setCTHSDT(item)
+        const obj = {
+          MaNhaSi: item.maNhaSi,
+          MaBn: selectedPatient?.maBn,
+          MaChiNhanh: item.maChiNhanh,
+          ChanDoan: item.chanDoan,
+          NgayDieuTri: item.ngayDieuTri,
+          LyDoKham: item.lyDoKham,
+          GhiChu: item.ghiChu,
+          DichVu: item.dichVuDaSuDungs.map((dv) => {
+            const dv1 = services?.find((med) => med.maDv === dv.maDv);
+            return {
+              tenDichVu: dv1?.tenDv,
+              maDichVu: dv.maDv,
+              SL: dv.soLuong,
+              DonGia: dv.donGia / dv.soLuong,
+              ChietKhau: dv.chietKhau,
+              GhiChu: dv.ghiChu,
+              taiKham: dv.taiKham || null,
+              Gia: dv.giaDichVu,
+              GiaMin: dv1?.giaThapNhat,
+              GiaMax: dv1?.giaCaoNhat,
+            };
+          }),
+          Thuoc: item.thuocDaKes?.map((thuoc) => {
+            const med = medicines?.find((med) => med.maThuoc === thuoc.maThuoc);
+            return {
+              tenThuoc: med?.tenThuoc,
+              maThuoc: med?.maThuoc,
+              DonGia: thuoc.donGia, //là đã nhân sl
+              SL: thuoc.soLuong,
+              Gia: thuoc.gia, //là giá bán/viên
+              GhiChu: thuoc.ghiChu,
+              donGiaBan: thuoc.gia,
+            };
+          }),
+        };
+        setCTHSDT({ ...item, ...obj });
         setPage(3);
         setState("edit");
     }
@@ -114,15 +195,22 @@ const XemHSDT = () => {
 
     }
     const ThanhTien = () => {
-        let tien = 0
-        for (let i = 0; i < cthsdt.DichVu.length; i++) {
-            // if (cthsdt.DichVu[i].taiKham === false)
-                tien = tien + parseInt(cthsdt.DichVu[i].DonGia) * parseInt(cthsdt.DichVu[i].SL)
-        }
-        for (let i = 0; i < cthsdt.Thuoc.length; i++) {
-            tien = tien + parseInt(cthsdt.Thuoc[i].Gia)
-        }
-        return tien
+      let tien = 0;
+    for (let i = 0; i < cthsdt.DichVu.length; i++) {
+      // if (cthsdt.DichVu[i].taiKham === false)
+      if(parseInt(cthsdt.DichVu[i].ChietKhau) <= 100){
+        tien =tien +parseInt(cthsdt.DichVu[i].Gia) * parseInt(cthsdt.DichVu[i].SL) *(1-parseInt(cthsdt.DichVu[i].ChietKhau)/100);
+      }
+      else{
+        tien =tien +parseInt(cthsdt.DichVu[i].Gia) * parseInt(cthsdt.DichVu[i].SL) -parseInt(cthsdt.DichVu[i].ChietKhau);
+      }
+    
+    }
+    for (let i = 0; i < cthsdt.Thuoc.length; i++) {
+      tien =
+        tien + parseInt(cthsdt.Thuoc[i].Gia) * parseInt(cthsdt.Thuoc[i].SL);
+    }
+    return tien;
     }
 
 
@@ -156,16 +244,46 @@ const XemHSDT = () => {
                             <div className="row mt-2">
                                 <div className="row" style={{ fontWeight: "600" }}>
                                     <div className="col-lg-4 col-md-10">
-                                        <div className="mb-2 col-md-6">Mã nha sĩ</div>
-                                        <input type="text" className="form-control pb-2 pt-2 mb-2" id="MaBN" name="MaNhaSi" onChange={handleChange1} />
-                                    </div>
-                                    <div className="col-lg-4 col-md-10">
-                                        <div className="mb-2">Tên nha sĩ</div>
-                                        <input type="text" className="form-control pb-2 pt-2 mb-2" id="TenBN" name="TenNhaSi" onChange={handleChange1} />
-                                    </div>
+                                    <div className="mb-2 col-md-6">Mã nha sĩ</div>
+                  <Select
+                    className="mb-2"
+                    value={
+                     nhasi.find((item) => item.maNv === searchCriteria1.MaNhaSi) ||""
+                    }
+                    onChange={(value) =>
+                      value !== null
+                        ?   setSearchCriteria1({ ...searchCriteria1, MaNhaSi: value.maNv,TenNhaSi: value.tenNv })
+                        : setSearchCriteria1({ ...searchCriteria1, MaNhaSi: null})
+                    }
+                    options={nhasi}
+                    isClearable
+                    getOptionLabel={(item) => item.maNv}
+                    getOptionValue={(item) => item}
+                    placeholder=""
+                  />
+                </div>
+                <div className="col-lg-4 col-md-10">
+                  <div className="mb-2">Tên nha sĩ</div>
+                  <Select
+                    className="mb-2"
+                    value={
+                      nhasi.find((item) => item.maNv === searchCriteria1.MaNhaSi) ||""
+                     }
+                    onChange={(value) =>
+                      value !== null
+                        ?   setSearchCriteria1({ ...searchCriteria1, TenNhaSi:value.tenNv, MaNhaSi:value.maNv })
+                        : setSearchCriteria1({ ...searchCriteria1, TenNhaSi: null})
+                    }
+                    options={nhasi}
+                    isClearable
+                    getOptionLabel={(item) => item.tenNv}
+                    getOptionValue={(item) => item}
+                    placeholder=""
+                  />
+                </div>
                                     <div className="col-lg-4 col-md-10">
                                         <div className="mb-2">Ngày điều trị</div>
-                                        <input type="date" className="form-control pb-2 pt-2 mb-2" id="NgaySuDung" name="NgaySuDung" onChange={handleChange1} />
+                                        <input type="date" className="form-control pb-2 pt-2 mb-2" id="NgaySuDung"   name="NgayDieuTri" onChange={handleChange1} />
                                     </div>
                                     <div className="text-end">
                                         <button type="submit" className="btn pb-2 pt-2 mt-2" style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }} onClick={onSearch1}>
@@ -289,7 +407,7 @@ const XemHSDT = () => {
               <div>
               <div className='col-md-auto mt-auto mb-auto' style={{ fontWeight: "600" }}>Nha sĩ điều trị:</div>
                                 <div>
-                                    <input type="text" className="form-control signature" id="MaNV" name="MaNhaSi" placeholder='Nhập mã nha sĩ' value={cthsdt?.TenNhaSi} />
+                                    <input type="text" className="form-control signature" id="MaNV" name="MaNhaSi" placeholder='Nhập mã nha sĩ' value={cthsdt?.maNhaSiNavigation.tenNv} />
                                 </div>
               </div>
               <div>
@@ -305,30 +423,30 @@ const XemHSDT = () => {
                     className="form-control signature"
                     id="MaNV"
                     name="LyDoKham"
-                    value={cthsdt?.LyDoKham}
+                    value={cthsdt?.lyDoKham}
                   />
                 </div>
               </div>
               <div>
               <div className='col-md-auto mt-auto mb-auto' style={{ fontWeight: "600" }}>Chẩn đoán:</div>
                                 <div>
-                                    <input type="text" className="form-control signature" id="MaNV" name="ChuanDoan" value={cthsdt?.ChanDoan} />
+                                    <input type="text" className="form-control signature" id="MaNV" name="ChuanDoan" value={cthsdt?.chanDoan} />
                                 </div>
               </div>
               <div>
               <div className='col-md-auto mt-auto mb-auto' style={{ fontWeight: "600" }}>Ghi chú:</div>
                                 <div>
-                                    <input type="text" className="form-control signature" id="MaNV" name="GhiChu" value={cthsdt?.GhiChu} />
+                                    <input type="text" className="form-control signature" id="MaNV" name="GhiChu" value={cthsdt?.ghiChu} />
                                 </div>
               </div>
-              <div style={{ fontWeight: "600" }}>Ảnh sau khi điều trị:</div>
+              {/* <div style={{ fontWeight: "600" }}>Ảnh sau khi điều trị:</div>
               <div className='col-md-4 col-sm-6 m-auto'>
                                 <img src={cthsdt.AnhSauDieuTri != null ? cthsdt.AnhSauDieuTri : "/images/after_treatment.png"} style={{
                                     width: "100%",
                                     height: "100%",
                                     objectFit: "cover"
                                 }} id="imagePreview" />
-                            </div>
+                            </div> */}
 
               <table className="table">
                 <thead style={{ verticalAlign: "middle" }}>
@@ -343,42 +461,44 @@ const XemHSDT = () => {
                 </thead>
                 <tbody>
                   {cthsdt?.DichVu?.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.tenDichVu}</td>
-                      <td>
-                        {new Intl.NumberFormat("en-DE").format(item.DonGia)}
-                      </td>
-                      <td>{item.SL}</td>
-                      <td>{item.taiKham||""}</td>
-                      <td>{item.GhiChu||""}</td>
-                    </tr>
-                  ))}
+                                    <tr key={index}>
+                                      <td>{index + 1}</td>
+                                      <td>{item.tenDichVu}</td>
+                                      <td>
+                                        {new Intl.NumberFormat("en-DE").format(item.DonGia)}
+                                      </td>
+                                      <td>{item.SL}</td>
+                                      <td>{item.taiKham || ""}</td>
+                                      <td>{item.GhiChu}</td>
+                                      
+                                    </tr>
+                                  ))}
                 </tbody>
               </table>
               <table className="table table-borderless">
                 <tbody>
-                  {cthsdt?.Thuoc?.map((item, index) => (
-                    <tr key={index}>
-                      <td>
+{cthsdt?.Thuoc?.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      <div>
                         <div>
-                          <div>
-                            <b>
-                              {index + 1}/ {item.tenThuoc}
-                            </b>
-                          </div>
-                          <div className="ms-3" style={{ fontStyle: "italic" }}>
-                            {item.GhiChu}
-                          </div>
+                          <b>
+                            {index + 1}/ {item.tenThuoc}
+                          </b>
                         </div>
-                      </td>
-                      <td>{item.SL} viên</td>
-                      <td>
-                        {new Intl.NumberFormat("en-DE").format(item.Gia)}
-                        /viên
-                      </td>
-                    </tr>
-                  ))}
+                        <div className="ms-3" style={{ fontStyle: "italic" }}>
+                          {item.GhiChu}
+                        </div>
+                      </div>
+                    </td>
+                    <td>{item.SL} viên</td>
+                    <td>
+                      {new Intl.NumberFormat("en-DE").format(item.Gia)}
+                      /viên
+                    </td>
+                    
+                  </tr>
+                ))}
                 </tbody>
               </table>
               <div className="text-end mb-2">

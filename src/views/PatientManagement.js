@@ -77,6 +77,7 @@ const PatientManagement = (props) => {
   const [nhasi, setNhaSi] = useState(
     user?.loaiNguoiDung === "Phụ tá" ? [] : user?.ten
   );
+
   const [hsdt, setHSDT] = useState(null);
   const [cthsdt, setCTHSDT] = useState({
     MaNhaSi: user?.loaiNguoiDung === "Phụ tá" ? "" : user?.maNV,
@@ -90,6 +91,7 @@ const PatientManagement = (props) => {
     Thuoc: [],
   });
   const [listcthsdt, setListCTHSDT] = useState(null);
+  const [listcthsdt1, setListCTHSDT1] = useState(null);
   useEffect(() => {
     console.log(user);
     getNhaSi();
@@ -98,17 +100,18 @@ const PatientManagement = (props) => {
     getMedicine();
   }, [user]);
   const getNhaSi = async () => {
-    if (user?.loaiNguoiDung === "Phụ tá") {
+    
+    // if (user?.loaiNguoiDung === "Phụ tá") {
       const response = await api.getAllStaff();
-      console.log("hhhhh");
+      console.log(user);
       console.log(response);
       var nhasi1 = response?.filter((ns) => {
         return ns.chucVu === "Nha sĩ";
       });
-      const fil = nhasi1.filter((item, idx) => item.maChiNhanh === user.maCN);
+      const fil = nhasi1.filter((item, idx) => item.maChiNhanh === user?.maCN);
       console.log(fil);
       setNhaSi(fil);
-    }
+    // }
   };
   const getService = async () => {
     const services = await api.getAllServices();
@@ -192,8 +195,10 @@ const PatientManagement = (props) => {
     const res = await api.getAllCTHSDT(patientId);
     if (res?.message == undefined) {
       setListCTHSDT(res);
+      setListCTHSDT1(res);
     } else {
       setListCTHSDT([]);
+      setListCTHSDT1([]);
     }
   };
   const createNewRecord = () => {
@@ -268,11 +273,23 @@ const PatientManagement = (props) => {
   };
 
   const onSearch1 = async () => {
-    const res = await api.searchCTHSDT(searchCriteria1);
-    if (res?.message == undefined) {
-      setListCTHSDT(res);
-    } else {
-      handleShowDialog(`Error search treatment! ${res ? res?.message : ""}`);
+    // const res = await api.searchCTHSDT(searchCriteria1);
+    // if (res?.message == undefined) {
+    //   setListCTHSDT(res);
+    // } else {
+    //   handleShowDialog(`Error search treatment! ${res ? res?.message : ""}`);
+    // }
+    if(listcthsdt != null){
+      let fil = listcthsdt1
+    if(searchCriteria1.MaNhaSi != ''&& searchCriteria1.MaNhaSi != null ){
+      fil = fil?.filter((item, idx) => item.maNhaSi == searchCriteria1.MaNhaSi);
+    }
+    if(searchCriteria1.NgayDieuTri != ''){
+      fil = fil?.filter((item, idx) => item.ngayDieuTri == searchCriteria1.NgayDieuTri)
+    }
+    if (searchCriteria1.NgayDieuTri == '' && (searchCriteria1.MaNhaSi == null && searchCriteria1.MaNhaSi == ''))
+      fil = listcthsdt1
+      setListCTHSDT(fil)
     }
   };
   const handleDeleteRecordRow = async (targetIndex) => {
@@ -326,9 +343,13 @@ const PatientManagement = (props) => {
     let tien = 0;
     for (let i = 0; i < cthsdt.DichVu.length; i++) {
       // if (cthsdt.DichVu[i].taiKham === false)
-      tien =
-        tien +
-        parseInt(cthsdt.DichVu[i].DonGia) * parseInt(cthsdt.DichVu[i].SL);
+      if(parseInt(cthsdt.DichVu[i].ChietKhau) <= 100){
+        tien =tien +parseInt(cthsdt.DichVu[i].Gia) * parseInt(cthsdt.DichVu[i].SL) *(1-parseInt(cthsdt.DichVu[i].ChietKhau)/100);
+      }
+      else{
+        tien =tien +parseInt(cthsdt.DichVu[i].Gia) * parseInt(cthsdt.DichVu[i].SL) -parseInt(cthsdt.DichVu[i].ChietKhau);
+      }
+    
     }
     for (let i = 0; i < cthsdt.Thuoc.length; i++) {
       tien =
@@ -700,23 +721,55 @@ const PatientManagement = (props) => {
               <div className="row" style={{ fontWeight: "500" }}>
                 <div className="col-lg-4 col-md-10">
                   <div className="mb-2 col-md-6">Mã nha sĩ</div>
-                  <input
+                  <Select
+                    className="mb-2"
+                    value={
+                      nhasi?.find((item) => item.maNv === searchCriteria1.MaNhaSi) ||""
+                     }
+                    onChange={(value) =>
+                      value !== null
+                        ?   setSearchCriteria1({ ...searchCriteria1, MaNhaSi: value.maNv,TenNhaSi: value.tenNv })
+                        : setSearchCriteria1({ ...searchCriteria1, MaNhaSi: null})
+                    }
+                    options={nhasi}
+                    isClearable
+                    getOptionLabel={(item) => item.maNv}
+                    getOptionValue={(item) => item}
+                    placeholder=""
+                  />
+                  {/* <input
                     type="text"
                     className="form-control pb-2 pt-2 mb-2"
                     id="MaBN"
                     name="MaNhaSi"
                     onChange={handleChange1}
-                  />
+                  /> */}
                 </div>
                 <div className="col-lg-4 col-md-10">
                   <div className="mb-2">Tên nha sĩ</div>
-                  <input
+                  <Select
+                    className="mb-2"
+                    value={
+                      nhasi?.find((item) => item.maNv === searchCriteria1.MaNhaSi) ||""
+                     }
+                    onChange={(value) =>
+                      value !== null
+                        ?   setSearchCriteria1({ ...searchCriteria1, TenNhaSi:value.tenNv, MaNhaSi:value.maNv })
+                        : setSearchCriteria1({ ...searchCriteria1, TenNhaSi: null})
+                    }
+                    options={nhasi}
+                    isClearable
+                    getOptionLabel={(item) => item.tenNv}
+                    getOptionValue={(item) => item}
+                    placeholder=""
+                  />
+                  {/* <input
                     type="text"
                     className="form-control pb-2 pt-2 mb-2"
                     id="TenBN"
                     name="TenNhaSi"
                     onChange={handleChange1}
-                  />
+                  /> */}
                 </div>
                 <div className="col-lg-4 col-md-10">
                   <div className="mb-2">Ngày điều trị</div>

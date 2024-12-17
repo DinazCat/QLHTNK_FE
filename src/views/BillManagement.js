@@ -127,7 +127,13 @@ const BillManagement = (props) => {
       conno += cthsdt.thuocDaKes[i].donGia;
     }
     for (let i = 0; i < cthsdt.dichVuDaSuDungs.length; i++) {
-      conno += cthsdt.dichVuDaSuDungs[i].donGia;
+      if(cthsdt.dichVuDaSuDungs[i].chietKhau <= 100){
+        conno += cthsdt.dichVuDaSuDungs[i].donGia*(1 - cthsdt.dichVuDaSuDungs[i].chietKhau/100);
+      }
+      else{
+        conno += cthsdt.dichVuDaSuDungs[i].donGia - cthsdt.dichVuDaSuDungs[i].chietKhau;
+      }
+     
     }
     if (bills[id].tinhTrang == null) {
       setConNo(conno);
@@ -140,7 +146,12 @@ const BillManagement = (props) => {
       setTTSGG(0);
     } else {
       setDisaleDiscount(true);
-      setCTTT(bills[id].chiTietThanhToans);
+      setCTTT(bills[id]?.chiTietThanhToans?.sort((a, b) => {
+        const dateA = new Date(a.ngayThanhToan);  // Chuyển 'ngayLap' thành đối tượng Date
+        const dateB = new Date(b.ngayThanhToan);  // Chuyển 'ngayLap' thành đối tượng Date
+      
+        return dateA - dateB;  // So sánh theo thứ tự giảm dần (mới nhất -> cũ nhất)
+      }));
       setCTTTnew(null);
       setConNo(bills[id].soTienConNo);
       setTongTienThanhToan(bills[id].soTienDaThanhToan);
@@ -225,6 +236,10 @@ const BillManagement = (props) => {
       (conNo > 0 && recentDiscount != null && ThanhTienSauGiamGia < 5000000)
     ) {
       alert("Trường hợp hóa đơn nhỏ hơn 5000000 không được phép trả góp!");
+      return false;
+    }
+    else if(CTTT==null || CTTT?.length == 0){
+      alert("Vui lòng thanh toán hóa đơn trước khi lưu!");
       return false;
     }
     return true;
@@ -512,16 +527,22 @@ const BillManagement = (props) => {
                     <tr className="table-secondary">
                       <th>STT</th>
                       <th>Dịch vụ</th>
-                      <th>Tổng giá dịch vụ</th>
+                      <th>Giá dịch vụ</th>
                       <th>Số lượng</th>
-                      {/* <th>Có trả góp hay không</th> */}
+                      <th>Chiết khấu</th>
+                      <th>Giá cuối</th>
                       <th>Tái khám</th>
                     </tr>
                   </thead>
                   <tbody>
                     {CTHSDT !== null ? (
                       CTHSDT.dichVuDaSuDungs.map((item, index) => {
-                        TongTienDV += parseInt(item.donGia);
+                        if(item.chietKhau <= 100){
+                          TongTienDV+= item.donGia*(1 - item.chietKhau/100);
+                        }
+                        else{
+                          TongTienDV += item.donGia - item.chietKhau;
+                        }
                         return (
                           <tr key={index}>
                             <td>{index + 1}</td>
@@ -537,11 +558,12 @@ const BillManagement = (props) => {
                             )} */}
                             <td>
                               {new Intl.NumberFormat("en-DE").format(
-                                item.donGia
+                                item.giaDichVu
                               )}
                             </td>
                             <td>{item.soLuong}</td>
-                            {/* <td>{"cho tick"}</td> */}
+                            <td>{item.chietKhau}</td>
+                            <td>{  new Intl.NumberFormat("en-DE").format((item.chietKhau) <= 100 ? item.donGia *(1-item.chietKhau/100): item.donGia - item.chietKhau)}</td>
                             {item.taiKham ? (
                               <td>{item.taiKham}</td>
                             ) : (
@@ -766,7 +788,7 @@ const BillManagement = (props) => {
                                             new Date(item.ngayThanhToan)
                                           ).format("DD/MM/YYYY")}
                                       </td>
-                                      {!disableDiscount && (
+                                      {item?.maCTTT == undefined && (
                                         <td className="fit">
                                           <span className="actions">
                                             <BsFillTrashFill
@@ -927,7 +949,7 @@ const BillManagement = (props) => {
                 </div>
               </div>
               <div className="text-end">
-                <ReactToPrint
+              {(bills[selectedRow]?.tinhTrang !=null ||bills[selectedRow]?.tinhTrang != null)&& <ReactToPrint
                   trigger={() => (
                     <button
                       className="btn pb-2 pt-2 mt-3 mb-3 me-3"
@@ -937,15 +959,15 @@ const BillManagement = (props) => {
                     </button>
                   )}
                   content={() => componentToPrintRef.current}
-                />
-                <button
+                />}
+                {(bills[selectedRow]?.tinhTrang =="Còn nợ" || bills[selectedRow]?.tinhTrang ==null)?<button
                   type="submit"
                   onClick={handleSubmit}
                   className="btn pb-2 pt-2 mt-3 mb-3"
                   style={{ backgroundColor: "#0096FF", color: "#FFFFFF" }}
                 >
-                  Lưu
-                </button>
+               Lưu
+                </button>:<></>}
               </div>
             </div>
           </div>
