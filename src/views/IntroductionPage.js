@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer';
+import Chatbot  from "../components/Chatbot";
 const IntroductionPage = (props) => {
     //move to Bookin page
     const history = useHistory();
@@ -273,6 +274,7 @@ const IntroductionPage = (props) => {
 
             </section >
             <Footer style={{ marginTop: "80px" }} />
+            <Chatbot/>
         </div >
     );
 }
