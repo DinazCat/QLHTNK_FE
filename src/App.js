@@ -21,6 +21,7 @@ import ConfirmEmail from './views/ConfirmEmail';
 import { AuthProvider } from './hook/AuthProvider';
 import XemHSDT from './views/XemHSDT';
 import BookingOnline from './views/BookingOnline';
+import Chatbot from './components/Chatbot';
 
 function App() {
 
@@ -72,6 +73,7 @@ function App() {
           <NotFoundPage />
         </Route>
       </Switch>
+      <Chatbot />
     </Router >
     </AuthProvider>
   );
