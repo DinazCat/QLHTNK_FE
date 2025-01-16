@@ -43,9 +43,9 @@ const Footer = (props) => {
               Giới thiệu
             </p>
             <p>
-              Phòng khám ABC đã được thành lập hơn 7 năm. Với kinh nghiệm và đội
-              ngũ nha sĩ chuyện nghiệp chúng tôi tự tin sẽ đem đến nhưng dịch vụ
-              tốt nhất.
+              Chuỗi phòng khám Logoipsum đã được thành lập hơn 7 năm. Với kinh
+              nghiệm và đội ngũ nha sĩ chuyện nghiệp chúng tôi tự tin sẽ đem đến
+              nhưng dịch vụ tốt nhất.
             </p>
           </div>
           <div className="col-1"></div>
@@ -56,8 +56,8 @@ const Footer = (props) => {
               </span>
               <br />
               <ul>
-                <li>Sáng: 08:30 - 11:30</li>
-                <li>Chiều: 13:30 - 17:00</li>
+                <li>Sáng: 08:00 - 12:00</li>
+                <li>Chiều: 13:00 - 17:00</li>
                 <li>Tối: 17:00 - 20:00</li>
               </ul>
             </p>
@@ -66,11 +66,11 @@ const Footer = (props) => {
               <ul>
                 <li>Quận 7, thành phố Hồ Chí Minh</li>
                 <li>Quận 8, thành phố Hồ Chí Minh</li>
-                <li>Bình Thạnh, thành phố Hồ Chí Minh</li>
+                <li>Thủ Đức, thành phố Hồ Chí Minh</li>
               </ul>
             </p>
             <p className="mt-3" style={{ fontSize: "19px" }}>
-              Email: abc@gmail.com
+              Email: NhakhoaLogoipsum@gmail.com
               <br />
               Phone: 0843593598
             </p>
