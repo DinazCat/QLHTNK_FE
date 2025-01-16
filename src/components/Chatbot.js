@@ -306,6 +306,30 @@ const Chatbot = () => {
     setShowConfirmDialog(false);
   };
 
+  // Clear memory when component mounts (page refresh)
+  useEffect(() => {
+    const clearMemory = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/memory/clear`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to clear chatbot memory');
+        }
+        
+        console.log('Chatbot memory cleared on page refresh');
+      } catch (error) {
+        console.error('Error clearing chatbot memory:', error);
+      }
+    };
+
+    clearMemory();
+  }, []); // Empty dependency array means this runs once on mount
+
   return (
     <div style={{ position: "fixed", bottom: 0, right: 0, zIndex: 1000 }}>
       {showConfirmDialog && (
