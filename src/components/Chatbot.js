@@ -6,15 +6,23 @@ import remarkGfm from 'remark-gfm';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const Chatbot = () => {
+  // Initialize states with default values (no localStorage)
   const [isChatbotVisible, setIsChatbotVisible] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [chatSize, setChatSize] = useState({ width: 380, height: 600 });
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [sources, setSources] = useState({});  // Store sources for each message
-  const [visibleSources, setVisibleSources] = useState(new Set());  // Track which messages show sources
+  const [sources, setSources] = useState({});
+  const [visibleSources, setVisibleSources] = useState(new Set());
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  
   const messagesEndRef = useRef(null);
   const chatBodyRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const [isResizing, setIsResizing] = useState(false);
+  const [initialSize, setInitialSize] = useState({ width: 0, height: 0 });
+  const [initialPos, setInitialPos] = useState({ x: 0, y: 0 });
 
   const scrollToBottom = () => {
     if (chatBodyRef.current) {
@@ -29,6 +37,23 @@ const Chatbot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Add resize observer to maintain scroll position
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      const resizeObserver = new ResizeObserver(() => {
+        if (chatBodyRef.current) {
+          scrollToBottom();
+        }
+      });
+      
+      resizeObserver.observe(chatBodyRef.current);
+      
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
+  }, []);
 
   const toggleChatbot = () => {
     setIsChatbotVisible(!isChatbotVisible);
@@ -197,8 +222,138 @@ const Chatbot = () => {
     }
   };
 
+  // Handle resize functionality
+  const handleMouseDown = (e) => {
+    // Prevent event from bubbling up
+    e.stopPropagation();
+    
+    // Only handle resize if clicking in the top-left 40x40px area
+    const rect = chatContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    if (x <= 40 && y <= 40) {
+      setIsResizing(true);
+      setInitialSize({
+        width: chatContainerRef.current.offsetWidth,
+        height: chatContainerRef.current.offsetHeight
+      });
+      setInitialPos({
+        x: e.clientX,
+        y: e.clientY
+      });
+      // Set cursor style on body to prevent cursor flickering
+      document.body.style.cursor = 'nw-resize';
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isResizing) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    requestAnimationFrame(() => {
+      const deltaX = initialPos.x - e.clientX;
+      const deltaY = initialPos.y - e.clientY;
+
+      const newWidth = Math.min(Math.max(initialSize.width + deltaX, 300), 800);
+      const newHeight = Math.min(Math.max(initialSize.height + deltaY, 400), 800);
+
+      const newSize = { width: newWidth, height: newHeight };
+      
+      if (chatContainerRef.current) {
+        chatContainerRef.current.style.transform = 'none';
+        chatContainerRef.current.style.width = `${newWidth}px`;
+        chatContainerRef.current.style.height = `${newHeight}px`;
+      }
+      
+      setChatSize(newSize);
+    });
+  };
+
+  const handleMouseUp = (e) => {
+    if (isResizing) {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsResizing(false);
+      // Reset cursor style
+      document.body.style.cursor = '';
+    }
+  };
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing, initialSize, initialPos]);
+
+  // Clear chat history function
+  const clearChatHistory = () => {
+    setShowConfirmDialog(true);
+  };
+
+  const handleConfirmClear = () => {
+    setMessages([]);
+    setSources({});
+    setVisibleSources(new Set());
+    setShowConfirmDialog(false);
+  };
+
   return (
     <div style={{ position: "fixed", bottom: 0, right: 0, zIndex: 1000 }}>
+      {showConfirmDialog && (
+        <>
+          <div className="confirm-dialog-overlay" onClick={() => setShowConfirmDialog(false)} />
+          <div className="confirm-dialog">
+            <p>Bạn có chắc chắn muốn xóa lịch sử chat không?</p>
+            <div className="confirm-dialog-buttons">
+              <button 
+                onClick={handleConfirmClear}
+                style={{
+                  padding: '8px 16px',
+                  background: '#0096FF',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Xóa
+              </button>
+              <button 
+                onClick={() => setShowConfirmDialog(false)}
+                style={{
+                  padding: '8px 16px',
+                  background: '#e0e0e0',
+                  color: '#333',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Hủy
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {isResizing && (
+        <div 
+          className="resize-overlay"
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+        />
+      )}
+      
       {!isChatbotVisible && (
         <button 
           className="circle-button"
@@ -210,11 +365,41 @@ const Chatbot = () => {
       )}
       
       {isChatbotVisible && (
-        <div className="chat-container" style={{ position: 'absolute', bottom: '100px', right: '30px' }}>
+        <div 
+          className="chat-container" 
+          style={{ 
+            position: 'absolute', 
+            bottom: '30px',
+            right: '30px',
+            width: `${chatSize.width}px`,
+            height: `${chatSize.height}px`
+          }}
+          ref={chatContainerRef}
+          onMouseDown={handleMouseDown}
+        >
           <div className="chat-box">
             <div className="chat-header">
               <h3>Dental Assistant</h3>
               <div className="chat-tools">
+                <button 
+                  className="btn btn-tool" 
+                  onClick={clearChatHistory}
+                  style={{ 
+                    marginRight: '10px',
+                    opacity: isLoading || isTyping || messages.length === 0 ? 0.5 : 1,
+                    cursor: isLoading || isTyping || messages.length === 0 ? 'not-allowed' : 'pointer'
+                  }}
+                  title={
+                    messages.length === 0 
+                      ? "Không có tin nhắn để xóa" 
+                      : isLoading || isTyping 
+                        ? "Không thể xóa khi đang xử lý tin nhắn"
+                        : "Xóa lịch sử chat"
+                  }
+                  disabled={isLoading || isTyping || messages.length === 0}
+                >
+                  <i className="fa fa-trash"></i>
+                </button>
                 <button className="btn btn-tool" onClick={toggleChatbot}>
                   <i className="fa fa-times"></i>
                 </button>
