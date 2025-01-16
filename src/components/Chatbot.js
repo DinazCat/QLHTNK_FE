@@ -20,6 +20,7 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const chatBodyRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const inputRef = useRef(null);
   const [isResizing, setIsResizing] = useState(false);
   const [initialSize, setInitialSize] = useState({ width: 0, height: 0 });
   const [initialPos, setInitialPos] = useState({ x: 0, y: 0 });
@@ -57,20 +58,26 @@ const Chatbot = () => {
 
   const toggleChatbot = () => {
     setIsChatbotVisible(!isChatbotVisible);
+    // Focus input when chat opens
+    if (!isChatbotVisible) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
   };
 
   const formatMessage = (text) => {
     // Add spacing after punctuation if missing
     text = text.replace(/([.!?])([^\s])/g, '$1 $2');
     
-    // Ensure proper spacing around list markers
-    text = text.replace(/([^\n])([-*])\s/g, '$1\n$2 ');
+    // Ensure proper spacing around list markers - only match hyphens at start of line or after newline
+    text = text.replace(/([^\n])(^|\n)[-*]\s/g, '$1\n$2- ');
     
     // Add newlines before headings if missing
     text = text.replace(/([^\n])(#{1,6}\s)/g, '$1\n\n$2');
     
-    // Ensure proper list formatting
-    text = text.replace(/^[*-]\s/gm, '- ');
+    // Ensure proper list formatting - only match at start of line
+    text = text.replace(/^[-*]\s/gm, '- ');
     text = text.replace(/^\d+\.\s/gm, '1. ');
     
     // Add newlines around code blocks
@@ -176,6 +183,15 @@ const Chatbot = () => {
                   }]);
                   isFirstToken = false;
                 }
+
+                if (data.content == "<|im_end|>") {
+                  setIsLoading(false);
+                  // Add focus when bot completes
+                  setTimeout(() => {
+                    inputRef.current?.focus();
+                  }, 10);
+                  continue;
+                }
                 
                 // Accumulate text
                 accumulatedText += data.content;
@@ -193,7 +209,7 @@ const Chatbot = () => {
                   ...prev,
                   [botMessageId]: data.content
                 }));
-              }
+              } 
             } catch (e) {
               console.error('Error parsing SSE data:', e);
             }
@@ -545,6 +561,7 @@ const Chatbot = () => {
             <div className="chat-footer">
               <div className="input-group">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
