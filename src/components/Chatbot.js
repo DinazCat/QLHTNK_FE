@@ -115,7 +115,6 @@ const Chatbot = () => {
 
     // Create bot message ID outside try block
     const botMessageId = messages.length + 2;
-    let currentSources = [];
     
     try {
       // Make POST request to chat endpoint
@@ -156,6 +155,7 @@ const Chatbot = () => {
       const decoder = new TextDecoder();
       let accumulatedText = "";
       let isFirstToken = true;
+      let currentSources = [];
 
       while (true) {
         const { done, value } = await reader.read();
@@ -315,11 +315,49 @@ const Chatbot = () => {
     setShowConfirmDialog(true);
   };
 
-  const handleConfirmClear = () => {
-    setMessages([]);
-    setSources({});
-    setVisibleSources(new Set());
-    setShowConfirmDialog(false);
+  const handleConfirmClear = async () => {
+    try {
+      // First clear the backend memory
+      const response = await fetch(`${API_URL}/api/memory/clear`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to clear chatbot memory');
+      }
+      
+      // Then clear the UI state
+      setMessages([]);
+      setSources({});
+      setVisibleSources(new Set());
+      setShowConfirmDialog(false);
+      
+      // Also clear any pending message and states
+      setNewMessage('');
+      setIsLoading(false);
+      setIsTyping(false);
+      
+      // Force clear memory by making a new chat request
+      await fetch(`${API_URL}/api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: "",
+          k: 1
+        })
+      });
+      
+      console.log('Chat history and memory cleared successfully');
+      
+    } catch (error) {
+      console.error('Error clearing chatbot memory:', error);
+      alert('Failed to clear chat history. Please try again.');
+    }
   };
 
   // Clear memory when component mounts (page refresh)
