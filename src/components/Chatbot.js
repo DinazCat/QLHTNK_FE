@@ -126,7 +126,7 @@ const Chatbot = () => {
         },
         body: JSON.stringify({
           query: newMessage,
-          k: 5
+          k: 10
         })
       });
 
